@@ -1,0 +1,218 @@
+{
+  "schemaVersion": 1,
+  "id": "c31bd465-2d7d-4c01-ac0d-7c49df3bcf03",
+  "name": "开发质检产线",
+  "version": "1.0.0",
+  "roles": [
+    {
+      "id": "dev",
+      "name": "开发 Agent",
+      "responsibility": "根据任务要求实现代码，修复质检反馈并提交验证证据。",
+      "input": "任务说明、验收标准、质检反馈",
+      "output": "代码变更、测试结果、变更摘要",
+      "independent": false,
+      "bindings": [
+        {
+          "skillId": "code",
+          "version": 1,
+          "when": "实现或返工时",
+          "capabilities": "读取项目文件、编辑代码、运行测试（需宿主授权）"
+        }
+      ]
+    },
+    {
+      "id": "qa",
+      "name": "质检 Agent",
+      "responsibility": "在独立会话中检查变更，给出有证据的通过或返工结论。",
+      "input": "任务说明、代码变更、测试结果",
+      "output": "质检报告、通过状态、问题清单",
+      "independent": true,
+      "bindings": [
+        {
+          "skillId": "qa",
+          "version": 1,
+          "when": "开发提交后",
+          "capabilities": "读取文件、执行验证（需宿主授权）"
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "code",
+      "name": "代码实现规范",
+      "versions": [
+        {
+          "version": 1,
+          "definition": "明确需求与验收标准；分步实现变更；运行相关测试并提供变更说明。不可未经确认扩大范围。",
+          "resources": []
+        }
+      ]
+    },
+    {
+      "id": "qa",
+      "name": "独立质量检查",
+      "versions": [
+        {
+          "version": 1,
+          "definition": "独立检查实现与需求是否一致。复现测试结果，报告证据、严重级别和通过／不通过结论。",
+          "resources": []
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "start",
+      "type": "step",
+      "position": {
+        "x": 230,
+        "y": 30
+      },
+      "data": {
+        "kind": "start",
+        "label": "任务开始",
+        "roleId": "",
+        "description": "接收任务与验收标准"
+      }
+    },
+    {
+      "id": "dev",
+      "type": "step",
+      "position": {
+        "x": 230,
+        "y": 155
+      },
+      "data": {
+        "kind": "agent",
+        "label": "开发实现",
+        "roleId": "dev",
+        "description": "实现需求 · 提交验证证据"
+      }
+    },
+    {
+      "id": "qa",
+      "type": "step",
+      "position": {
+        "x": 230,
+        "y": 310
+      },
+      "data": {
+        "kind": "agent",
+        "label": "独立质检",
+        "roleId": "qa",
+        "description": "独立会话 · 检查质量"
+      }
+    },
+    {
+      "id": "gate",
+      "type": "step",
+      "position": {
+        "x": 230,
+        "y": 465
+      },
+      "data": {
+        "kind": "condition",
+        "label": "质检是否通过？",
+        "roleId": "",
+        "description": "依据质检报告的通过状态"
+      }
+    },
+    {
+      "id": "end",
+      "type": "step",
+      "position": {
+        "x": 480,
+        "y": 625
+      },
+      "data": {
+        "kind": "end",
+        "label": "交付结果",
+        "roleId": "",
+        "description": "输出最终变更与质检报告"
+      }
+    },
+    {
+      "id": "human",
+      "type": "step",
+      "position": {
+        "x": 0,
+        "y": 625
+      },
+      "data": {
+        "kind": "human",
+        "label": "人工确认",
+        "roleId": "",
+        "description": "返工达到 3 次后决定后续处理"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "start",
+      "target": "dev",
+      "data": {
+        "condition": "收到任务",
+        "handoff": "任务说明、验收标准",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    },
+    {
+      "id": "e2",
+      "source": "dev",
+      "target": "qa",
+      "data": {
+        "condition": "开发完成",
+        "handoff": "代码变更、测试结果",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    },
+    {
+      "id": "e3",
+      "source": "qa",
+      "target": "gate",
+      "data": {
+        "condition": "质检完成",
+        "handoff": "质检报告",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    },
+    {
+      "id": "e4",
+      "source": "gate",
+      "target": "end",
+      "data": {
+        "condition": "通过",
+        "handoff": "最终代码、质检报告",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    },
+    {
+      "id": "e5",
+      "source": "gate",
+      "target": "dev",
+      "data": {
+        "condition": "不通过 · 返工",
+        "handoff": "问题清单、质检证据",
+        "maxRetries": 3,
+        "fallback": "human"
+      }
+    },
+    {
+      "id": "e6",
+      "source": "human",
+      "target": "end",
+      "data": {
+        "condition": "人工确认交付",
+        "handoff": "人工决定、风险记录",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    }
+  ]
+}
