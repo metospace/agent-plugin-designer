@@ -2,10 +2,10 @@ name: Build Windows app
 on:
   push:
     branches: [main]
-    tags: ['v*']
   workflow_dispatch:
 permissions:
   contents: read
+  actions: read
 jobs:
   windows:
     runs-on: windows-latest
@@ -16,16 +16,55 @@ jobs:
         with:
           node-version: '24'
           cache: npm
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.27.3'
+          cache: true
       - run: npm ci
       - run: npm test
+      - run: go mod verify
       - run: npm run dist:win
-        env:
-          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
-      - name: Check packaged app and persistence after restart
-        run: npm run test:desktop
-      - uses: actions/upload-artifact@v4
+      - name: Name installer and portable downloads clearly
+        shell: pwsh
+        run: |
+          New-Item release -ItemType Directory -Force
+          Copy-Item 'build/windows-amd64/Agent Studio.exe' 'release/Agent-Studio-1.1.0-Windows-x64-Portable.exe'
+          Copy-Item 'build/windows-amd64/agent-studio-setup-1.1.0-amd64.exe' 'release/Agent-Studio-1.1.0-Windows-x64-Setup.exe'
+          Compress-Archive 'release/Agent-Studio-1.1.0-Windows-x64-Portable.exe' 'release/Agent-Studio-1.1.0-Windows-x64-Portable.zip'
+      - name: Launch portable; drag, native dialogs, import/export and restart
+        run: node scripts/smoke-desktop.cjs release/Agent-Studio-1.1.0-Windows-x64-Portable.exe
+      - name: Install without elevation and launch installed executable
+        shell: pwsh
+        run: |
+          $installPath = Join-Path $env:RUNNER_TEMP 'AgentStudioInstalled'
+          $setup = Start-Process -FilePath 'release/Agent-Studio-1.1.0-Windows-x64-Setup.exe' -ArgumentList "/S /D=$installPath" -Wait -PassThru
+          if ($setup.ExitCode -ne 0) { throw "Installer exited $($setup.ExitCode)" }
+          if ((Get-FileHash "$installPath/Agent Studio.exe").Hash -ne (Get-FileHash 'release/Agent-Studio-1.1.0-Windows-x64-Portable.exe').Hash) { throw 'Installed executable differs' }
+          node scripts/smoke-desktop.cjs "$installPath/Agent Studio.exe"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - uses: actions/download-artifact@v4
         with:
           name: Agent-Studio-Windows-x64
-          path: release/*.exe
+          run-id: 41472311770
+          github-token: ${{ github.token }}
+          path: old-electron-artifact
+      - name: Measure actual old and new files and signing status
+        shell: pwsh
+        run: |
+          $old = @(Get-ChildItem old-electron-artifact -Filter *.exe -Recurse | ForEach-Object { @{ name=$_.Name; bytes=$_.Length; sha256=(Get-FileHash $_.FullName).Hash } })
+          $new = @(Get-ChildItem release -File | ForEach-Object { @{ name=$_.Name; bytes=$_.Length; sha256=(Get-FileHash $_.FullName).Hash; signature=if ($_.Extension -eq '.exe') { (Get-AuthenticodeSignature $_.FullName).Status.ToString() } else { 'n/a' } } })
+          @{oldElectron=$old;newMyGo=$new;oldArtifactBytes=236685466;webview2='External installed OS WebView2 Runtime; excluded from all package sizes';mygoCommit='928c867c717d84cd26e409cd3ae23fbee7637c43'} | ConvertTo-Json -Depth 6 | Tee-Object -FilePath deliverables/windows/size-report.json
+          Get-ChildItem release -File | ForEach-Object { "$((Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLower())  $($_.Name)" } | Set-Content release/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Agent-Studio-MyGo-Windows-x64
+          path: release/*
           if-no-files-found: error
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Agent-Studio-MyGo-Verification
+          path: deliverables/windows/
+          if-no-files-found: warn
           retention-days: 30

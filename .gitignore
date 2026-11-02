@@ -5,3 +5,7 @@ test-results/
 *.tsbuildinfo
 
 release/
+
+build/
+.mygo/
+mygo.ts

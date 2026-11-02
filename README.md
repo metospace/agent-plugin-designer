@@ -4,19 +4,21 @@
 
 ## Windows 应用
 
-目标平台为 Windows 10/11 x64。Electron 桌面窗口直接打开本地界面；安装后不需要 Python、Node、终端或浏览器服务器。应用完全本地运行。
+目标平台为 Windows 10/11 x64。MyGo 使用系统 WebView2 展示原有界面；包内不再包含 Electron、Chromium、Node 或浏览器服务器。Windows 11 通常已有 WebView2；Windows 10 若没有运行时，需要单独安装微软 WebView2 Runtime。运行时的下载与磁盘占用不计入应用包体积。
 
-仓库的 GitHub Actions 会在推送 main 后生成 Windows 安装版与便携版：
+仓库 Actions → **Build Windows app** 在 main 推送后构建，仅上传 artifact，不创建 Release。下载成功运行中的 **Agent-Studio-MyGo-Windows-x64**：
 
-1. 打开仓库的 **Actions → Build Windows app**。
-2. 打开最近一次成功的运行，下载 **Agent-Studio-Windows-x64** artifact。
-3. 解压后运行 `Agent-Studio-1.0.0-x64-Setup.exe` 安装，或运行文件名含 `Portable` 的便携版。
+- `Agent-Studio-1.1.0-Windows-x64-Setup.exe`：当前用户安装版。
+- `Agent-Studio-1.1.0-Windows-x64-Portable.exe` / `.zip`：便携可执行文件，无需安装。
+- `SHA256SUMS.txt`：下载文件校验。
 
-当前构建没有代码签名。若系统显示发行者未知，请结合本仓库源码和构建来源决定是否运行。本轮 Linux 环境已验证前端构建与浏览器功能；实际 Windows EXE 构建、启动与重启持久化检查由上述 Windows CI 执行，成功前不能认为已完成 Windows 验收。
+当前构建没有代码签名。系统可能显示发行者未知，请结合仓库源码、构建来源与校验值决定是否运行。**Agent-Studio-MyGo-Verification** 保存真实 Windows 启动、连续拖拽、原生保存／取消／导入对话框、插件 Markdown、进程重启和布局恢复的测试结果、截图，以及同一 CI 上测量的旧／新文件体积。请以该运行最终状态为准。
 
-Windows 草稿保存于 `%APPDATA%/AgentPluginDesigner/` 的 IndexedDB。便携版也使用这个用户数据目录，不将草稿放在 EXE 旁。清理应用数据会丢失草稿，必须定期导出项目 JSON；浏览器旧草稿需要导出后导入桌面版。
+MyGo 固定为 [`928c867c717d84cd26e409cd3ae23fbee7637c43`](https://github.com/egoist/mygo/tree/928c867c717d84cd26e409cd3ae23fbee7637c43)，Go 模块与 CLI 使用同一个精确版本；要求 Go 1.27.3。API 与构建方式依据该版本官方源码和文档，未使用浮动 `latest`。
 
-开发 Windows 应用：
+**从旧版迁移：** 先在旧 Electron 版点击「保存项目文件」，再在 MyGo 版点击「导入项目」。旧版 `%APPDATA%/AgentPluginDesigner/` 与 `studio://app` 的 IndexedDB 保持原样；新版 `%APPDATA%/Agent Studio/` 的 WebView2 使用 `http://mygo.localhost`。两个存储空间不会自动合并。请保留旧程序与项目备份，验证导入后再自行处理旧版。便携版与安装版共用新版用户目录；便携不表示草稿在 EXE 旁。
+
+开发桌面版（Node 24 + Go 1.27.3；不需要 Bun）：
 
 ```sh
 npm ci
@@ -24,7 +26,7 @@ npm run desktop
 npm run dist:win
 ```
 
-`npm run dist:win` 在 Windows 上生成 `release/` 下的 NSIS 安装包和 portable 便携 EXE。工作流还会启动打包后的程序两次，检查界面、沙盒和 IndexedDB 跨进程恢复；`npm run test:desktop` 可重跑这项检查。桌面窗口不向渲染页面开放 Node 或文件系统 API，仅提供内置页面与系统导出对话框。
+`mygo.json` 使用 JSON 配置；CLI 嵌入前端并创建 NSIS 安装包。`npm run test:desktop` 需在 Windows 上执行；通过 WebView2 标准调试环境变量临时连接发布二进制，测试本身未嵌入应用，也未打包自动化插件。发布程序没有开放的调试端口，只有测试进程显式设置该变量时启用。下载使用原生保存对话框；页面不绑定文件系统或 shell 服务，拒绝权限与新窗口请求，并保留禁止外网的生产 CSP。
 
 ## 不安装 Node 的预览方式
 
@@ -64,3 +66,11 @@ npm run test:e2e
 ## 当前边界
 
 面向桌面 1280px 及以上；移动端不在本次范围。无多人／多标签冲突合并，无任意二进制技能资源，无执行引擎。流程检查是结构检查，不证明自然语言条件互斥或完备。撤销历史保留当前会话最近 100 次变更，切换项目后清空；删除插件不可撤销，必须确认。
+
+## 拖动修复与验证
+
+画布现在保留 React Flow 的完整临时节点状态（尺寸、选择、拖动标记）；拖动过程中不重建项目库，结束时仅把位置写入 schemaVersion=1，并产生一次撤销记录。节点与边保留 DOM 身份，视口不因拖动重置，测量状态不会混入项目备份或自动保存。
+
+本地旧实现复现：连续 12 次拖动采样 595 帧，282 帧存在隐藏节点，585 帧缺少边路径，并最终触发严格 schema 保存失败。修复后的连续拖动与回归结果见 `deliverables/drag-fixed/`；原有 13 个模型测试与 4 个端到端场景保留，新增持续拖动、保存／导出、撤销重做及刷新布局恢复场景。
+
+尚存导出语义边界：自然语言条件未形式化；质检交接尚未固定提交 SHA 与验收标准；返工文本存在「达到上限」和「超过上限」的边界差异；人工接受风险未与质检成功分离。这些问题需要宿主明确解释；本轮未实现运行时，也不宣称可直接安装到任意 harness。

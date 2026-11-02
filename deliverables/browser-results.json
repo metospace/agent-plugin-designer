@@ -121,12 +121,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 6021,
+                  "duration": 5677,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-02T15:27:27.974Z",
+                  "startTime": "2026-11-02T15:54:59.792Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -155,12 +155,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1476,
+                  "duration": 1499,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-02T15:27:34.711Z",
+                  "startTime": "2026-11-02T15:55:05.965Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -189,12 +189,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1292,
+                  "duration": 1389,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-02T15:27:36.204Z",
+                  "startTime": "2026-11-02T15:55:07.475Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -205,6 +205,48 @@
           "id": "c31ff144dc4fee3acd0a-753a7fc5d02e8ef75ae9",
           "file": "app.spec.ts",
           "line": 28,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "drag.spec.ts",
+      "file": "drag.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "continuous drag keeps nodes, edge paths and viewport stable; schema, undo and reload preserve endpoints",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 19947,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T15:54:59.774Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "17d65873884385b63cea-4d2c7bfbc04bb119d02b",
+          "file": "drag.spec.ts",
+          "line": 5,
           "column": 1
         }
       ]
@@ -228,15 +270,15 @@
               "projectName": "",
               "results": [
                 {
-                  "workerIndex": 1,
-                  "parallelIndex": 1,
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2243,
+                  "duration": 2593,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-02T15:27:28.033Z",
+                  "startTime": "2026-11-02T15:55:08.981Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -254,9 +296,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-11-02T15:27:27.019Z",
-    "duration": 10587.183,
-    "expected": 4,
+    "startTime": "2026-11-02T15:54:59.229Z",
+    "duration": 21129.31,
+    "expected": 5,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

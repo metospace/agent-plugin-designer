@@ -1,3 +1,18 @@
+# MyGo 迁移验证补充（2026-11-02）
+
+封装已从 Electron 迁移至固定 MyGo commit 928c867c717d84cd26e409cd3ae23fbee7637c43（Go 1.27.3），保持原有 UI、schemaVersion=1、项目与技能导入导出；旧 Electron 数据目录不删除，迁移采用显式导出／导入。
+
+原 React Flow 忽略尺寸变更并在每帧创建缺少 measured 的节点对象，导致节点／边重复初始化；持续拖动又将 dragging 标记传入严格存储 schema，导致保存和导出失败。现在画布完整保留临时视图状态，拖动结束才提交纯位置，保存与撤销各一次。
+
+旧版本 12 次连续拖动的 595 个 rAF 采样中，282 帧隐藏节点，585 帧缺失边路径。`deliverables/drag-baseline/` 留存统计与截图；截图采样时图形恢复正常，不能单凭这些截图证明空白帧。修复后本地 rAF 采样零隐藏／替换／视口跳变／缺边；`deliverables/drag-fixed/` 保存截图和统计。13 个单元测试、原 4 个端到端测试及新增拖拽回归均通过。Windows 发布二进制验收以该 commit 的 Actions 最终结果及 Verification artifact 为准；本地交叉编译不代替 Windows 运行证据。
+
+Windows CI 对便携与安装后二进制分别执行真实启动、持续拖动、原生保存／取消／导入对话框、Markdown 导出、重启恢复及项目节点连线精确比较。CI 从旧 Electron 成功运行下载原始 artifact 后逐个测量旧 EXE，并记录新 EXE／安装包／ZIP 长度与签名状态。外部系统 WebView2 不计入包体积，发布程序未签名。CI 只产出 artifact，不发布 Release。
+
+导出仍需宿主适配：自然语言条件、未固定 commit／验收标准的 QA 交接、retry 达到／超过上限差异、人工风险接受与 QA 成功未分离，本轮未变更。
+
+---
+以下为第一版历史验证记录，其 Electron 描述仅适用于旧版：
+
 # Agent Studio 验收记录
 
 日期：2026-11-02。独立工作区：`/workspace/agent-plugin-designer`。
