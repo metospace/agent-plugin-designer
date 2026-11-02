@@ -8,7 +8,14 @@ $until=(Get-Date).AddSeconds(30)
 $dialog=$null
 while((Get-Date) -lt $until) {
  $windows=[System.Windows.Automation.AutomationElement]::RootElement.FindAll([System.Windows.Automation.TreeScope]::Children,[System.Windows.Automation.Condition]::TrueCondition)
- foreach($w in $windows) { if($w.Current.ClassName -eq '#32770' -and (!$Title -or $w.Current.Name -eq $Title)) { $dialog=$w; break } }
+ foreach($w in $windows) {
+  if($w.Current.ClassName -eq '#32770' -and (!$Title -or $w.Current.Name -eq $Title)) { $dialog=$w; break }
+  if($w.Current.ClassName -eq 'MyGoWindow') {
+   $owned=$w.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::ClassNameProperty,'#32770'))
+   foreach($candidate in $owned){if(!$Title -or $candidate.Current.Name -eq $Title){$dialog=$candidate;break}}
+   if($dialog){break}
+  }
+ }
  if($dialog) {break}; Start-Sleep -Milliseconds 100
 }
 if(!$dialog){

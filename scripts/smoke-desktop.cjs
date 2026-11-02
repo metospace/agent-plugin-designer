@@ -9,7 +9,7 @@ const exe=resolve(process.argv[2]||'build/windows-amd64/Agent Studio.exe');
 let active;const messages=[];
 async function preview(page,label){const c=await page.context().newCDPSession(page);const size=await page.evaluate(()=>({width:innerWidth,height:innerHeight}));const shot=await c.send('Page.captureScreenshot',{format:'jpeg',quality:65,clip:{x:0,y:0,...size,scale:.6}});console.log('WINDOWS_'+label+'_BASE64_BEGIN');console.log(shot.data);console.log('WINDOWS_'+label+'_BASE64_END');await c.detach();}
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-async function until(fn){for(let i=0;i<200;i++){try{const v=await fn();if(v)return v;}catch{}await sleep(100);}throw Error('Timed out waiting for Windows app or export');}
+async function until(fn){let last;const end=Date.now()+60000;while(Date.now()<end){try{const v=await fn();if(v)return v;}catch(e){last=e;if(e.fatal)throw e;}await sleep(100);}throw Error('Timed out waiting for Windows app or export: '+(last?.message||'no matching target'));}
 async function dialog(page,action,path,name,cancel=false){
  const args=['-NoProfile','-ExecutionPolicy','Bypass','-File',resolve('scripts/native-dialog.ps1'),'-Title',name,'-Screenshot',join(out,cancel?'save-cancel.png':path.endsWith('.json')?'project-dialog.png':'plugin-dialog.png')];
  if(cancel)args.push('-Cancel');else args.push('-Path',path);
@@ -20,8 +20,8 @@ async function dialog(page,action,path,name,cancel=false){
 async function open(){
  const net=require('node:net');const server=net.createServer();await new Promise(r=>server.listen(0,'127.0.0.1',r));const port=server.address().port;await new Promise(r=>server.close(r));
  const app=spawn(exe,[],{env:{...process.env,AGENT_STUDIO_DEBUG:'1',APPDATA:join(root,'roaming'),LOCALAPPDATA:join(root,'local'),WEBVIEW2_USER_DATA_FOLDER:join(root,'webview'),WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS:`--remote-debugging-port=${port}`},stdio:'pipe'});
- let log='';app.stderr.on('data',b=>log+=b);app.on('error',e=>log+=e.message);
- const browser=await until(async()=>{if(app.exitCode!==null)throw Error('App exited '+log);return chromium.connectOverCDP(`http://127.0.0.1:${port}`)});
+ let log='';active={log:()=>log};app.stderr.on('data',b=>log+=b);app.stdout.on('data',b=>log+=b);app.on('error',e=>log+=e.message);
+ const browser=await until(async()=>{if(app.exitCode!==null)throw Object.assign(Error('App exited '+app.exitCode+': '+log),{fatal:true});return chromium.connectOverCDP(`http://127.0.0.1:${port}`)});
  const page=await until(()=>browser.contexts()[0]?.pages().find(p=>p.url().startsWith('http://mygo.localhost')));
  page.on('console',m=>messages.push(m.type()+': '+m.text()));active={page,log:()=>log};
  await page.getByText('已保存到本机',{exact:true}).waitFor();
@@ -58,4 +58,4 @@ async function open(){
  writeFileSync(join(out,'desktop-results.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));
  // Full resolution evidence remains in the verification artifact.
  console.log('Windows verification complete');
-})().catch(async e=>{console.error(e);console.error('PAGE CONSOLE',messages);console.error('APP STDERR',active?.log());if(active)await preview(active.page,'FAILURE').catch(()=>{});process.exit(1)});
+})().catch(async e=>{console.error(e);console.error('PAGE CONSOLE',messages);console.error('APP STDERR',active?.log());if(active?.page)await preview(active.page,'FAILURE').catch(()=>{});process.exit(1)});
