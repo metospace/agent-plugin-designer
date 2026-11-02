@@ -30,7 +30,7 @@ dsh --profile workflow --dump-config
 dsh --profile workflow
 ```
 
-任务中选择唯一的 `<plugin_id_with_underscores>_run` 工具，传入 `input` JSON 字符串。工具使用真实 `ctx.subagents.startActivation`、原生 `spawn` 提供器、独立上下文、结构化结果和 `childId`；缺失服务会阻止加载，缺失独立提供器／结构化能力会产生 `blocked`。子执行保持宿主原生权限；QA 修改候选会使检查失效。移除：`dsh plugin --profile workflow remove <plugin-id>`。
+任务中选择唯一的 `<plugin_id_with_underscores>_run` 工具，传入 `input` JSON 字符串。工具使用真实 `ctx.subagents.startActivation`、原生 `spawn` 提供器、独立上下文、结构化结果和 `childId`；缺失服务会阻止加载，缺失独立提供器／结构化能力会产生 `blocked`。子执行保持宿主原生权限，并传入宿主 resolveMaxDepth 的委派深度上限；需要上限时也要求提供器支持 depthLimit，嵌套越界会阻塞。QA 修改候选会使检查失效。移除：`dsh plugin --profile workflow remove <plugin-id>`。
 
 ## 合同、可恢复状态与人工决策
 

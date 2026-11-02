@@ -18,9 +18,10 @@ export function apply(ctx){
  if(!exec.agent)throw Error('Calling main host agent required');
  const input=JSON.parse(args.input);input.mainSession=String(exec.agent.session.id);
  const host={
- async check(){const p=ctx.subagents?.getProvider('spawn');if(!p||p.inheritsParentContext||!p.capabilities.outputSchema)throw Error('Missing independent spawn provider with structured output; no same-session fallback');},
+ async check(){const p=ctx.subagents?.getProvider('spawn');if(!p||p.inheritsParentContext||!p.capabilities.outputSchema||(ctx.subagents.resolveMaxDepth(undefined)!==undefined&&!p.capabilities.depthLimit))throw Error('Missing independent spawn provider with structured output; no same-session fallback');},
  async start({role,prompt,schema,workspace}){
- const activation=await ctx.subagents.startActivation({provider:'spawn',label:name+' '+role,request:{prompt:[{type:'text',text:prompt}],parent:exec.agent,cwd:workspace,outputSchema:schema},signal:exec.signal,delivery:'caller'});
+ const maxDepth=ctx.subagents.resolveMaxDepth(undefined);
+ const activation=await ctx.subagents.startActivation({provider:'spawn',label:name+' '+role,request:{prompt:[{type:'text',text:prompt}],parent:exec.agent,cwd:workspace,outputSchema:schema,...maxDepth===undefined?{}:{maxDepth}},signal:exec.signal,delivery:'caller'});
  const abort=()=>{void activation.dispose().catch(()=>{});};exec.signal.addEventListener('abort',abort,{once:true});if(exec.signal.aborted)abort();return {id:String(activation.childId),result:activation.result,async dispose(){exec.signal.removeEventListener('abort',abort);await activation.dispose();}};
  }};
  return JSON.stringify(await runTask(bundle,input,host));

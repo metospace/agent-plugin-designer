@@ -1,10 +1,31 @@
 {
+  "nestedPolicy": {
+    "configuredMaxDepth": 1,
+    "rootStatus": "passed",
+    "nestedStatus": "blocked",
+    "nestedReason": "subagent depth 2 exceeds maxDepth 1",
+    "nestedStatePath": "/tmp/harness-native-evidence/run-1793640936790/one-nested/.apd/nested.json",
+    "nestedDispatchCount": 0,
+    "childSessions": [
+      {
+        "id": "9b168d11-079a-40a9-ae28-fc1152ea9ce8",
+        "parent": "native-main-one-nested",
+        "delegationDepth": 1
+      },
+      {
+        "id": "2118244a-8a71-47c5-98ad-9fce36190438",
+        "parent": "native-main-one-nested",
+        "delegationDepth": 1
+      }
+    ],
+    "noDepth2": true
+  },
   "classification": "actual DSH AgentLoop + actual spawn provider, scripted local LlmAdapter; no network or live model",
   "version": "0.2.1-rc.5",
   "provenance": {
     "repoEngineSourceSha256": "d2a2c980197003a8c567d0f518dc3cf1595ac9d3655e736409c5b8ef33484650",
     "repoRunnerSourceSha256": "af9889b32ecd7c6731fdba021e72c8f49755a3f5977e6214160df556f4271cda",
-    "repoAdapterSourceSha256": "d409962184fb898bfb458dd843f25c5d844ec02f3f1eb992b2990a2248a742ae",
+    "repoAdapterSourceSha256": "d8ac3a2c4f3342589c0569e6511dd1b67b876d2222c3998a4570968cb6a1fb50",
     "bundles": {
       "one": {
         "id": "apd-host-one-64c5d78bdfb2dd967b0a45deaa941683",
@@ -25,7 +46,7 @@
         },
         "bundleFileSha256": "360efd6bea4d093b75fd58254428dc9875af91033c02734ab1581aaaf791ba94",
         "bundleCanonicalSha256": "dd6c266a2ce27a5d2e6461f8f599869b190b0b732ea350040ea14993ee9132fd",
-        "nativeEntrypointSha256": "d409962184fb898bfb458dd843f25c5d844ec02f3f1eb992b2990a2248a742ae",
+        "nativeEntrypointSha256": "d8ac3a2c4f3342589c0569e6511dd1b67b876d2222c3998a4570968cb6a1fb50",
         "generatedEngineSha256": "d2a2c980197003a8c567d0f518dc3cf1595ac9d3655e736409c5b8ef33484650",
         "generatedRunnerSha256": "af9889b32ecd7c6731fdba021e72c8f49755a3f5977e6214160df556f4271cda"
       },
@@ -48,13 +69,13 @@
         },
         "bundleFileSha256": "2e3870d9954200b85a5b33a271870f2a1bb70a59dd6a32525199fa4667304f9a",
         "bundleCanonicalSha256": "78cc2cccfb3ce305a0ce720f74cec790e442512e437a257428304e6efd4b38f5",
-        "nativeEntrypointSha256": "d409962184fb898bfb458dd843f25c5d844ec02f3f1eb992b2990a2248a742ae",
+        "nativeEntrypointSha256": "d8ac3a2c4f3342589c0569e6511dd1b67b876d2222c3998a4570968cb6a1fb50",
         "generatedEngineSha256": "d2a2c980197003a8c567d0f518dc3cf1595ac9d3655e736409c5b8ef33484650",
         "generatedRunnerSha256": "af9889b32ecd7c6731fdba021e72c8f49755a3f5977e6214160df556f4271cda"
       }
     }
   },
-  "runRoot": "/tmp/harness-native-evidence/run-1793640561217",
+  "runRoot": "/tmp/harness-native-evidence/run-1793640936790",
   "command": "DSH_HOME=/tmp/harness-isolated/dsh XDG_DATA_HOME=/tmp/harness-isolated/data XDG_CACHE_HOME=/tmp/harness-isolated/cache node /tmp/harness-host-test/native-evidence.mjs",
   "statuses": [
     [
@@ -81,6 +102,16 @@
       "two-malformed",
       "blocked",
       0
+    ],
+    [
+      "one-nested",
+      "blocked",
+      0
+    ],
+    [
+      "one-nested",
+      "passed",
+      0
     ]
   ],
   "interrupt": {
@@ -88,125 +119,139 @@
     "reason": "Malformed/interrupted host output",
     "dispatch": {
       "role": "developer",
-      "sessionId": "c4096455-e649-4055-9051-cf08962c66a7"
+      "sessionId": "6a3610b3-36c1-4d50-92cc-ed27e5522dcc"
     }
   },
-  "independentChildCount": 16,
+  "independentChildCount": 18,
   "uniqueChildIds": [
     {
       "case": "one-pass",
-      "id": "161d5625-696e-408a-ba45-45daf751ae75",
+      "id": "627a3f9a-27e0-4ad1-8940-fa70ea4c730e",
       "parent": "native-main-one-pass",
       "origin": "subagent",
       "isSeeded": false
     },
     {
       "case": "one-pass",
-      "id": "aedeacfc-6424-4687-9be1-61368e4d287b",
+      "id": "58ad28f4-9ca4-4311-958d-ccf914d63f9d",
       "parent": "native-main-one-pass",
       "origin": "subagent",
       "isSeeded": false
     },
     {
       "case": "two-rework",
-      "id": "6fae1869-52f5-4065-92e2-4f7aeaa98e7b",
+      "id": "d39d029d-072b-4e34-86b2-2a78e758255d",
       "parent": "native-main-two-rework",
       "origin": "subagent",
       "isSeeded": false
     },
     {
       "case": "two-rework",
-      "id": "6ae97668-55e5-4ef5-9907-995b17253d99",
+      "id": "39e7f384-cab3-485e-815c-f0fcd5890f17",
       "parent": "native-main-two-rework",
       "origin": "subagent",
       "isSeeded": false
     },
     {
       "case": "two-rework",
-      "id": "e95ebf68-a0a9-4e12-b366-b3b4da5ff522",
+      "id": "d2d05107-bab9-4fda-8b3a-c66536bd82c3",
       "parent": "native-main-two-rework",
       "origin": "subagent",
       "isSeeded": false
     },
     {
       "case": "two-rework",
-      "id": "dde1227d-b08a-4177-b756-42ef1af8a51c",
+      "id": "936faba3-c74d-4bb3-b093-ea33f6055cc6",
       "parent": "native-main-two-rework",
       "origin": "subagent",
       "isSeeded": false
     },
     {
       "case": "one-retry3",
-      "id": "2eecb952-4f38-4b23-a388-ced5052321ea",
+      "id": "c9d03b86-e6de-43b5-8825-27f883fc36b2",
       "parent": "native-main-one-retry3",
       "origin": "subagent",
       "isSeeded": false
     },
     {
       "case": "one-retry3",
-      "id": "4844436b-0f2d-4b67-b265-e9e9f9383c9e",
+      "id": "7916d25a-0f3c-41f4-9c8e-2562665d2994",
       "parent": "native-main-one-retry3",
       "origin": "subagent",
       "isSeeded": false
     },
     {
       "case": "one-retry3",
-      "id": "ecf45d25-91de-4240-a63e-0b2ce2d02ae8",
+      "id": "7cb307a5-8ca0-483c-9a38-f9a42b1bd784",
       "parent": "native-main-one-retry3",
       "origin": "subagent",
       "isSeeded": false
     },
     {
       "case": "one-retry3",
-      "id": "3d7e2f64-12dc-4751-9ca6-ce70aa0d5228",
+      "id": "1d003dea-3cdc-4478-9f34-f5b827222954",
       "parent": "native-main-one-retry3",
       "origin": "subagent",
       "isSeeded": false
     },
     {
       "case": "one-retry3",
-      "id": "57d2fe85-8df2-4d76-a503-246c6755563d",
+      "id": "18919b28-a2f0-413b-92cb-1764b2ab96e7",
       "parent": "native-main-one-retry3",
       "origin": "subagent",
       "isSeeded": false
     },
     {
       "case": "one-retry3",
-      "id": "9f9b827c-6cf9-4d7a-ad7d-0c8e4a1548ba",
+      "id": "2c055959-c50d-4732-a3f0-7d384e8ec3ce",
       "parent": "native-main-one-retry3",
       "origin": "subagent",
       "isSeeded": false
     },
     {
       "case": "one-retry3",
-      "id": "3979222b-e18b-4f86-b688-87d51e4adbf6",
+      "id": "478f5c60-2ece-4816-9159-0f8a16656f8b",
       "parent": "native-main-one-retry3",
       "origin": "subagent",
       "isSeeded": false
     },
     {
       "case": "one-retry3",
-      "id": "fce8f6a8-e157-4d52-aa3d-8a0fb3b86d00",
+      "id": "e469690a-6fed-47a4-a2b8-9e1889d1f46d",
       "parent": "native-main-one-retry3",
       "origin": "subagent",
       "isSeeded": false
     },
     {
       "case": "two-malformed",
-      "id": "f20408fb-b028-4388-83df-e69ede44f1be",
+      "id": "209a0180-9755-4883-87fc-7a046ba6f567",
       "parent": "native-main-two-malformed",
       "origin": "subagent",
       "isSeeded": false
     },
     {
       "case": "two-interrupt",
-      "id": "c4096455-e649-4055-9051-cf08962c66a7",
+      "id": "6a3610b3-36c1-4d50-92cc-ed27e5522dcc",
       "parent": "native-main-two-interrupt",
+      "origin": "subagent",
+      "isSeeded": false
+    },
+    {
+      "case": "one-nested",
+      "id": "9b168d11-079a-40a9-ae28-fc1152ea9ce8",
+      "parent": "native-main-one-nested",
+      "origin": "subagent",
+      "isSeeded": false
+    },
+    {
+      "case": "one-nested",
+      "id": "2118244a-8a71-47c5-98ad-9fce36190438",
+      "parent": "native-main-one-nested",
       "origin": "subagent",
       "isSeeded": false
     }
   ],
-  "structuredOutputToolExecutions": 14,
+  "structuredOutputToolExecutions": 16,
   "parentContextSentinelLeak": false,
   "checks": [
     {
@@ -218,7 +263,7 @@
       "case": "one-retry3",
       "check": "native human command rejects passed override",
       "execution": {
-        "commandId": "cmd-1885bbc2-1",
+        "commandId": "cmd-84a13676-1",
         "result": {
           "kind": "error",
           "text": "human cannot manufacture QA passed"
@@ -230,7 +275,7 @@
       "case": "one-retry3",
       "check": "native command records allowed failed decision; simulated human command admission",
       "execution": {
-        "commandId": "cmd-1885bbc2-2",
+        "commandId": "cmd-84a13676-2",
         "result": {
           "kind": "success",
           "text": "failed"
