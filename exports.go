@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/base64"
 	"errors"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -17,6 +18,10 @@ import (
 type Exports struct{}
 
 func (Exports) Save(name, encoded string) (bool, error) {
+	debug := os.Getenv("AGENT_STUDIO_DEBUG") == "1"
+	if debug {
+		log.Printf("Export service called: bytes=%d", len(encoded))
+	}
 	if len(encoded) > 70_000_000 {
 		return false, errors.New("导出文件超过 50 MB")
 	}
@@ -42,6 +47,9 @@ func (Exports) Save(name, encoded string) (bool, error) {
 		return false, err
 	}
 	path, err := mygo.Dialog.Save(mygo.SaveDialogOptions{Parent: mygo.FocusedWindow(), Title: "保存 Agent Studio 导出文件", DefaultPath: filepath.Join(dir, name)})
+	if debug {
+		log.Printf("Native save returned: selected=%t error=%v", path != "", err)
+	}
 	if err != nil || path == "" {
 		return false, err
 	}

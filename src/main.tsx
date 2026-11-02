@@ -4,7 +4,7 @@ import {ReactFlow,ReactFlowProvider,Background,Controls,MiniMap,Handle,Position,
 import {Workflow,Boxes,Bot,GitBranch,UserRound,Flag,Play,Plus,Check,Download,ChevronDown,ChevronRight,Copy,Trash2,Undo2,Redo2,Search,PanelLeft,FileCode2,Package,Upload,X,ShieldCheck,ArrowRight,Settings2,AlertCircle,Grip} from 'lucide-react';
 import {seed,uid,validate,markdown,serialize,parseProject,needsZip,runtimeZip,saveLibrary,loadLibrary,type Project,type Library,type Role,type Skill,type FlowNode} from './model';
 import '@xyflow/react/dist/style.css';import './style.css';
-const isDesktop = location.hostname === 'mygo.localhost' || location.protocol === 'mygo:';
+const isDesktop = Boolean(window.mygo);
 const kinds={start:{label:'开始',icon:Play},agent:{label:'Agent',icon:Bot},condition:{label:'条件分支',icon:GitBranch},human:{label:'人工确认',icon:UserRound},end:{label:'结束',icon:Flag}};
 function Step({data,selected}:NodeProps<RFNode<FlowNode['data']>>){const k=kinds[data.kind];const Icon=k.icon;return <div className={'step '+data.kind+(selected?' selected':'')}><Handle type="target" position={Position.Top}/><div className="step-title"><span className="node-icon"><Icon size={18}/></span><strong>{data.label}</strong><span className="kind-tag">{k.label}</span></div><p>{data.description||'点击配置此节点'}</p><Handle type="source" position={Position.Bottom}/><Handle type="source" id="rework-out" position={Position.Right} style={{top:"65%"}}/><Handle type="target" id="rework-in" position={Position.Right} style={{top:"35%"}}/></div>}
 const nodeTypes={step:Step};
@@ -23,7 +23,7 @@ const initialFit={padding:.18};
 declare global {interface Window {mygo?:{call:(method:string,...args:unknown[])=>Promise<unknown>}}}
 async function download(name:string,data:BlobPart,type='application/json'):Promise<boolean>{
  const blob=new Blob([data],{type});
- if(isDesktop&&window.mygo){
+ if(window.mygo){
   const bytes=new Uint8Array(await blob.arrayBuffer());let binary='';
   for(let i=0;i<bytes.length;i+=32768)binary+=String.fromCharCode(...bytes.subarray(i,i+32768));
   return Boolean(await window.mygo.call('Exports.Save',name,btoa(binary)));

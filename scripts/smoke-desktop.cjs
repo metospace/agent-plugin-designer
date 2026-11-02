@@ -15,11 +15,11 @@ async function dialog(page,action,path,name,cancel=false){
  if(cancel)args.push('-Cancel');else args.push('-Path',path);
  const child=spawn('powershell',args);let log='';child.stdout.on('data',b=>log+=b);child.stderr.on('data',b=>log+=b);
  const done=new Promise((res,rej)=>child.on('exit',code=>code===0?res():rej(Error(log))));
- await action();await done;return log;
+ await action();await sleep(300);console.log('DIALOG_ACTION_STATUS',await page.locator('.toast').allTextContents());await done;return log;
 }
 async function open(){
  const net=require('node:net');const server=net.createServer();await new Promise(r=>server.listen(0,'127.0.0.1',r));const port=server.address().port;await new Promise(r=>server.close(r));
- const app=spawn(exe,[],{env:{...process.env,APPDATA:join(root,'roaming'),LOCALAPPDATA:join(root,'local'),WEBVIEW2_USER_DATA_FOLDER:join(root,'webview'),WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS:`--remote-debugging-port=${port}`},stdio:'pipe'});
+ const app=spawn(exe,[],{env:{...process.env,AGENT_STUDIO_DEBUG:'1',APPDATA:join(root,'roaming'),LOCALAPPDATA:join(root,'local'),WEBVIEW2_USER_DATA_FOLDER:join(root,'webview'),WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS:`--remote-debugging-port=${port}`},stdio:'pipe'});
  let log='';app.stderr.on('data',b=>log+=b);app.on('error',e=>log+=e.message);
  const browser=await until(async()=>{if(app.exitCode!==null)throw Error('App exited '+log);return chromium.connectOverCDP(`http://127.0.0.1:${port}`)});
  const page=await until(()=>browser.contexts()[0]?.pages().find(p=>p.url().startsWith('http://mygo.localhost')));
@@ -29,8 +29,9 @@ async function open(){
 }
 (async()=>{
  let s=await open();const p=s.page;const errors=[];p.on('pageerror',e=>errors.push(e.message));
+ const bridge=await p.evaluate(()=>({mygo:typeof window.mygo,call:typeof window.mygo?.call,transport:typeof window.chrome?.webview,origin:location.origin}));console.log('BRIDGE_STATUS',JSON.stringify(bridge));assert.equal(bridge.call,'function','MyGo bridge missing on initial app load');
  assert.equal(new URL(p.url()).origin,'http://mygo.localhost');assert.equal(await p.evaluate(()=>typeof window.require),'undefined');
- const drag=await dragRegression(p,out,'windows-drag');assert.ok(drag.frames>100);for(const key of ['blankFrames','replacedFrames','viewportChanges','edgeMissingFrames'])assert.equal(drag[key],0,key);
+ const drag=await dragRegression(p,out,'windows-drag',preview);assert.ok(drag.frames>100);for(const key of ['blankFrames','replacedFrames','viewportChanges','edgeMissingFrames'])assert.equal(drag[key],0,key);
  await preview(p,'DRAG');
  const first=join(root,'project.json');
  await dialog(p,()=>p.getByRole('button',{name:'保存项目文件',exact:true}).click(),first,'保存 Agent Studio 导出文件');
@@ -50,7 +51,8 @@ async function open(){
  const expected=await p.evaluate(async()=>{const db=await new Promise((res,rej)=>{const r=indexedDB.open('agent-plugin-designer',1);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});const tx=db.transaction('workspace');const value=await new Promise(res=>{const r=tx.objectStore('workspace').get('current');r.onsuccess=()=>res(r.result)});db.close();return value});
  assert.equal(expected.projects.length,2);await s.close();s=await open();
  await s.page.locator('.project-title').filter({hasText:imported.name}).waitFor();
- const after=join(root,'after.json');await dialog(s.page,()=>s.page.getByRole('button',{name:'保存项目文件',exact:true}).click(),after,'保存 Agent Studio 导出文件');await until(()=>existsSync(after));const actual=JSON.parse(readFileSync(after,'utf8'));assert.deepEqual(actual.nodes,imported.nodes);assert.deepEqual(actual.edges,imported.edges);assert.equal(actual.name,imported.name);
+ const after=join(root,'after.json');await dialog(s.page,()=>s.page.getByRole('button',{name:'保存项目文件',exact:true}).click(),after,'保存 Agent Studio 导出文件');await until(()=>existsSync(after));const actual=JSON.parse(readFileSync(after,'utf8'));assert.deepEqual(actual.nodes,imported.nodes);assert.deepEqual(actual.edges,imported.edges);assert.equal(actual.name,imported.name);assert.deepEqual(actual,{...imported,id:actual.id});
+ const retained=await s.page.evaluate(async()=>{const db=await new Promise(res=>{const r=indexedDB.open('agent-plugin-designer',1);r.onsuccess=()=>res(r.result)});const value=await new Promise(res=>{const r=db.transaction('workspace').objectStore('workspace').get('current');r.onsuccess=()=>res(r.result)});db.close();return value});assert.deepEqual(retained,expected);
  await s.page.screenshot({path:join(out,'windows-restarted.png')});await preview(s.page,'RESTART');await s.close();assert.deepEqual(errors,[]);
  const result={runtime:'MyGo / installed OS WebView2',origin:'http://mygo.localhost',releaseExe:exe,drag,nativeSave:true,nativeCancel:true,nativeImport:true,markdown:true,binaryZip:true,processRestart:true,canonicalLayoutAndEdgesPersist:true,projectsRetained:2,errors};
  writeFileSync(join(out,'desktop-results.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));

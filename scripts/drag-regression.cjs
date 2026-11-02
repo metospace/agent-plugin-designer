@@ -1,6 +1,6 @@
 const { mkdirSync, writeFileSync } = require('node:fs');
 const { join } = require('node:path');
-exports.dragRegression = async function(page, dir, label='drag') {
+exports.dragRegression = async function(page, dir, label='drag', during) {
   mkdirSync(dir,{recursive:true});
   await page.locator('.react-flow__node[data-id="qa"]').waitFor();
   await page.waitForTimeout(700);
@@ -29,7 +29,7 @@ exports.dragRegression = async function(page, dir, label='drag') {
     for(let j=1;j<=24;j++) {
       await page.mouse.move(x+dx*j/24,y+dy*j/24);
       await page.waitForTimeout(8);
-      if([0,5,11].includes(i)&&j===12)await page.screenshot({path:join(dir,`${label}-during-${i}.png`)});
+      if([0,5,11].includes(i)&&j===12){await page.screenshot({path:join(dir,`${label}-during-${i}.png`)});if(during&&i===5)await during(page,'DRAG_DURING');}
     }
     await page.mouse.up();
   }
