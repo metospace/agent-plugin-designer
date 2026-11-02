@@ -10,7 +10,7 @@
 
 1. 打开仓库的 **Actions → Build Windows app**。
 2. 打开最近一次成功的运行，下载 **Agent-Studio-Windows-x64** artifact。
-3. 解压后运行 `Agent-Studio-1.0.0-x64-nsis.exe` 安装，或运行文件名含 `portable` 的便携版。
+3. 解压后运行 `Agent-Studio-1.0.0-x64-Setup.exe` 安装，或运行文件名含 `Portable` 的便携版。
 
 当前构建没有代码签名。若系统显示发行者未知，请结合本仓库源码和构建来源决定是否运行。本轮 Linux 环境已验证前端构建与浏览器功能；实际 Windows EXE 构建、启动与重启持久化检查由上述 Windows CI 执行，成功前不能认为已完成 Windows 验收。
 

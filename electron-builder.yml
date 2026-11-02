@@ -13,11 +13,13 @@ win:
       arch: [x64]
     - target: portable
       arch: [x64]
-  artifactName: Agent-Studio-${version}-${arch}-${target}.${ext}
 nsis:
+  artifactName: Agent-Studio-${version}-${arch}-Setup.${ext}
   oneClick: false
   perMachine: false
   allowToChangeInstallationDirectory: true
   createDesktopShortcut: true
   createStartMenuShortcut: true
   deleteAppDataOnUninstall: false
+portable:
+  artifactName: Agent-Studio-${version}-${arch}-Portable.${ext}
