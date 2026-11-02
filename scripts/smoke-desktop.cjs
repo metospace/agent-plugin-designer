@@ -11,7 +11,7 @@ async function preview(page,label){const c=await page.context().newCDPSession(pa
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 async function until(fn){let last;const end=Date.now()+60000;while(Date.now()<end){try{const v=await fn();if(v)return v;}catch(e){last=e;if(e.fatal)throw e;}await sleep(100);}throw Error('Timed out waiting for Windows app or export: '+(last?.message||'no matching target'));}
 async function dialog(page,action,path,name,cancel=false){
- const args=['-NoProfile','-ExecutionPolicy','Bypass','-File',resolve('scripts/native-dialog.ps1'),'-Title',name,'-Screenshot',join(out,cancel?'save-cancel.png':path.endsWith('.json')?'project-dialog.png':'plugin-dialog.png')];
+ const args=['-STA','-NoProfile','-ExecutionPolicy','Bypass','-File',resolve('scripts/native-dialog.ps1'),'-Title',name,'-Screenshot',join(out,cancel?'save-cancel.png':path.endsWith('.json')?'project-dialog.png':'plugin-dialog.png')];
  if(cancel)args.push('-Cancel');else args.push('-Path',path);
  const child=spawn('powershell',args);let log='';child.stdout.on('data',b=>log+=b);child.stderr.on('data',b=>log+=b);
  const done=new Promise((res,rej)=>child.on('exit',code=>code===0?res():rej(Error(log))));
