@@ -26,7 +26,7 @@ npm run desktop
 npm run dist:win
 ```
 
-`mygo.json` 使用 JSON 配置；CLI 嵌入前端并创建 NSIS 安装包。`npm run test:desktop` 需在 Windows 上执行；通过 WebView2 标准调试环境变量临时连接发布二进制，测试本身未嵌入应用，也未打包自动化插件。发布程序没有开放的调试端口，只有测试进程显式设置该变量时启用。下载使用原生保存对话框；页面不绑定文件系统或 shell 服务，拒绝权限与新窗口请求，并保留禁止外网的生产 CSP。
+`mygo.json` 使用 JSON 配置；CLI 嵌入前端并创建 NSIS 安装包。`npm run test:desktop` 需在 Windows 上执行；通过 WebView2 标准调试环境变量临时连接发布二进制，测试本身未嵌入应用，也未打包自动化插件。发布程序没有开放的调试端口，只有测试进程显式设置该变量时启用。导出经唯一的保存服务显示原生对话框，只写用户选择的文件，支持 JSON／Markdown／ZIP，单次导出上限 50 MB；页面不绑定任意路径读写或 shell 服务，拒绝权限与新窗口请求，并保留禁止外网的生产 CSP。
 
 ## 不安装 Node 的预览方式
 

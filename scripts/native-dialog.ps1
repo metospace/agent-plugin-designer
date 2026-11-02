@@ -1,4 +1,5 @@
 param([string]$Path, [string]$Title, [string]$Screenshot, [switch]$Cancel)
+$ErrorActionPreference='Stop'
 Add-Type -AssemblyName UIAutomationClient
 Add-Type -AssemblyName UIAutomationTypes
 Add-Type -AssemblyName System.Windows.Forms
@@ -10,7 +11,10 @@ while((Get-Date) -lt $until) {
  foreach($w in $windows) { if($w.Current.ClassName -eq '#32770' -and (!$Title -or $w.Current.Name -eq $Title)) { $dialog=$w; break } }
  if($dialog) {break}; Start-Sleep -Milliseconds 100
 }
-if(!$dialog){throw "Native file dialog not found: $Title"}
+if(!$dialog){
+ $windows | ForEach-Object { Write-Output ("UIA window: " + $_.Current.Name + " class=" + $_.Current.ClassName) }
+ throw "Native file dialog not found: $Title"
+}
 if($Screenshot) {
  $rect=$dialog.Current.BoundingRectangle
  $bitmap=[System.Drawing.Bitmap]::new([int]$rect.Width,[int]$rect.Height)
@@ -18,7 +22,6 @@ if($Screenshot) {
  $graphics.CopyFromScreen([int]$rect.X,[int]$rect.Y,0,0,$bitmap.Size)
  $bitmap.Save($Screenshot); $graphics.Dispose(); $bitmap.Dispose()
 }
-$dialog.SetFocus()
 if($Cancel) {
  $button=$dialog.FindFirst([System.Windows.Automation.TreeScope]::Descendants,([System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::AutomationIdProperty,'2')))
  $button.GetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern).Invoke()

@@ -6,6 +6,8 @@ const {dragRegression}=require('./drag-regression.cjs');
 if(process.platform!=='win32')throw Error('Run packaged app verification on Windows');
 const root=mkdtempSync(join(tmpdir(),'agent-studio-mygo-')),out=resolve('deliverables/windows');mkdirSync(out,{recursive:true});
 const exe=resolve(process.argv[2]||'build/windows-amd64/Agent Studio.exe');
+let active;const messages=[];
+async function preview(page,label){const c=await page.context().newCDPSession(page);const size=await page.evaluate(()=>({width:innerWidth,height:innerHeight}));const shot=await c.send('Page.captureScreenshot',{format:'jpeg',quality:65,clip:{x:0,y:0,...size,scale:.6}});console.log('WINDOWS_'+label+'_BASE64_BEGIN');console.log(shot.data);console.log('WINDOWS_'+label+'_BASE64_END');await c.detach();}
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 async function until(fn){for(let i=0;i<200;i++){try{const v=await fn();if(v)return v;}catch{}await sleep(100);}throw Error('Timed out waiting for Windows app or export');}
 async function dialog(page,action,path,name,cancel=false){
@@ -21,6 +23,7 @@ async function open(){
  let log='';app.stderr.on('data',b=>log+=b);app.on('error',e=>log+=e.message);
  const browser=await until(async()=>{if(app.exitCode!==null)throw Error('App exited '+log);return chromium.connectOverCDP(`http://127.0.0.1:${port}`)});
  const page=await until(()=>browser.contexts()[0]?.pages().find(p=>p.url().startsWith('http://mygo.localhost')));
+ page.on('console',m=>messages.push(m.type()+': '+m.text()));active={page,log:()=>log};
  await page.getByText('已保存到本机',{exact:true}).waitFor();
  return {app,browser,page,async close(){spawnSync('powershell',['-NoProfile','-Command',`(Get-Process -Id ${app.pid}).CloseMainWindow()`]);await until(()=>app.exitCode!==null);await browser.close();await sleep(500)}};
 }
@@ -28,13 +31,17 @@ async function open(){
  let s=await open();const p=s.page;const errors=[];p.on('pageerror',e=>errors.push(e.message));
  assert.equal(new URL(p.url()).origin,'http://mygo.localhost');assert.equal(await p.evaluate(()=>typeof window.require),'undefined');
  const drag=await dragRegression(p,out,'windows-drag');assert.ok(drag.frames>100);for(const key of ['blankFrames','replacedFrames','viewportChanges','edgeMissingFrames'])assert.equal(drag[key],0,key);
+ await preview(p,'DRAG');
  const first=join(root,'project.json');
  await dialog(p,()=>p.getByRole('button',{name:'保存项目文件',exact:true}).click(),first,'保存 Agent Studio 导出文件');
- await until(()=>existsSync(first));const original=JSON.parse(readFileSync(first,'utf8'));
+ const original=await until(()=>JSON.parse(readFileSync(first,'utf8')));
  for(const n of original.nodes)assert.deepEqual(Object.keys(n).sort(),['data','id','position','type']);
  await dialog(p,()=>p.getByRole('button',{name:'保存项目文件',exact:true}).click(),'','保存 Agent Studio 导出文件',true);
  await p.getByRole('button',{name:'导出插件',exact:false}).first().click();
  const md=join(root,'PLUGIN.md');await dialog(p,()=>p.getByRole('button',{name:/Markdown 插件/}).click(),md,'保存 Agent Studio 导出文件');await until(()=>existsSync(md));assert.ok(readFileSync(md,'utf8').includes('宿主必须自行适配'));
+ const zipPath=join(root,'plugin.zip');await p.getByRole('button',{name:'导出插件',exact:false}).first().click();
+ await dialog(p,()=>p.getByRole('button',{name:/完整插件 ZIP/}).click(),zipPath,'保存 Agent Studio 导出文件');
+ const zip=await until(async()=>require('jszip').loadAsync(readFileSync(zipPath)));assert.ok((await zip.file('PLUGIN.md').async('string')).includes('宿主必须自行适配'));
  // UI edits and real file picker import, then a complete process restart.
  const imported={...original,name:'MyGo restart and import verified',nodes:original.nodes.map((n,i)=>i? n:{...n,position:{x:n.position.x+17,y:n.position.y+9}})};
  const input=join(root,'import.json');writeFileSync(input,JSON.stringify(imported));
@@ -44,8 +51,9 @@ async function open(){
  assert.equal(expected.projects.length,2);await s.close();s=await open();
  await s.page.locator('.project-title').filter({hasText:imported.name}).waitFor();
  const after=join(root,'after.json');await dialog(s.page,()=>s.page.getByRole('button',{name:'保存项目文件',exact:true}).click(),after,'保存 Agent Studio 导出文件');await until(()=>existsSync(after));const actual=JSON.parse(readFileSync(after,'utf8'));assert.deepEqual(actual.nodes,imported.nodes);assert.deepEqual(actual.edges,imported.edges);assert.equal(actual.name,imported.name);
- await s.page.screenshot({path:join(out,'windows-restarted.png')});await s.close();assert.deepEqual(errors,[]);
- const result={runtime:'MyGo / installed OS WebView2',origin:'http://mygo.localhost',releaseExe:exe,drag,nativeSave:true,nativeCancel:true,nativeImport:true,markdown:true,processRestart:true,canonicalLayoutAndEdgesPersist:true,projectsRetained:2,errors};
+ await s.page.screenshot({path:join(out,'windows-restarted.png')});await preview(s.page,'RESTART');await s.close();assert.deepEqual(errors,[]);
+ const result={runtime:'MyGo / installed OS WebView2',origin:'http://mygo.localhost',releaseExe:exe,drag,nativeSave:true,nativeCancel:true,nativeImport:true,markdown:true,binaryZip:true,processRestart:true,canonicalLayoutAndEdgesPersist:true,projectsRetained:2,errors};
  writeFileSync(join(out,'desktop-results.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));
- console.log('WINDOWS_PREVIEW_BASE64_BEGIN');console.log(readFileSync(join(out,'windows-restarted.png')).toString('base64'));console.log('WINDOWS_PREVIEW_BASE64_END');
-})().catch(e=>{console.error(e);process.exit(1)});
+ // Full resolution evidence remains in the verification artifact.
+ console.log('Windows verification complete');
+})().catch(async e=>{console.error(e);console.error('PAGE CONSOLE',messages);console.error('APP STDERR',active?.log());if(active)await preview(active.page,'FAILURE').catch(()=>{});process.exit(1)});
