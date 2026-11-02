@@ -28,18 +28,18 @@ jobs:
         shell: pwsh
         run: |
           New-Item release -ItemType Directory -Force
-          Copy-Item 'build/windows-amd64/Agent Studio.exe' 'release/Agent-Studio-1.1.0-Windows-x64-Portable.exe'
-          Copy-Item 'build/windows-amd64/agent-studio-setup-1.1.0-amd64.exe' 'release/Agent-Studio-1.1.0-Windows-x64-Setup.exe'
-          Compress-Archive 'release/Agent-Studio-1.1.0-Windows-x64-Portable.exe' 'release/Agent-Studio-1.1.0-Windows-x64-Portable.zip'
+          Copy-Item 'build/windows-amd64/Agent Studio.exe' 'release/Agent-Studio-1.2.0-Windows-x64-Portable.exe'
+          Copy-Item 'build/windows-amd64/agent-studio-setup-1.2.0-amd64.exe' 'release/Agent-Studio-1.2.0-Windows-x64-Setup.exe'
+          Compress-Archive 'release/Agent-Studio-1.2.0-Windows-x64-Portable.exe' 'release/Agent-Studio-1.2.0-Windows-x64-Portable.zip'
       - name: Launch portable; drag, native dialogs, import/export and restart
-        run: node scripts/smoke-desktop.cjs release/Agent-Studio-1.1.0-Windows-x64-Portable.exe
+        run: node scripts/smoke-desktop.cjs release/Agent-Studio-1.2.0-Windows-x64-Portable.exe
       - name: Install without elevation and launch installed executable
         shell: pwsh
         run: |
           $installPath = Join-Path $env:RUNNER_TEMP 'AgentStudioInstalled'
-          $setup = Start-Process -FilePath 'release/Agent-Studio-1.1.0-Windows-x64-Setup.exe' -ArgumentList "/S /D=$installPath" -Wait -PassThru
+          $setup = Start-Process -FilePath 'release/Agent-Studio-1.2.0-Windows-x64-Setup.exe' -ArgumentList "/S /D=$installPath" -Wait -PassThru
           if ($setup.ExitCode -ne 0) { throw "Installer exited $($setup.ExitCode)" }
-          if ((Get-FileHash "$installPath/Agent Studio.exe").Hash -ne (Get-FileHash 'release/Agent-Studio-1.1.0-Windows-x64-Portable.exe').Hash) { throw 'Installed executable differs' }
+          if ((Get-FileHash "$installPath/Agent Studio.exe").Hash -ne (Get-FileHash 'release/Agent-Studio-1.2.0-Windows-x64-Portable.exe').Hash) { throw 'Installed executable differs' }
           node scripts/smoke-desktop.cjs "$installPath/Agent Studio.exe"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - uses: actions/download-artifact@v4

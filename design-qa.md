@@ -1,3 +1,9 @@
+# 最新宿主适配验证
+
+36 项单元／确定性合同测试、两种可安装导出与原项目往返；实际 Codex CLI 和 DeepSeek Session/AgentLoop 使用本地脚本提供器验证，不是外部模型效果评测。Windows 原生套件新增两种宿主 ZIP 的真实保存、清单与完整来源比较。原 MyGo 与拖动修复测试保留。详见 HARNESS.md 与 deliverables/harness。
+
+以下为先前阶段的历史验证记录，旧范围限制不覆盖新增的宿主适配。
+
 # MyGo 迁移验证补充（2026-11-02）
 
 封装已从 Electron 迁移至固定 MyGo commit 928c867c717d84cd26e409cd3ae23fbee7637c43（Go 1.27.3），保持原有 UI、schemaVersion=1、项目与技能导入导出；旧 Electron 数据目录不删除，迁移采用显式导出／导入。
@@ -8,7 +14,7 @@
 
 Windows CI 对便携与安装后二进制分别执行真实启动、持续拖动、原生保存／取消／导入对话框、Markdown 导出、重启恢复及项目节点连线精确比较。CI 从旧 Electron 成功运行下载原始 artifact 后逐个测量旧 EXE，并记录新 EXE／安装包／ZIP 长度与签名状态。外部系统 WebView2 不计入包体积，发布程序未签名。CI 只产出 artifact，不发布 Release。
 
-导出仍需宿主适配：自然语言条件、未固定 commit／验收标准的 QA 交接、retry 达到／超过上限差异、人工风险接受与 QA 成功未分离，本轮未变更。
+后续宿主适配已新增：限定模板的可执行 contract v2、候选 SHA256／原始验收标准绑定、恰好 3 次返工与人工风险接受分离。通用 Markdown 保留原语义；安装导出与实际宿主证据见 HARNESS.md。
 
 ---
 以下为第一版历史验证记录，其 Electron 描述仅适用于旧版：

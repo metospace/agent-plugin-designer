@@ -2,12 +2,15 @@
   "name": "Agent Studio",
   "slug": "agent-studio",
   "identifier": "com.metospace.agentplugindesigner",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "publisher": "metospace",
   "devUrl": "http://localhost:5173",
   "devCommand": "npm run dev -- --port 5173",
   "buildCommand": "npm run build",
   "frontendDist": "dist",
   "out": "build",
-  "windows": { "displayName": "Agent Studio 插件设计器", "installDirName": "AgentStudio" }
+  "windows": {
+    "displayName": "Agent Studio 插件设计器",
+    "installDirName": "AgentStudio"
+  }
 }

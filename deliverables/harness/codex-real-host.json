@@ -1,0 +1,270 @@
+{
+  "platform": "linux",
+  "classification": "REAL CODEX CLI, LOCAL SCRIPTED PROVIDER, NOT LIVE EXTERNAL MODEL",
+  "version": "codex-cli 0.159.0-alpha.3",
+  "cases": [
+    {
+      "scenario": "pass",
+      "status": "passed",
+      "reworks": 0,
+      "sessions": [
+        {
+          "role": "developer",
+          "id": "01a19d4d-f98a-7b21-bf4b-93a348fe1f28",
+          "policy": "workspace-write"
+        },
+        {
+          "role": "qa",
+          "id": "01a19d4d-fa16-74d0-aa84-8be8b4d32703",
+          "policy": "read-only"
+        }
+      ],
+      "resumeNoDuplicate": true
+    },
+    {
+      "scenario": "rework",
+      "status": "passed",
+      "reworks": 1,
+      "sessions": [
+        {
+          "role": "developer",
+          "id": "01a19d4d-fab4-7290-b9af-5e94d60a30ea",
+          "policy": "workspace-write"
+        },
+        {
+          "role": "qa",
+          "id": "01a19d4d-fb4c-7d00-9a96-abe795ad4e28",
+          "policy": "read-only"
+        },
+        {
+          "role": "developer",
+          "id": "01a19d4d-fbe5-76f3-9bfa-665f59b850ca",
+          "policy": "workspace-write"
+        },
+        {
+          "role": "qa",
+          "id": "01a19d4d-fc6e-76d1-9273-0df79e2e2c63",
+          "policy": "read-only"
+        }
+      ],
+      "resumeNoDuplicate": true
+    },
+    {
+      "scenario": "exhaustion",
+      "status": "human_paused",
+      "reworks": 3,
+      "sessions": [
+        {
+          "role": "developer",
+          "id": "01a19d4d-fd0d-7f22-bfc3-e609967bc0de",
+          "policy": "workspace-write"
+        },
+        {
+          "role": "qa",
+          "id": "01a19d4d-fd94-7c50-9cac-2887ea0afd0b",
+          "policy": "read-only"
+        },
+        {
+          "role": "developer",
+          "id": "01a19d4d-fe29-73e1-a44c-3f50ecb0a7c1",
+          "policy": "workspace-write"
+        },
+        {
+          "role": "qa",
+          "id": "01a19d4d-febf-7e10-8149-c28afc8a18f0",
+          "policy": "read-only"
+        },
+        {
+          "role": "developer",
+          "id": "01a19d4d-ff57-7dc1-b9ca-5a1a7aeb7cc0",
+          "policy": "workspace-write"
+        },
+        {
+          "role": "qa",
+          "id": "01a19d4d-fff5-75e3-bff3-c6811aa44f45",
+          "policy": "read-only"
+        },
+        {
+          "role": "developer",
+          "id": "01a19d4e-008b-7880-bcbc-8ac9153f1a97",
+          "policy": "workspace-write"
+        },
+        {
+          "role": "qa",
+          "id": "01a19d4e-0125-7092-9bce-0562cff5ae0c",
+          "policy": "read-only"
+        }
+      ],
+      "resumeNoDuplicate": true
+    },
+    {
+      "scenario": "malformed",
+      "status": "blocked",
+      "reworks": 0,
+      "sessions": [
+        {
+          "role": "developer",
+          "id": "01a19d4e-01cd-72d3-ada1-e33d9d53b391",
+          "policy": "workspace-write"
+        }
+      ],
+      "resumeNoDuplicate": true,
+      "reason": "Unexpected token 'i', \"interrupted text\" is not valid JSON"
+    }
+  ],
+  "installedPlugins": [
+    "apd-host-one-64c5d78bdfb2dd967b0a45deaa941683",
+    "apd-host-two-9c166a00b983358bfcb6438152f235f0"
+  ],
+  "singlePluginSelectionVerified": true,
+  "provenance": {
+    "bundleHash": "dd6c266a2ce27a5d2e6461f8f599869b190b0b732ea350040ea14993ee9132fd",
+    "engineSha256": "d2a2c980197003a8c567d0f518dc3cf1595ac9d3655e736409c5b8ef33484650",
+    "runnerSha256": "af9889b32ecd7c6731fdba021e72c8f49755a3f5977e6214160df556f4271cda",
+    "adapterSha256": "6cf423994f0c4174a55b1bd4e53c77fb5f6e76d25200c2f67623f02e0aa9ca03"
+  },
+  "requests": [
+    {
+      "path": "/v1/responses",
+      "model": "gpt-6.1-sol",
+      "role": "developer",
+      "mode": "pass",
+      "selectedSkillBody": true,
+      "selectedBundleHeadings": [
+        "Host one"
+      ]
+    },
+    {
+      "path": "/v1/responses",
+      "model": "gpt-6.1-sol",
+      "role": "developer",
+      "mode": "pass",
+      "selectedSkillBody": true,
+      "selectedBundleHeadings": [
+        "Host two"
+      ]
+    },
+    {
+      "path": "/v1/responses",
+      "model": "gpt-6.1-sol",
+      "role": "developer",
+      "mode": "pass",
+      "selectedSkillBody": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "path": "/v1/responses",
+      "model": "gpt-6.1-sol",
+      "role": "qa",
+      "mode": "pass",
+      "selectedSkillBody": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "path": "/v1/responses",
+      "model": "gpt-6.1-sol",
+      "role": "developer",
+      "mode": "rework",
+      "selectedSkillBody": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "path": "/v1/responses",
+      "model": "gpt-6.1-sol",
+      "role": "qa",
+      "mode": "rework",
+      "selectedSkillBody": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "path": "/v1/responses",
+      "model": "gpt-6.1-sol",
+      "role": "developer",
+      "mode": "rework",
+      "selectedSkillBody": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "path": "/v1/responses",
+      "model": "gpt-6.1-sol",
+      "role": "qa",
+      "mode": "rework",
+      "selectedSkillBody": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "path": "/v1/responses",
+      "model": "gpt-6.1-sol",
+      "role": "developer",
+      "mode": "exhaustion",
+      "selectedSkillBody": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "path": "/v1/responses",
+      "model": "gpt-6.1-sol",
+      "role": "qa",
+      "mode": "exhaustion",
+      "selectedSkillBody": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "path": "/v1/responses",
+      "model": "gpt-6.1-sol",
+      "role": "developer",
+      "mode": "exhaustion",
+      "selectedSkillBody": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "path": "/v1/responses",
+      "model": "gpt-6.1-sol",
+      "role": "qa",
+      "mode": "exhaustion",
+      "selectedSkillBody": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "path": "/v1/responses",
+      "model": "gpt-6.1-sol",
+      "role": "developer",
+      "mode": "exhaustion",
+      "selectedSkillBody": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "path": "/v1/responses",
+      "model": "gpt-6.1-sol",
+      "role": "qa",
+      "mode": "exhaustion",
+      "selectedSkillBody": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "path": "/v1/responses",
+      "model": "gpt-6.1-sol",
+      "role": "developer",
+      "mode": "exhaustion",
+      "selectedSkillBody": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "path": "/v1/responses",
+      "model": "gpt-6.1-sol",
+      "role": "qa",
+      "mode": "exhaustion",
+      "selectedSkillBody": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "path": "/v1/responses",
+      "model": "gpt-6.1-sol",
+      "role": "developer",
+      "mode": "malformed",
+      "selectedSkillBody": false,
+      "selectedBundleHeadings": []
+    }
+  ],
+  "externalLlmCalls": 0,
+  "root": "/tmp/apd-real-codex-f90bLu"
+}

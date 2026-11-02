@@ -33,7 +33,7 @@
         "testDir": "/workspace/agent-plugin-designer/tests",
         "testIgnore": [],
         "testMatch": [
-          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+          "**/*.spec.ts"
         ],
         "timeout": 30000
       }
@@ -52,7 +52,7 @@
         "testDir": "/workspace/agent-plugin-designer/tests",
         "snapshotDir": "/workspace/agent-plugin-designer/tests",
         "testIgnore": [],
-        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "testMatch": "**/*.spec.ts",
         "timeout": 30000,
         "use": {
           "baseURL": "http://127.0.0.1:4173",
@@ -121,12 +121,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 6954,
+                  "duration": 6133,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-02T16:05:13.158Z",
+                  "startTime": "2026-11-02T17:27:24.498Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -155,12 +155,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1476,
+                  "duration": 1594,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-02T16:05:20.652Z",
+                  "startTime": "2026-11-02T17:27:31.327Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -189,12 +189,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1324,
+                  "duration": 1346,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-02T16:05:22.146Z",
+                  "startTime": "2026-11-02T17:27:32.935Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -231,12 +231,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 14722,
+                  "duration": 14995,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-02T16:05:13.140Z",
+                  "startTime": "2026-11-02T17:27:24.494Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -247,6 +247,48 @@
           "id": "17d65873884385b63cea-4d2c7bfbc04bb119d02b",
           "file": "drag.spec.ts",
           "line": 5,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "harness.spec.ts",
+      "file": "harness.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "both native installation bundles export and preserve editable project",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1709,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T17:27:34.320Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2726d9e30a893a88bbed-249e22f05eba400e5636",
+          "file": "harness.spec.ts",
+          "line": 2,
           "column": 1
         }
       ]
@@ -273,12 +315,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1633,
+                  "duration": 1622,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-02T16:05:23.507Z",
+                  "startTime": "2026-11-02T17:27:36.046Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -296,9 +338,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-11-02T16:05:12.528Z",
-    "duration": 15970.516000000001,
-    "expected": 5,
+    "startTime": "2026-11-02T17:27:23.509Z",
+    "duration": 16733.402000000002,
+    "expected": 6,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

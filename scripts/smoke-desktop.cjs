@@ -43,6 +43,20 @@ async function open(){
  const zipPath=join(root,'plugin.zip');await p.getByRole('button',{name:'导出插件',exact:false}).first().click();
  await dialog(p,()=>p.getByRole('button',{name:/完整插件 ZIP/}).click(),zipPath,'保存 Agent Studio 导出文件');
  const zip=await until(async()=>require('jszip').loadAsync(readFileSync(zipPath)));assert.ok((await zip.file('PLUGIN.md').async('string')).includes('宿主必须自行适配'));
+ const harnessExports={};
+ for(const target of ['codex','deepseek']){
+  await p.getByRole('button',{name:'导出插件',exact:false}).first().click();
+  await p.getByLabel('执行宿主',{exact:true}).selectOption(target);
+  const path=join(root,'agent-plugin-'+target+'.zip');
+  await dialog(p,()=>p.getByRole('button',{name:/宿主可安装 ZIP/}).click(),path,'保存 Agent Studio 导出文件');
+  const archive=await until(async()=>require('jszip').loadAsync(readFileSync(path)));
+  const bundle=JSON.parse(await archive.file('bundle.json').async('string'));
+  assert.equal(bundle.schemaVersion,2);assert.equal(bundle.maxReworks,3);assert.deepEqual(bundle.source,original);
+  assert.deepEqual(JSON.parse(await archive.file('project.agent-project.json').async('string')),original);
+  const entry=target==='codex'?'.codex-plugin/plugin.json':'package.json';assert.ok(archive.file(entry));assert.ok(archive.file('scripts/runner.mjs'));
+  harnessExports[target]={nativeSave:true,manifest:entry,bundleSchema:2,sourceProjectPreserved:true,bytes:readFileSync(path).length};
+  require('node:fs').copyFileSync(path,join(out,target+'-install.zip'));
+ }
  // UI edits and real file picker import, then a complete process restart.
  const imported={...original,name:'MyGo restart and import verified',nodes:original.nodes.map((n,i)=>i? n:{...n,position:{x:n.position.x+17,y:n.position.y+9}})};
  const input=join(root,'import.json');writeFileSync(input,JSON.stringify(imported));
@@ -54,7 +68,7 @@ async function open(){
  const after=join(root,'after.json');await dialog(s.page,()=>s.page.getByRole('button',{name:'保存项目文件',exact:true}).click(),after,'保存 Agent Studio 导出文件');await until(()=>existsSync(after));const actual=JSON.parse(readFileSync(after,'utf8'));assert.deepEqual(actual.nodes,imported.nodes);assert.deepEqual(actual.edges,imported.edges);assert.equal(actual.name,imported.name);assert.deepEqual(actual,{...imported,id:actual.id});
  const retained=await s.page.evaluate(async()=>{const db=await new Promise(res=>{const r=indexedDB.open('agent-plugin-designer',1);r.onsuccess=()=>res(r.result)});const value=await new Promise(res=>{const r=db.transaction('workspace').objectStore('workspace').get('current');r.onsuccess=()=>res(r.result)});db.close();return value});assert.deepEqual(retained,expected);
  await s.page.screenshot({path:join(out,'windows-restarted.png')});await preview(s.page,'RESTART');await s.close();assert.deepEqual(errors,[]);
- const result={runtime:'MyGo / installed OS WebView2',origin:'http://mygo.localhost',releaseExe:exe,drag,nativeSave:true,nativeCancel:true,nativeImport:true,markdown:true,binaryZip:true,processRestart:true,canonicalLayoutAndEdgesPersist:true,projectsRetained:2,errors};
+ const result={runtime:'MyGo / installed OS WebView2',origin:'http://mygo.localhost',releaseExe:exe,drag,nativeSave:true,nativeCancel:true,nativeImport:true,markdown:true,binaryZip:true,processRestart:true,canonicalLayoutAndEdgesPersist:true,projectsRetained:2,harnessExports,errors};
  writeFileSync(join(out,'desktop-results.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));
  // Full resolution evidence remains in the verification artifact.
  console.log('Windows verification complete');

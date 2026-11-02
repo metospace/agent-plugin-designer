@@ -1,0 +1,918 @@
+{
+  "runRoot": "/tmp/harness-native-evidence/run-1793640561217",
+  "classification": "actual DSH AgentLoop + actual spawn provider, scripted local LlmAdapter; no network or live model",
+  "version": "0.2.1-rc.5",
+  "cases": [
+    {
+      "case": "one-pass",
+      "mainSession": "native-main-one-pass",
+      "tool": "apd_host_one_64c5d78bdfb2dd967b0a45deaa941683_run",
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"schemaVersion\":2,\"plugin\":{\"id\":\"apd-host-one-64c5d78bdfb2dd967b0a45deaa941683\",\"version\":\"1.0.0\"},\"bundleHash\":\"dd6c266a2ce27a5d2e6461f8f599869b190b0b732ea350040ea14993ee9132fd\",\"taskId\":\"one-pass\",\"task\":\"Validate local candidate\",\"criteria\":[\"candidate exists\"],\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"mainSession\":\"native-main-one-pass\",\"status\":\"passed\",\"reworks\":0,\"candidate\":{\"hash\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"sessionId\":\"161d5625-696e-408a-ba45-45daf751ae75\",\"evidence\":\"scripted local evidence developer 1\"},\"qa\":{\"id\":\"780850fa-175b-408d-ade7-559289821e25\",\"type\":\"qa_result\",\"sessionId\":\"aedeacfc-6424-4687-9be1-61368e4d287b\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"passed\",\"evidence\":\"scripted local evidence qa 1\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":true,\"evidence\":\"local scripted check\"}]},\"dispatch\":null,\"events\":[{\"id\":\"bc615ef5-1646-4a7e-9ae7-6ab47e6ebf99\",\"type\":\"dispatch\",\"role\":\"developer\",\"sessionId\":\"161d5625-696e-408a-ba45-45daf751ae75\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.431Z\"},{\"id\":\"a4a90171-6675-466e-bbad-a9466a310269\",\"type\":\"developer_result\",\"sessionId\":\"161d5625-696e-408a-ba45-45daf751ae75\",\"status\":\"completed\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"evidence\":\"scripted local evidence developer 1\",\"at\":\"2026-11-02T17:29:21.438Z\"},{\"id\":\"33bf6159-a085-4683-83ad-9bf6f257aa52\",\"type\":\"dispatch\",\"role\":\"qa\",\"sessionId\":\"aedeacfc-6424-4687-9be1-61368e4d287b\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.442Z\"},{\"id\":\"780850fa-175b-408d-ade7-559289821e25\",\"type\":\"qa_result\",\"sessionId\":\"aedeacfc-6424-4687-9be1-61368e4d287b\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"passed\",\"evidence\":\"scripted local evidence qa 1\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":true,\"evidence\":\"local scripted check\"}],\"at\":\"2026-11-02T17:29:21.445Z\"}],\"processed\":[\"bc615ef5-1646-4a7e-9ae7-6ab47e6ebf99\",\"a4a90171-6675-466e-bbad-a9466a310269\",\"33bf6159-a085-4683-83ad-9bf6f257aa52\",\"780850fa-175b-408d-ade7-559289821e25\"]}"
+          }
+        ],
+        "value": "{\"schemaVersion\":2,\"plugin\":{\"id\":\"apd-host-one-64c5d78bdfb2dd967b0a45deaa941683\",\"version\":\"1.0.0\"},\"bundleHash\":\"dd6c266a2ce27a5d2e6461f8f599869b190b0b732ea350040ea14993ee9132fd\",\"taskId\":\"one-pass\",\"task\":\"Validate local candidate\",\"criteria\":[\"candidate exists\"],\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"mainSession\":\"native-main-one-pass\",\"status\":\"passed\",\"reworks\":0,\"candidate\":{\"hash\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"sessionId\":\"161d5625-696e-408a-ba45-45daf751ae75\",\"evidence\":\"scripted local evidence developer 1\"},\"qa\":{\"id\":\"780850fa-175b-408d-ade7-559289821e25\",\"type\":\"qa_result\",\"sessionId\":\"aedeacfc-6424-4687-9be1-61368e4d287b\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"passed\",\"evidence\":\"scripted local evidence qa 1\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":true,\"evidence\":\"local scripted check\"}]},\"dispatch\":null,\"events\":[{\"id\":\"bc615ef5-1646-4a7e-9ae7-6ab47e6ebf99\",\"type\":\"dispatch\",\"role\":\"developer\",\"sessionId\":\"161d5625-696e-408a-ba45-45daf751ae75\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.431Z\"},{\"id\":\"a4a90171-6675-466e-bbad-a9466a310269\",\"type\":\"developer_result\",\"sessionId\":\"161d5625-696e-408a-ba45-45daf751ae75\",\"status\":\"completed\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"evidence\":\"scripted local evidence developer 1\",\"at\":\"2026-11-02T17:29:21.438Z\"},{\"id\":\"33bf6159-a085-4683-83ad-9bf6f257aa52\",\"type\":\"dispatch\",\"role\":\"qa\",\"sessionId\":\"aedeacfc-6424-4687-9be1-61368e4d287b\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.442Z\"},{\"id\":\"780850fa-175b-408d-ade7-559289821e25\",\"type\":\"qa_result\",\"sessionId\":\"aedeacfc-6424-4687-9be1-61368e4d287b\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"passed\",\"evidence\":\"scripted local evidence qa 1\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":true,\"evidence\":\"local scripted check\"}],\"at\":\"2026-11-02T17:29:21.445Z\"}],\"processed\":[\"bc615ef5-1646-4a7e-9ae7-6ab47e6ebf99\",\"a4a90171-6675-466e-bbad-a9466a310269\",\"33bf6159-a085-4683-83ad-9bf6f257aa52\",\"780850fa-175b-408d-ade7-559289821e25\"]}"
+      }
+    },
+    {
+      "case": "one-pass",
+      "mainSession": "native-main-one-pass",
+      "tool": "apd_host_one_64c5d78bdfb2dd967b0a45deaa941683_run",
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"schemaVersion\":2,\"plugin\":{\"id\":\"apd-host-one-64c5d78bdfb2dd967b0a45deaa941683\",\"version\":\"1.0.0\"},\"bundleHash\":\"dd6c266a2ce27a5d2e6461f8f599869b190b0b732ea350040ea14993ee9132fd\",\"taskId\":\"one-pass\",\"task\":\"Validate local candidate\",\"criteria\":[\"candidate exists\"],\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"mainSession\":\"native-main-one-pass\",\"status\":\"passed\",\"reworks\":0,\"candidate\":{\"hash\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"sessionId\":\"161d5625-696e-408a-ba45-45daf751ae75\",\"evidence\":\"scripted local evidence developer 1\"},\"qa\":{\"id\":\"780850fa-175b-408d-ade7-559289821e25\",\"type\":\"qa_result\",\"sessionId\":\"aedeacfc-6424-4687-9be1-61368e4d287b\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"passed\",\"evidence\":\"scripted local evidence qa 1\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":true,\"evidence\":\"local scripted check\"}]},\"dispatch\":null,\"events\":[{\"id\":\"bc615ef5-1646-4a7e-9ae7-6ab47e6ebf99\",\"type\":\"dispatch\",\"role\":\"developer\",\"sessionId\":\"161d5625-696e-408a-ba45-45daf751ae75\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.431Z\"},{\"id\":\"a4a90171-6675-466e-bbad-a9466a310269\",\"type\":\"developer_result\",\"sessionId\":\"161d5625-696e-408a-ba45-45daf751ae75\",\"status\":\"completed\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"evidence\":\"scripted local evidence developer 1\",\"at\":\"2026-11-02T17:29:21.438Z\"},{\"id\":\"33bf6159-a085-4683-83ad-9bf6f257aa52\",\"type\":\"dispatch\",\"role\":\"qa\",\"sessionId\":\"aedeacfc-6424-4687-9be1-61368e4d287b\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.442Z\"},{\"id\":\"780850fa-175b-408d-ade7-559289821e25\",\"type\":\"qa_result\",\"sessionId\":\"aedeacfc-6424-4687-9be1-61368e4d287b\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"passed\",\"evidence\":\"scripted local evidence qa 1\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":true,\"evidence\":\"local scripted check\"}],\"at\":\"2026-11-02T17:29:21.445Z\"}],\"processed\":[\"bc615ef5-1646-4a7e-9ae7-6ab47e6ebf99\",\"a4a90171-6675-466e-bbad-a9466a310269\",\"33bf6159-a085-4683-83ad-9bf6f257aa52\",\"780850fa-175b-408d-ade7-559289821e25\"]}"
+          }
+        ],
+        "value": "{\"schemaVersion\":2,\"plugin\":{\"id\":\"apd-host-one-64c5d78bdfb2dd967b0a45deaa941683\",\"version\":\"1.0.0\"},\"bundleHash\":\"dd6c266a2ce27a5d2e6461f8f599869b190b0b732ea350040ea14993ee9132fd\",\"taskId\":\"one-pass\",\"task\":\"Validate local candidate\",\"criteria\":[\"candidate exists\"],\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"mainSession\":\"native-main-one-pass\",\"status\":\"passed\",\"reworks\":0,\"candidate\":{\"hash\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"sessionId\":\"161d5625-696e-408a-ba45-45daf751ae75\",\"evidence\":\"scripted local evidence developer 1\"},\"qa\":{\"id\":\"780850fa-175b-408d-ade7-559289821e25\",\"type\":\"qa_result\",\"sessionId\":\"aedeacfc-6424-4687-9be1-61368e4d287b\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"passed\",\"evidence\":\"scripted local evidence qa 1\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":true,\"evidence\":\"local scripted check\"}]},\"dispatch\":null,\"events\":[{\"id\":\"bc615ef5-1646-4a7e-9ae7-6ab47e6ebf99\",\"type\":\"dispatch\",\"role\":\"developer\",\"sessionId\":\"161d5625-696e-408a-ba45-45daf751ae75\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.431Z\"},{\"id\":\"a4a90171-6675-466e-bbad-a9466a310269\",\"type\":\"developer_result\",\"sessionId\":\"161d5625-696e-408a-ba45-45daf751ae75\",\"status\":\"completed\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"evidence\":\"scripted local evidence developer 1\",\"at\":\"2026-11-02T17:29:21.438Z\"},{\"id\":\"33bf6159-a085-4683-83ad-9bf6f257aa52\",\"type\":\"dispatch\",\"role\":\"qa\",\"sessionId\":\"aedeacfc-6424-4687-9be1-61368e4d287b\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.442Z\"},{\"id\":\"780850fa-175b-408d-ade7-559289821e25\",\"type\":\"qa_result\",\"sessionId\":\"aedeacfc-6424-4687-9be1-61368e4d287b\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"passed\",\"evidence\":\"scripted local evidence qa 1\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":true,\"evidence\":\"local scripted check\"}],\"at\":\"2026-11-02T17:29:21.445Z\"}],\"processed\":[\"bc615ef5-1646-4a7e-9ae7-6ab47e6ebf99\",\"a4a90171-6675-466e-bbad-a9466a310269\",\"33bf6159-a085-4683-83ad-9bf6f257aa52\",\"780850fa-175b-408d-ade7-559289821e25\"]}"
+      }
+    },
+    {
+      "case": "two-rework",
+      "mainSession": "native-main-two-rework",
+      "tool": "apd_host_two_9c166a00b983358bfcb6438152f235f0_run",
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"schemaVersion\":2,\"plugin\":{\"id\":\"apd-host-two-9c166a00b983358bfcb6438152f235f0\",\"version\":\"1.0.0\"},\"bundleHash\":\"78cc2cccfb3ce305a0ce720f74cec790e442512e437a257428304e6efd4b38f5\",\"taskId\":\"two-rework\",\"task\":\"Validate local candidate\",\"criteria\":[\"candidate exists\"],\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"mainSession\":\"native-main-two-rework\",\"status\":\"passed\",\"reworks\":1,\"candidate\":{\"hash\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"sessionId\":\"e95ebf68-a0a9-4e12-b366-b3b4da5ff522\",\"evidence\":\"scripted local evidence developer 2\"},\"qa\":{\"id\":\"4079c085-c6a1-4201-80c4-b6a57636c187\",\"type\":\"qa_result\",\"sessionId\":\"dde1227d-b08a-4177-b756-42ef1af8a51c\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"passed\",\"evidence\":\"scripted local evidence qa 2\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":true,\"evidence\":\"local scripted check\"}]},\"dispatch\":null,\"events\":[{\"id\":\"92460bee-69c6-493e-9d04-e5ff2b66b3d4\",\"type\":\"dispatch\",\"role\":\"developer\",\"sessionId\":\"6fae1869-52f5-4065-92e2-4f7aeaa98e7b\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.462Z\"},{\"id\":\"d08a7e0a-0690-43e2-bc56-16cfcb358a49\",\"type\":\"developer_result\",\"sessionId\":\"6fae1869-52f5-4065-92e2-4f7aeaa98e7b\",\"status\":\"completed\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"evidence\":\"scripted local evidence developer 1\",\"at\":\"2026-11-02T17:29:21.466Z\"},{\"id\":\"2e09a9be-03de-4258-935e-b803a5077a66\",\"type\":\"dispatch\",\"role\":\"qa\",\"sessionId\":\"6ae97668-55e5-4ef5-9907-995b17253d99\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.470Z\"},{\"id\":\"8a6f2d48-d433-4049-8a75-4af7ade0bd7e\",\"type\":\"qa_result\",\"sessionId\":\"6ae97668-55e5-4ef5-9907-995b17253d99\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"failed\",\"evidence\":\"scripted local evidence qa 1\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":false,\"evidence\":\"local scripted check\"}],\"at\":\"2026-11-02T17:29:21.474Z\"},{\"id\":\"8ac63f3b-796b-48c0-8e97-ad17ec0d09bf\",\"type\":\"dispatch\",\"role\":\"developer\",\"sessionId\":\"e95ebf68-a0a9-4e12-b366-b3b4da5ff522\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.478Z\"},{\"id\":\"9f7a9626-cb53-49f5-bd59-9ff052f1f563\",\"type\":\"developer_result\",\"sessionId\":\"e95ebf68-a0a9-4e12-b366-b3b4da5ff522\",\"status\":\"completed\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"evidence\":\"scripted local evidence developer 2\",\"at\":\"2026-11-02T17:29:21.481Z\"},{\"id\":\"eb18b952-8bfb-4ed8-aabe-e060db50e1cf\",\"type\":\"dispatch\",\"role\":\"qa\",\"sessionId\":\"dde1227d-b08a-4177-b756-42ef1af8a51c\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.484Z\"},{\"id\":\"4079c085-c6a1-4201-80c4-b6a57636c187\",\"type\":\"qa_result\",\"sessionId\":\"dde1227d-b08a-4177-b756-42ef1af8a51c\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"passed\",\"evidence\":\"scripted local evidence qa 2\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":true,\"evidence\":\"local scripted check\"}],\"at\":\"2026-11-02T17:29:21.487Z\"}],\"processed\":[\"92460bee-69c6-493e-9d04-e5ff2b66b3d4\",\"d08a7e0a-0690-43e2-bc56-16cfcb358a49\",\"2e09a9be-03de-4258-935e-b803a5077a66\",\"8a6f2d48-d433-4049-8a75-4af7ade0bd7e\",\"8ac63f3b-796b-48c0-8e97-ad17ec0d09bf\",\"9f7a9626-cb53-49f5-bd59-9ff052f1f563\",\"eb18b952-8bfb-4ed8-aabe-e060db50e1cf\",\"4079c085-c6a1-4201-80c4-b6a57636c187\"]}"
+          }
+        ],
+        "value": "{\"schemaVersion\":2,\"plugin\":{\"id\":\"apd-host-two-9c166a00b983358bfcb6438152f235f0\",\"version\":\"1.0.0\"},\"bundleHash\":\"78cc2cccfb3ce305a0ce720f74cec790e442512e437a257428304e6efd4b38f5\",\"taskId\":\"two-rework\",\"task\":\"Validate local candidate\",\"criteria\":[\"candidate exists\"],\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"mainSession\":\"native-main-two-rework\",\"status\":\"passed\",\"reworks\":1,\"candidate\":{\"hash\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"sessionId\":\"e95ebf68-a0a9-4e12-b366-b3b4da5ff522\",\"evidence\":\"scripted local evidence developer 2\"},\"qa\":{\"id\":\"4079c085-c6a1-4201-80c4-b6a57636c187\",\"type\":\"qa_result\",\"sessionId\":\"dde1227d-b08a-4177-b756-42ef1af8a51c\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"passed\",\"evidence\":\"scripted local evidence qa 2\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":true,\"evidence\":\"local scripted check\"}]},\"dispatch\":null,\"events\":[{\"id\":\"92460bee-69c6-493e-9d04-e5ff2b66b3d4\",\"type\":\"dispatch\",\"role\":\"developer\",\"sessionId\":\"6fae1869-52f5-4065-92e2-4f7aeaa98e7b\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.462Z\"},{\"id\":\"d08a7e0a-0690-43e2-bc56-16cfcb358a49\",\"type\":\"developer_result\",\"sessionId\":\"6fae1869-52f5-4065-92e2-4f7aeaa98e7b\",\"status\":\"completed\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"evidence\":\"scripted local evidence developer 1\",\"at\":\"2026-11-02T17:29:21.466Z\"},{\"id\":\"2e09a9be-03de-4258-935e-b803a5077a66\",\"type\":\"dispatch\",\"role\":\"qa\",\"sessionId\":\"6ae97668-55e5-4ef5-9907-995b17253d99\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.470Z\"},{\"id\":\"8a6f2d48-d433-4049-8a75-4af7ade0bd7e\",\"type\":\"qa_result\",\"sessionId\":\"6ae97668-55e5-4ef5-9907-995b17253d99\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"failed\",\"evidence\":\"scripted local evidence qa 1\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":false,\"evidence\":\"local scripted check\"}],\"at\":\"2026-11-02T17:29:21.474Z\"},{\"id\":\"8ac63f3b-796b-48c0-8e97-ad17ec0d09bf\",\"type\":\"dispatch\",\"role\":\"developer\",\"sessionId\":\"e95ebf68-a0a9-4e12-b366-b3b4da5ff522\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.478Z\"},{\"id\":\"9f7a9626-cb53-49f5-bd59-9ff052f1f563\",\"type\":\"developer_result\",\"sessionId\":\"e95ebf68-a0a9-4e12-b366-b3b4da5ff522\",\"status\":\"completed\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"evidence\":\"scripted local evidence developer 2\",\"at\":\"2026-11-02T17:29:21.481Z\"},{\"id\":\"eb18b952-8bfb-4ed8-aabe-e060db50e1cf\",\"type\":\"dispatch\",\"role\":\"qa\",\"sessionId\":\"dde1227d-b08a-4177-b756-42ef1af8a51c\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.484Z\"},{\"id\":\"4079c085-c6a1-4201-80c4-b6a57636c187\",\"type\":\"qa_result\",\"sessionId\":\"dde1227d-b08a-4177-b756-42ef1af8a51c\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"passed\",\"evidence\":\"scripted local evidence qa 2\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":true,\"evidence\":\"local scripted check\"}],\"at\":\"2026-11-02T17:29:21.487Z\"}],\"processed\":[\"92460bee-69c6-493e-9d04-e5ff2b66b3d4\",\"d08a7e0a-0690-43e2-bc56-16cfcb358a49\",\"2e09a9be-03de-4258-935e-b803a5077a66\",\"8a6f2d48-d433-4049-8a75-4af7ade0bd7e\",\"8ac63f3b-796b-48c0-8e97-ad17ec0d09bf\",\"9f7a9626-cb53-49f5-bd59-9ff052f1f563\",\"eb18b952-8bfb-4ed8-aabe-e060db50e1cf\",\"4079c085-c6a1-4201-80c4-b6a57636c187\"]}"
+      }
+    },
+    {
+      "case": "one-retry3",
+      "mainSession": "native-main-one-retry3",
+      "tool": "apd_host_one_64c5d78bdfb2dd967b0a45deaa941683_run",
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"schemaVersion\":2,\"plugin\":{\"id\":\"apd-host-one-64c5d78bdfb2dd967b0a45deaa941683\",\"version\":\"1.0.0\"},\"bundleHash\":\"dd6c266a2ce27a5d2e6461f8f599869b190b0b732ea350040ea14993ee9132fd\",\"taskId\":\"one-retry3\",\"task\":\"Validate local candidate\",\"criteria\":[\"candidate exists\"],\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"mainSession\":\"native-main-one-retry3\",\"status\":\"human_paused\",\"reworks\":3,\"candidate\":{\"hash\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"sessionId\":\"3979222b-e18b-4f86-b688-87d51e4adbf6\",\"evidence\":\"scripted local evidence developer 4\"},\"qa\":{\"id\":\"95d2d345-ce6d-4706-97d0-f9377b1f326a\",\"type\":\"qa_result\",\"sessionId\":\"fce8f6a8-e157-4d52-aa3d-8a0fb3b86d00\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"failed\",\"evidence\":\"scripted local evidence qa 4\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":false,\"evidence\":\"local scripted check\"}]},\"dispatch\":null,\"events\":[{\"id\":\"2002474c-35ac-4503-8975-8ad5eb10f0bc\",\"type\":\"dispatch\",\"role\":\"developer\",\"sessionId\":\"2eecb952-4f38-4b23-a388-ced5052321ea\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.495Z\"},{\"id\":\"81e76159-0477-4f94-aba1-188ce842003c\",\"type\":\"developer_result\",\"sessionId\":\"2eecb952-4f38-4b23-a388-ced5052321ea\",\"status\":\"completed\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"evidence\":\"scripted local evidence developer 1\",\"at\":\"2026-11-02T17:29:21.499Z\"},{\"id\":\"c13848af-b2b6-419f-ba4f-ff0229d15c85\",\"type\":\"dispatch\",\"role\":\"qa\",\"sessionId\":\"4844436b-0f2d-4b67-b265-e9e9f9383c9e\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.502Z\"},{\"id\":\"82326f08-dc26-4b4a-bd7a-31f5f8b0a6f6\",\"type\":\"qa_result\",\"sessionId\":\"4844436b-0f2d-4b67-b265-e9e9f9383c9e\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"failed\",\"evidence\":\"scripted local evidence qa 1\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":false,\"evidence\":\"local scripted check\"}],\"at\":\"2026-11-02T17:29:21.506Z\"},{\"id\":\"4d90a73b-745a-4687-ac58-a467455acf1b\",\"type\":\"dispatch\",\"role\":\"developer\",\"sessionId\":\"ecf45d25-91de-4240-a63e-0b2ce2d02ae8\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.509Z\"},{\"id\":\"6c2cf07c-e9d8-4554-a654-1d99d89b83f9\",\"type\":\"developer_result\",\"sessionId\":\"ecf45d25-91de-4240-a63e-0b2ce2d02ae8\",\"status\":\"completed\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"evidence\":\"scripted local evidence developer 2\",\"at\":\"2026-11-02T17:29:21.513Z\"},{\"id\":\"142139cb-794f-4885-944b-c6058c1aef6b\",\"type\":\"dispatch\",\"role\":\"qa\",\"sessionId\":\"3d7e2f64-12dc-4751-9ca6-ce70aa0d5228\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.516Z\"},{\"id\":\"3cb15529-13d7-433b-b615-2398657c3f5a\",\"type\":\"qa_result\",\"sessionId\":\"3d7e2f64-12dc-4751-9ca6-ce70aa0d5228\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"failed\",\"evidence\":\"scripted local evidence qa 2\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":false,\"evidence\":\"local scripted check\"}],\"at\":\"2026-11-02T17:29:21.519Z\"},{\"id\":\"a1211da1-a5f6-4ace-ad2e-0047f7216239\",\"type\":\"dispatch\",\"role\":\"developer\",\"sessionId\":\"57d2fe85-8df2-4d76-a503-246c6755563d\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.523Z\"},{\"id\":\"bee5fe30-467c-4175-a478-2559c5e80b1a\",\"type\":\"developer_result\",\"sessionId\":\"57d2fe85-8df2-4d76-a503-246c6755563d\",\"status\":\"completed\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"evidence\":\"scripted local evidence developer 3\",\"at\":\"2026-11-02T17:29:21.525Z\"},{\"id\":\"e5ea0f9f-ca7f-476f-a948-eedd11c6e519\",\"type\":\"dispatch\",\"role\":\"qa\",\"sessionId\":\"9f9b827c-6cf9-4d7a-ad7d-0c8e4a1548ba\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.528Z\"},{\"id\":\"f11ab712-205a-48a2-bc34-2f3d8ac8d629\",\"type\":\"qa_result\",\"sessionId\":\"9f9b827c-6cf9-4d7a-ad7d-0c8e4a1548ba\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"failed\",\"evidence\":\"scripted local evidence qa 3\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":false,\"evidence\":\"local scripted check\"}],\"at\":\"2026-11-02T17:29:21.531Z\"},{\"id\":\"3b23681c-1c3c-4c81-b613-e9cfedbf25f8\",\"type\":\"dispatch\",\"role\":\"developer\",\"sessionId\":\"3979222b-e18b-4f86-b688-87d51e4adbf6\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.535Z\"},{\"id\":\"b74c4934-49bc-4c07-ab43-a69656c0137e\",\"type\":\"developer_result\",\"sessionId\":\"3979222b-e18b-4f86-b688-87d51e4adbf6\",\"status\":\"completed\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"evidence\":\"scripted local evidence developer 4\",\"at\":\"2026-11-02T17:29:21.537Z\"},{\"id\":\"aca2185c-f751-455f-beae-4fa0c2f0cc4f\",\"type\":\"dispatch\",\"role\":\"qa\",\"sessionId\":\"fce8f6a8-e157-4d52-aa3d-8a0fb3b86d00\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.540Z\"},{\"id\":\"95d2d345-ce6d-4706-97d0-f9377b1f326a\",\"type\":\"qa_result\",\"sessionId\":\"fce8f6a8-e157-4d52-aa3d-8a0fb3b86d00\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"failed\",\"evidence\":\"scripted local evidence qa 4\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":false,\"evidence\":\"local scripted check\"}],\"at\":\"2026-11-02T17:29:21.542Z\"}],\"processed\":[\"2002474c-35ac-4503-8975-8ad5eb10f0bc\",\"81e76159-0477-4f94-aba1-188ce842003c\",\"c13848af-b2b6-419f-ba4f-ff0229d15c85\",\"82326f08-dc26-4b4a-bd7a-31f5f8b0a6f6\",\"4d90a73b-745a-4687-ac58-a467455acf1b\",\"6c2cf07c-e9d8-4554-a654-1d99d89b83f9\",\"142139cb-794f-4885-944b-c6058c1aef6b\",\"3cb15529-13d7-433b-b615-2398657c3f5a\",\"a1211da1-a5f6-4ace-ad2e-0047f7216239\",\"bee5fe30-467c-4175-a478-2559c5e80b1a\",\"e5ea0f9f-ca7f-476f-a948-eedd11c6e519\",\"f11ab712-205a-48a2-bc34-2f3d8ac8d629\",\"3b23681c-1c3c-4c81-b613-e9cfedbf25f8\",\"b74c4934-49bc-4c07-ab43-a69656c0137e\",\"aca2185c-f751-455f-beae-4fa0c2f0cc4f\",\"95d2d345-ce6d-4706-97d0-f9377b1f326a\"]}"
+          }
+        ],
+        "value": "{\"schemaVersion\":2,\"plugin\":{\"id\":\"apd-host-one-64c5d78bdfb2dd967b0a45deaa941683\",\"version\":\"1.0.0\"},\"bundleHash\":\"dd6c266a2ce27a5d2e6461f8f599869b190b0b732ea350040ea14993ee9132fd\",\"taskId\":\"one-retry3\",\"task\":\"Validate local candidate\",\"criteria\":[\"candidate exists\"],\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"mainSession\":\"native-main-one-retry3\",\"status\":\"human_paused\",\"reworks\":3,\"candidate\":{\"hash\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"sessionId\":\"3979222b-e18b-4f86-b688-87d51e4adbf6\",\"evidence\":\"scripted local evidence developer 4\"},\"qa\":{\"id\":\"95d2d345-ce6d-4706-97d0-f9377b1f326a\",\"type\":\"qa_result\",\"sessionId\":\"fce8f6a8-e157-4d52-aa3d-8a0fb3b86d00\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"failed\",\"evidence\":\"scripted local evidence qa 4\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":false,\"evidence\":\"local scripted check\"}]},\"dispatch\":null,\"events\":[{\"id\":\"2002474c-35ac-4503-8975-8ad5eb10f0bc\",\"type\":\"dispatch\",\"role\":\"developer\",\"sessionId\":\"2eecb952-4f38-4b23-a388-ced5052321ea\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.495Z\"},{\"id\":\"81e76159-0477-4f94-aba1-188ce842003c\",\"type\":\"developer_result\",\"sessionId\":\"2eecb952-4f38-4b23-a388-ced5052321ea\",\"status\":\"completed\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"evidence\":\"scripted local evidence developer 1\",\"at\":\"2026-11-02T17:29:21.499Z\"},{\"id\":\"c13848af-b2b6-419f-ba4f-ff0229d15c85\",\"type\":\"dispatch\",\"role\":\"qa\",\"sessionId\":\"4844436b-0f2d-4b67-b265-e9e9f9383c9e\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.502Z\"},{\"id\":\"82326f08-dc26-4b4a-bd7a-31f5f8b0a6f6\",\"type\":\"qa_result\",\"sessionId\":\"4844436b-0f2d-4b67-b265-e9e9f9383c9e\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"failed\",\"evidence\":\"scripted local evidence qa 1\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":false,\"evidence\":\"local scripted check\"}],\"at\":\"2026-11-02T17:29:21.506Z\"},{\"id\":\"4d90a73b-745a-4687-ac58-a467455acf1b\",\"type\":\"dispatch\",\"role\":\"developer\",\"sessionId\":\"ecf45d25-91de-4240-a63e-0b2ce2d02ae8\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.509Z\"},{\"id\":\"6c2cf07c-e9d8-4554-a654-1d99d89b83f9\",\"type\":\"developer_result\",\"sessionId\":\"ecf45d25-91de-4240-a63e-0b2ce2d02ae8\",\"status\":\"completed\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"evidence\":\"scripted local evidence developer 2\",\"at\":\"2026-11-02T17:29:21.513Z\"},{\"id\":\"142139cb-794f-4885-944b-c6058c1aef6b\",\"type\":\"dispatch\",\"role\":\"qa\",\"sessionId\":\"3d7e2f64-12dc-4751-9ca6-ce70aa0d5228\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.516Z\"},{\"id\":\"3cb15529-13d7-433b-b615-2398657c3f5a\",\"type\":\"qa_result\",\"sessionId\":\"3d7e2f64-12dc-4751-9ca6-ce70aa0d5228\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"failed\",\"evidence\":\"scripted local evidence qa 2\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":false,\"evidence\":\"local scripted check\"}],\"at\":\"2026-11-02T17:29:21.519Z\"},{\"id\":\"a1211da1-a5f6-4ace-ad2e-0047f7216239\",\"type\":\"dispatch\",\"role\":\"developer\",\"sessionId\":\"57d2fe85-8df2-4d76-a503-246c6755563d\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.523Z\"},{\"id\":\"bee5fe30-467c-4175-a478-2559c5e80b1a\",\"type\":\"developer_result\",\"sessionId\":\"57d2fe85-8df2-4d76-a503-246c6755563d\",\"status\":\"completed\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"evidence\":\"scripted local evidence developer 3\",\"at\":\"2026-11-02T17:29:21.525Z\"},{\"id\":\"e5ea0f9f-ca7f-476f-a948-eedd11c6e519\",\"type\":\"dispatch\",\"role\":\"qa\",\"sessionId\":\"9f9b827c-6cf9-4d7a-ad7d-0c8e4a1548ba\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.528Z\"},{\"id\":\"f11ab712-205a-48a2-bc34-2f3d8ac8d629\",\"type\":\"qa_result\",\"sessionId\":\"9f9b827c-6cf9-4d7a-ad7d-0c8e4a1548ba\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"failed\",\"evidence\":\"scripted local evidence qa 3\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":false,\"evidence\":\"local scripted check\"}],\"at\":\"2026-11-02T17:29:21.531Z\"},{\"id\":\"3b23681c-1c3c-4c81-b613-e9cfedbf25f8\",\"type\":\"dispatch\",\"role\":\"developer\",\"sessionId\":\"3979222b-e18b-4f86-b688-87d51e4adbf6\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.535Z\"},{\"id\":\"b74c4934-49bc-4c07-ab43-a69656c0137e\",\"type\":\"developer_result\",\"sessionId\":\"3979222b-e18b-4f86-b688-87d51e4adbf6\",\"status\":\"completed\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"evidence\":\"scripted local evidence developer 4\",\"at\":\"2026-11-02T17:29:21.537Z\"},{\"id\":\"aca2185c-f751-455f-beae-4fa0c2f0cc4f\",\"type\":\"dispatch\",\"role\":\"qa\",\"sessionId\":\"fce8f6a8-e157-4d52-aa3d-8a0fb3b86d00\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.540Z\"},{\"id\":\"95d2d345-ce6d-4706-97d0-f9377b1f326a\",\"type\":\"qa_result\",\"sessionId\":\"fce8f6a8-e157-4d52-aa3d-8a0fb3b86d00\",\"candidate\":\"e78fdc543213639d9ef0f9db5e1dbfe7211e71d941c344d9d53bd0ce19350d26\",\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"verdict\":\"failed\",\"evidence\":\"scripted local evidence qa 4\",\"checks\":[{\"criterion\":\"candidate exists\",\"passed\":false,\"evidence\":\"local scripted check\"}],\"at\":\"2026-11-02T17:29:21.542Z\"}],\"processed\":[\"2002474c-35ac-4503-8975-8ad5eb10f0bc\",\"81e76159-0477-4f94-aba1-188ce842003c\",\"c13848af-b2b6-419f-ba4f-ff0229d15c85\",\"82326f08-dc26-4b4a-bd7a-31f5f8b0a6f6\",\"4d90a73b-745a-4687-ac58-a467455acf1b\",\"6c2cf07c-e9d8-4554-a654-1d99d89b83f9\",\"142139cb-794f-4885-944b-c6058c1aef6b\",\"3cb15529-13d7-433b-b615-2398657c3f5a\",\"a1211da1-a5f6-4ace-ad2e-0047f7216239\",\"bee5fe30-467c-4175-a478-2559c5e80b1a\",\"e5ea0f9f-ca7f-476f-a948-eedd11c6e519\",\"f11ab712-205a-48a2-bc34-2f3d8ac8d629\",\"3b23681c-1c3c-4c81-b613-e9cfedbf25f8\",\"b74c4934-49bc-4c07-ab43-a69656c0137e\",\"aca2185c-f751-455f-beae-4fa0c2f0cc4f\",\"95d2d345-ce6d-4706-97d0-f9377b1f326a\"]}"
+      }
+    },
+    {
+      "case": "two-malformed",
+      "mainSession": "native-main-two-malformed",
+      "tool": "apd_host_two_9c166a00b983358bfcb6438152f235f0_run",
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"schemaVersion\":2,\"plugin\":{\"id\":\"apd-host-two-9c166a00b983358bfcb6438152f235f0\",\"version\":\"1.0.0\"},\"bundleHash\":\"78cc2cccfb3ce305a0ce720f74cec790e442512e437a257428304e6efd4b38f5\",\"taskId\":\"two-malformed\",\"task\":\"Validate local candidate\",\"criteria\":[\"candidate exists\"],\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"mainSession\":\"native-main-two-malformed\",\"status\":\"blocked\",\"reworks\":0,\"candidate\":null,\"qa\":null,\"dispatch\":{\"role\":\"developer\",\"sessionId\":\"f20408fb-b028-4388-83df-e69ede44f1be\"},\"events\":[{\"id\":\"dd1383ee-9264-483d-b208-b4b6ad6a993b\",\"type\":\"dispatch\",\"role\":\"developer\",\"sessionId\":\"f20408fb-b028-4388-83df-e69ede44f1be\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.552Z\"},{\"id\":\"3d98039a-c6aa-4ccc-aaa0-21a3c105a43a\",\"type\":\"blocked\",\"reason\":\"Malformed/interrupted host output\",\"at\":\"2026-11-02T17:29:21.554Z\"}],\"processed\":[\"dd1383ee-9264-483d-b208-b4b6ad6a993b\",\"3d98039a-c6aa-4ccc-aaa0-21a3c105a43a\"],\"blockedFrom\":\"developer_running\",\"reason\":\"Malformed/interrupted host output\"}"
+          }
+        ],
+        "value": "{\"schemaVersion\":2,\"plugin\":{\"id\":\"apd-host-two-9c166a00b983358bfcb6438152f235f0\",\"version\":\"1.0.0\"},\"bundleHash\":\"78cc2cccfb3ce305a0ce720f74cec790e442512e437a257428304e6efd4b38f5\",\"taskId\":\"two-malformed\",\"task\":\"Validate local candidate\",\"criteria\":[\"candidate exists\"],\"criteriaHash\":\"744b61270a19eb3f6d763a935d420faf08f7579941fe162a583c091bde09e0cc\",\"mainSession\":\"native-main-two-malformed\",\"status\":\"blocked\",\"reworks\":0,\"candidate\":null,\"qa\":null,\"dispatch\":{\"role\":\"developer\",\"sessionId\":\"f20408fb-b028-4388-83df-e69ede44f1be\"},\"events\":[{\"id\":\"dd1383ee-9264-483d-b208-b4b6ad6a993b\",\"type\":\"dispatch\",\"role\":\"developer\",\"sessionId\":\"f20408fb-b028-4388-83df-e69ede44f1be\",\"policy\":\"host-native-permissions\",\"at\":\"2026-11-02T17:29:21.552Z\"},{\"id\":\"3d98039a-c6aa-4ccc-aaa0-21a3c105a43a\",\"type\":\"blocked\",\"reason\":\"Malformed/interrupted host output\",\"at\":\"2026-11-02T17:29:21.554Z\"}],\"processed\":[\"dd1383ee-9264-483d-b208-b4b6ad6a993b\",\"3d98039a-c6aa-4ccc-aaa0-21a3c105a43a\"],\"blockedFrom\":\"developer_running\",\"reason\":\"Malformed/interrupted host output\"}"
+      }
+    },
+    {
+      "case": "two-interrupt",
+      "mainSession": "native-main-two-interrupt",
+      "tool": "apd_host_two_9c166a00b983358bfcb6438152f235f0_run",
+      "result": {
+        "isError": true,
+        "error": {
+          "message": "tool call aborted",
+          "info": {
+            "name": "AbortError",
+            "code": "ABORTED"
+          }
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Error: tool call aborted"
+          }
+        ]
+      }
+    }
+  ],
+  "calls": [
+    {
+      "case": "one-pass",
+      "provider": "scripted",
+      "model": "local",
+      "role": "main",
+      "tool": "apd_host_one_64c5d78bdfb2dd967b0a45deaa941683_run",
+      "parentContextLeak": null
+    },
+    {
+      "case": "one-pass",
+      "provider": "scripted",
+      "model": "local",
+      "role": "developer",
+      "tool": "structured_output",
+      "parentContextLeak": false
+    },
+    {
+      "case": "one-pass",
+      "provider": "scripted",
+      "model": "local",
+      "role": "qa",
+      "tool": "structured_output",
+      "parentContextLeak": false
+    },
+    {
+      "case": "one-pass",
+      "provider": "scripted",
+      "model": "local",
+      "role": "main",
+      "tool": null,
+      "parentContextLeak": null
+    },
+    {
+      "case": "one-pass",
+      "provider": "scripted",
+      "model": "local",
+      "role": "main",
+      "tool": "apd_host_one_64c5d78bdfb2dd967b0a45deaa941683_run",
+      "parentContextLeak": null
+    },
+    {
+      "case": "one-pass",
+      "provider": "scripted",
+      "model": "local",
+      "role": "main",
+      "tool": null,
+      "parentContextLeak": null
+    },
+    {
+      "case": "two-rework",
+      "provider": "scripted",
+      "model": "local",
+      "role": "main",
+      "tool": "apd_host_two_9c166a00b983358bfcb6438152f235f0_run",
+      "parentContextLeak": null
+    },
+    {
+      "case": "two-rework",
+      "provider": "scripted",
+      "model": "local",
+      "role": "developer",
+      "tool": "structured_output",
+      "parentContextLeak": false
+    },
+    {
+      "case": "two-rework",
+      "provider": "scripted",
+      "model": "local",
+      "role": "qa",
+      "tool": "structured_output",
+      "parentContextLeak": false
+    },
+    {
+      "case": "two-rework",
+      "provider": "scripted",
+      "model": "local",
+      "role": "developer",
+      "tool": "structured_output",
+      "parentContextLeak": false
+    },
+    {
+      "case": "two-rework",
+      "provider": "scripted",
+      "model": "local",
+      "role": "qa",
+      "tool": "structured_output",
+      "parentContextLeak": false
+    },
+    {
+      "case": "two-rework",
+      "provider": "scripted",
+      "model": "local",
+      "role": "main",
+      "tool": null,
+      "parentContextLeak": null
+    },
+    {
+      "case": "one-retry3",
+      "provider": "scripted",
+      "model": "local",
+      "role": "main",
+      "tool": "apd_host_one_64c5d78bdfb2dd967b0a45deaa941683_run",
+      "parentContextLeak": null
+    },
+    {
+      "case": "one-retry3",
+      "provider": "scripted",
+      "model": "local",
+      "role": "developer",
+      "tool": "structured_output",
+      "parentContextLeak": false
+    },
+    {
+      "case": "one-retry3",
+      "provider": "scripted",
+      "model": "local",
+      "role": "qa",
+      "tool": "structured_output",
+      "parentContextLeak": false
+    },
+    {
+      "case": "one-retry3",
+      "provider": "scripted",
+      "model": "local",
+      "role": "developer",
+      "tool": "structured_output",
+      "parentContextLeak": false
+    },
+    {
+      "case": "one-retry3",
+      "provider": "scripted",
+      "model": "local",
+      "role": "qa",
+      "tool": "structured_output",
+      "parentContextLeak": false
+    },
+    {
+      "case": "one-retry3",
+      "provider": "scripted",
+      "model": "local",
+      "role": "developer",
+      "tool": "structured_output",
+      "parentContextLeak": false
+    },
+    {
+      "case": "one-retry3",
+      "provider": "scripted",
+      "model": "local",
+      "role": "qa",
+      "tool": "structured_output",
+      "parentContextLeak": false
+    },
+    {
+      "case": "one-retry3",
+      "provider": "scripted",
+      "model": "local",
+      "role": "developer",
+      "tool": "structured_output",
+      "parentContextLeak": false
+    },
+    {
+      "case": "one-retry3",
+      "provider": "scripted",
+      "model": "local",
+      "role": "qa",
+      "tool": "structured_output",
+      "parentContextLeak": false
+    },
+    {
+      "case": "one-retry3",
+      "provider": "scripted",
+      "model": "local",
+      "role": "main",
+      "tool": null,
+      "parentContextLeak": null
+    },
+    {
+      "case": "two-malformed",
+      "provider": "scripted",
+      "model": "local",
+      "role": "main",
+      "tool": "apd_host_two_9c166a00b983358bfcb6438152f235f0_run",
+      "parentContextLeak": null
+    },
+    {
+      "case": "two-malformed",
+      "provider": "scripted",
+      "model": "local",
+      "role": "developer",
+      "tool": null,
+      "parentContextLeak": false
+    },
+    {
+      "case": "two-malformed",
+      "provider": "scripted",
+      "model": "local",
+      "role": "main",
+      "tool": null,
+      "parentContextLeak": null
+    },
+    {
+      "case": "two-interrupt",
+      "provider": "scripted",
+      "model": "local",
+      "role": "main",
+      "tool": "apd_host_two_9c166a00b983358bfcb6438152f235f0_run",
+      "parentContextLeak": null
+    }
+  ],
+  "children": [
+    {
+      "case": "one-pass",
+      "id": "native-main-one-pass",
+      "header": {
+        "version": 4,
+        "id": "native-main-one-pass",
+        "createdAt": 1793640561400,
+        "cwd": "/tmp/harness-native-evidence/run-1793640561217/one-pass",
+        "isSeeded": false
+      }
+    },
+    {
+      "case": "one-pass",
+      "id": "161d5625-696e-408a-ba45-45daf751ae75",
+      "header": {
+        "version": 4,
+        "id": "161d5625-696e-408a-ba45-45daf751ae75",
+        "createdAt": 1793640561424,
+        "cwd": "/tmp/harness-native-evidence/run-1793640561217/one-pass",
+        "parentSession": "native-main-one-pass",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1
+      }
+    },
+    {
+      "case": "one-pass",
+      "id": "aedeacfc-6424-4687-9be1-61368e4d287b",
+      "header": {
+        "version": 4,
+        "id": "aedeacfc-6424-4687-9be1-61368e4d287b",
+        "createdAt": 1793640561439,
+        "cwd": "/tmp/harness-native-evidence/run-1793640561217/one-pass",
+        "parentSession": "native-main-one-pass",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1
+      }
+    },
+    {
+      "case": "two-rework",
+      "id": "native-main-two-rework",
+      "header": {
+        "version": 4,
+        "id": "native-main-two-rework",
+        "createdAt": 1793640561453,
+        "cwd": "/tmp/harness-native-evidence/run-1793640561217/two-rework",
+        "isSeeded": false
+      }
+    },
+    {
+      "case": "two-rework",
+      "id": "6fae1869-52f5-4065-92e2-4f7aeaa98e7b",
+      "header": {
+        "version": 4,
+        "id": "6fae1869-52f5-4065-92e2-4f7aeaa98e7b",
+        "createdAt": 1793640561459,
+        "cwd": "/tmp/harness-native-evidence/run-1793640561217/two-rework",
+        "parentSession": "native-main-two-rework",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1
+      }
+    },
+    {
+      "case": "two-rework",
+      "id": "6ae97668-55e5-4ef5-9907-995b17253d99",
+      "header": {
+        "version": 4,
+        "id": "6ae97668-55e5-4ef5-9907-995b17253d99",
+        "createdAt": 1793640561467,
+        "cwd": "/tmp/harness-native-evidence/run-1793640561217/two-rework",
+        "parentSession": "native-main-two-rework",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1
+      }
+    },
+    {
+      "case": "two-rework",
+      "id": "e95ebf68-a0a9-4e12-b366-b3b4da5ff522",
+      "header": {
+        "version": 4,
+        "id": "e95ebf68-a0a9-4e12-b366-b3b4da5ff522",
+        "createdAt": 1793640561474,
+        "cwd": "/tmp/harness-native-evidence/run-1793640561217/two-rework",
+        "parentSession": "native-main-two-rework",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1
+      }
+    },
+    {
+      "case": "two-rework",
+      "id": "dde1227d-b08a-4177-b756-42ef1af8a51c",
+      "header": {
+        "version": 4,
+        "id": "dde1227d-b08a-4177-b756-42ef1af8a51c",
+        "createdAt": 1793640561482,
+        "cwd": "/tmp/harness-native-evidence/run-1793640561217/two-rework",
+        "parentSession": "native-main-two-rework",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1
+      }
+    },
+    {
+      "case": "one-retry3",
+      "id": "native-main-one-retry3",
+      "header": {
+        "version": 4,
+        "id": "native-main-one-retry3",
+        "createdAt": 1793640561489,
+        "cwd": "/tmp/harness-native-evidence/run-1793640561217/one-retry3",
+        "isSeeded": false
+      }
+    },
+    {
+      "case": "one-retry3",
+      "id": "2eecb952-4f38-4b23-a388-ced5052321ea",
+      "header": {
+        "version": 4,
+        "id": "2eecb952-4f38-4b23-a388-ced5052321ea",
+        "createdAt": 1793640561493,
+        "cwd": "/tmp/harness-native-evidence/run-1793640561217/one-retry3",
+        "parentSession": "native-main-one-retry3",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1
+      }
+    },
+    {
+      "case": "one-retry3",
+      "id": "4844436b-0f2d-4b67-b265-e9e9f9383c9e",
+      "header": {
+        "version": 4,
+        "id": "4844436b-0f2d-4b67-b265-e9e9f9383c9e",
+        "createdAt": 1793640561500,
+        "cwd": "/tmp/harness-native-evidence/run-1793640561217/one-retry3",
+        "parentSession": "native-main-one-retry3",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1
+      }
+    },
+    {
+      "case": "one-retry3",
+      "id": "ecf45d25-91de-4240-a63e-0b2ce2d02ae8",
+      "header": {
+        "version": 4,
+        "id": "ecf45d25-91de-4240-a63e-0b2ce2d02ae8",
+        "createdAt": 1793640561506,
+        "cwd": "/tmp/harness-native-evidence/run-1793640561217/one-retry3",
+        "parentSession": "native-main-one-retry3",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1
+      }
+    },
+    {
+      "case": "one-retry3",
+      "id": "3d7e2f64-12dc-4751-9ca6-ce70aa0d5228",
+      "header": {
+        "version": 4,
+        "id": "3d7e2f64-12dc-4751-9ca6-ce70aa0d5228",
+        "createdAt": 1793640561513,
+        "cwd": "/tmp/harness-native-evidence/run-1793640561217/one-retry3",
+        "parentSession": "native-main-one-retry3",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1
+      }
+    },
+    {
+      "case": "one-retry3",
+      "id": "57d2fe85-8df2-4d76-a503-246c6755563d",
+      "header": {
+        "version": 4,
+        "id": "57d2fe85-8df2-4d76-a503-246c6755563d",
+        "createdAt": 1793640561520,
+        "cwd": "/tmp/harness-native-evidence/run-1793640561217/one-retry3",
+        "parentSession": "native-main-one-retry3",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1
+      }
+    },
+    {
+      "case": "one-retry3",
+      "id": "9f9b827c-6cf9-4d7a-ad7d-0c8e4a1548ba",
+      "header": {
+        "version": 4,
+        "id": "9f9b827c-6cf9-4d7a-ad7d-0c8e4a1548ba",
+        "createdAt": 1793640561526,
+        "cwd": "/tmp/harness-native-evidence/run-1793640561217/one-retry3",
+        "parentSession": "native-main-one-retry3",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1
+      }
+    },
+    {
+      "case": "one-retry3",
+      "id": "3979222b-e18b-4f86-b688-87d51e4adbf6",
+      "header": {
+        "version": 4,
+        "id": "3979222b-e18b-4f86-b688-87d51e4adbf6",
+        "createdAt": 1793640561531,
+        "cwd": "/tmp/harness-native-evidence/run-1793640561217/one-retry3",
+        "parentSession": "native-main-one-retry3",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1
+      }
+    },
+    {
+      "case": "one-retry3",
+      "id": "fce8f6a8-e157-4d52-aa3d-8a0fb3b86d00",
+      "header": {
+        "version": 4,
+        "id": "fce8f6a8-e157-4d52-aa3d-8a0fb3b86d00",
+        "createdAt": 1793640561538,
+        "cwd": "/tmp/harness-native-evidence/run-1793640561217/one-retry3",
+        "parentSession": "native-main-one-retry3",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1
+      }
+    },
+    {
+      "case": "two-malformed",
+      "id": "native-main-two-malformed",
+      "header": {
+        "version": 4,
+        "id": "native-main-two-malformed",
+        "createdAt": 1793640561546,
+        "cwd": "/tmp/harness-native-evidence/run-1793640561217/two-malformed",
+        "isSeeded": false
+      }
+    },
+    {
+      "case": "two-malformed",
+      "id": "f20408fb-b028-4388-83df-e69ede44f1be",
+      "header": {
+        "version": 4,
+        "id": "f20408fb-b028-4388-83df-e69ede44f1be",
+        "createdAt": 1793640561550,
+        "cwd": "/tmp/harness-native-evidence/run-1793640561217/two-malformed",
+        "parentSession": "native-main-two-malformed",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1
+      }
+    },
+    {
+      "case": "two-interrupt",
+      "id": "native-main-two-interrupt",
+      "header": {
+        "version": 4,
+        "id": "native-main-two-interrupt",
+        "createdAt": 1793640561556,
+        "cwd": "/tmp/harness-native-evidence/run-1793640561217/two-interrupt",
+        "isSeeded": false
+      }
+    },
+    {
+      "case": "two-interrupt",
+      "id": "c4096455-e649-4055-9051-cf08962c66a7",
+      "header": {
+        "version": 4,
+        "id": "c4096455-e649-4055-9051-cf08962c66a7",
+        "createdAt": 1793640561559,
+        "cwd": "/tmp/harness-native-evidence/run-1793640561217/two-interrupt",
+        "parentSession": "native-main-two-interrupt",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1
+      }
+    }
+  ],
+  "checks": [
+    {
+      "case": "one-pass",
+      "check": "passed resume creates no children",
+      "passed": true
+    },
+    {
+      "case": "one-retry3",
+      "check": "native human command rejects passed override",
+      "execution": {
+        "commandId": "cmd-1885bbc2-1",
+        "result": {
+          "kind": "error",
+          "text": "human cannot manufacture QA passed"
+        }
+      },
+      "state": "human_paused"
+    },
+    {
+      "case": "one-retry3",
+      "check": "native command records allowed failed decision; simulated human command admission",
+      "execution": {
+        "commandId": "cmd-1885bbc2-2",
+        "result": {
+          "kind": "success",
+          "text": "failed"
+        }
+      },
+      "state": "failed"
+    }
+  ],
+  "structuredToolResults": [
+    {
+      "case": "one-pass",
+      "sessionId": "161d5625-696e-408a-ba45-45daf751ae75",
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "Structured output recorded."
+          }
+        ],
+        "concludesTurn": true,
+        "value": {
+          "recorded": true
+        }
+      }
+    },
+    {
+      "case": "one-pass",
+      "sessionId": "aedeacfc-6424-4687-9be1-61368e4d287b",
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "Structured output recorded."
+          }
+        ],
+        "concludesTurn": true,
+        "value": {
+          "recorded": true
+        }
+      }
+    },
+    {
+      "case": "two-rework",
+      "sessionId": "6fae1869-52f5-4065-92e2-4f7aeaa98e7b",
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "Structured output recorded."
+          }
+        ],
+        "concludesTurn": true,
+        "value": {
+          "recorded": true
+        }
+      }
+    },
+    {
+      "case": "two-rework",
+      "sessionId": "6ae97668-55e5-4ef5-9907-995b17253d99",
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "Structured output recorded."
+          }
+        ],
+        "concludesTurn": true,
+        "value": {
+          "recorded": true
+        }
+      }
+    },
+    {
+      "case": "two-rework",
+      "sessionId": "e95ebf68-a0a9-4e12-b366-b3b4da5ff522",
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "Structured output recorded."
+          }
+        ],
+        "concludesTurn": true,
+        "value": {
+          "recorded": true
+        }
+      }
+    },
+    {
+      "case": "two-rework",
+      "sessionId": "dde1227d-b08a-4177-b756-42ef1af8a51c",
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "Structured output recorded."
+          }
+        ],
+        "concludesTurn": true,
+        "value": {
+          "recorded": true
+        }
+      }
+    },
+    {
+      "case": "one-retry3",
+      "sessionId": "2eecb952-4f38-4b23-a388-ced5052321ea",
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "Structured output recorded."
+          }
+        ],
+        "concludesTurn": true,
+        "value": {
+          "recorded": true
+        }
+      }
+    },
+    {
+      "case": "one-retry3",
+      "sessionId": "4844436b-0f2d-4b67-b265-e9e9f9383c9e",
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "Structured output recorded."
+          }
+        ],
+        "concludesTurn": true,
+        "value": {
+          "recorded": true
+        }
+      }
+    },
+    {
+      "case": "one-retry3",
+      "sessionId": "ecf45d25-91de-4240-a63e-0b2ce2d02ae8",
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "Structured output recorded."
+          }
+        ],
+        "concludesTurn": true,
+        "value": {
+          "recorded": true
+        }
+      }
+    },
+    {
+      "case": "one-retry3",
+      "sessionId": "3d7e2f64-12dc-4751-9ca6-ce70aa0d5228",
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "Structured output recorded."
+          }
+        ],
+        "concludesTurn": true,
+        "value": {
+          "recorded": true
+        }
+      }
+    },
+    {
+      "case": "one-retry3",
+      "sessionId": "57d2fe85-8df2-4d76-a503-246c6755563d",
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "Structured output recorded."
+          }
+        ],
+        "concludesTurn": true,
+        "value": {
+          "recorded": true
+        }
+      }
+    },
+    {
+      "case": "one-retry3",
+      "sessionId": "9f9b827c-6cf9-4d7a-ad7d-0c8e4a1548ba",
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "Structured output recorded."
+          }
+        ],
+        "concludesTurn": true,
+        "value": {
+          "recorded": true
+        }
+      }
+    },
+    {
+      "case": "one-retry3",
+      "sessionId": "3979222b-e18b-4f86-b688-87d51e4adbf6",
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "Structured output recorded."
+          }
+        ],
+        "concludesTurn": true,
+        "value": {
+          "recorded": true
+        }
+      }
+    },
+    {
+      "case": "one-retry3",
+      "sessionId": "fce8f6a8-e157-4d52-aa3d-8a0fb3b86d00",
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "Structured output recorded."
+          }
+        ],
+        "concludesTurn": true,
+        "value": {
+          "recorded": true
+        }
+      }
+    }
+  ],
+  "provenance": {
+    "repoEngineSourceSha256": "d2a2c980197003a8c567d0f518dc3cf1595ac9d3655e736409c5b8ef33484650",
+    "repoRunnerSourceSha256": "af9889b32ecd7c6731fdba021e72c8f49755a3f5977e6214160df556f4271cda",
+    "repoAdapterSourceSha256": "d409962184fb898bfb458dd843f25c5d844ec02f3f1eb992b2990a2248a742ae",
+    "bundles": {
+      "one": {
+        "id": "apd-host-one-64c5d78bdfb2dd967b0a45deaa941683",
+        "version": "1.0.0",
+        "predicates": {
+          "pass": {
+            "code": "QA_PASSED_BOUND",
+            "edgeId": "e4"
+          },
+          "rework": {
+            "code": "QA_FAILED_REWORK_LT_3",
+            "edgeId": "e5"
+          },
+          "human": {
+            "code": "QA_FAILED_REWORK_EQ_3",
+            "fallbackNodeId": "human"
+          }
+        },
+        "bundleFileSha256": "360efd6bea4d093b75fd58254428dc9875af91033c02734ab1581aaaf791ba94",
+        "bundleCanonicalSha256": "dd6c266a2ce27a5d2e6461f8f599869b190b0b732ea350040ea14993ee9132fd",
+        "nativeEntrypointSha256": "d409962184fb898bfb458dd843f25c5d844ec02f3f1eb992b2990a2248a742ae",
+        "generatedEngineSha256": "d2a2c980197003a8c567d0f518dc3cf1595ac9d3655e736409c5b8ef33484650",
+        "generatedRunnerSha256": "af9889b32ecd7c6731fdba021e72c8f49755a3f5977e6214160df556f4271cda"
+      },
+      "two": {
+        "id": "apd-host-two-9c166a00b983358bfcb6438152f235f0",
+        "version": "1.0.0",
+        "predicates": {
+          "pass": {
+            "code": "QA_PASSED_BOUND",
+            "edgeId": "e4"
+          },
+          "rework": {
+            "code": "QA_FAILED_REWORK_LT_3",
+            "edgeId": "e5"
+          },
+          "human": {
+            "code": "QA_FAILED_REWORK_EQ_3",
+            "fallbackNodeId": "human"
+          }
+        },
+        "bundleFileSha256": "2e3870d9954200b85a5b33a271870f2a1bb70a59dd6a32525199fa4667304f9a",
+        "bundleCanonicalSha256": "78cc2cccfb3ce305a0ce720f74cec790e442512e437a257428304e6efd4b38f5",
+        "nativeEntrypointSha256": "d409962184fb898bfb458dd843f25c5d844ec02f3f1eb992b2990a2248a742ae",
+        "generatedEngineSha256": "d2a2c980197003a8c567d0f518dc3cf1595ac9d3655e736409c5b8ef33484650",
+        "generatedRunnerSha256": "af9889b32ecd7c6731fdba021e72c8f49755a3f5977e6214160df556f4271cda"
+      }
+    }
+  }
+}

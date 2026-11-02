@@ -30,7 +30,7 @@ func (Exports) Save(name, encoded string) (bool, error) {
 		return false, errors.New("导出数据无效")
 	}
 	name = filepath.Base(strings.ReplaceAll(name, `\`, "/"))
-	if name != "PLUGIN.md" && name != "agent-plugin.zip" && !strings.HasSuffix(name, ".agent-project.json") {
+	if name != "PLUGIN.md" && name != "agent-plugin.zip" && name != "agent-plugin-codex.zip" && name != "agent-plugin-deepseek.zip" && !strings.HasSuffix(name, ".agent-project.json") {
 		return false, errors.New("不支持的导出类型")
 	}
 	name = strings.Map(func(r rune) rune {
