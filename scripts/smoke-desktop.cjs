@@ -15,7 +15,7 @@ async function dialog(page,action,path,name,cancel=false){
  if(cancel)args.push('-Cancel');else args.push('-Path',path);
  const child=spawn('powershell',args);let log='';child.stdout.on('data',b=>log+=b);child.stderr.on('data',b=>log+=b);
  const done=new Promise((res,rej)=>child.on('exit',code=>code===0?res():rej(Error(log))));
- await action();await sleep(300);console.log('DIALOG_ACTION_STATUS',await page.locator('.toast').allTextContents());await done;return log;
+ await action();await sleep(300);console.log('DIALOG_ACTION_STATUS',await page.locator('.toast').allTextContents());await done;console.log(log);return log;
 }
 async function open(){
  const net=require('node:net');const server=net.createServer();await new Promise(r=>server.listen(0,'127.0.0.1',r));const port=server.address().port;await new Promise(r=>server.close(r));
@@ -58,4 +58,4 @@ async function open(){
  writeFileSync(join(out,'desktop-results.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));
  // Full resolution evidence remains in the verification artifact.
  console.log('Windows verification complete');
-})().catch(async e=>{console.error(e);console.error('PAGE CONSOLE',messages);console.error('APP STDERR',active?.log());if(active?.page)await preview(active.page,'FAILURE').catch(()=>{});process.exit(1)});
+})().catch(async e=>{console.error(e);console.error('PAGE CONSOLE',messages);console.error('APP STDERR',active?.log());for(const name of ['project-dialog.png','plugin-dialog.png']){const file=join(out,name);if(existsSync(file)){console.log('NATIVE_'+name.replaceAll(/[.-]/g,'_')+'_BASE64_BEGIN');console.log(readFileSync(file).toString('base64'));console.log('NATIVE_'+name.replaceAll(/[.-]/g,'_')+'_BASE64_END');}}if(active?.page)await preview(active.page,'FAILURE').catch(()=>{});process.exit(1)});

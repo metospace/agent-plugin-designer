@@ -33,10 +33,16 @@ if($Cancel) {
  $button=$dialog.FindFirst([System.Windows.Automation.TreeScope]::Descendants,([System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::AutomationIdProperty,'2')))
  $button.GetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern).Invoke()
 } else {
- $edits=$dialog.FindAll([System.Windows.Automation.TreeScope]::Descendants,([System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::ControlTypeProperty,[System.Windows.Automation.ControlType]::Edit)))
+ $controls=$dialog.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.Condition]::TrueCondition)
  $edit=$null
- foreach($e in $edits){if($e.Current.AutomationId -eq '1001'){$edit=$e;break}}
- if(!$edit){throw 'Filename edit control 1001 not found'}
+ foreach($e in $controls){
+  if($e.Current.ControlType -in @([System.Windows.Automation.ControlType]::Edit,[System.Windows.Automation.ControlType]::ComboBox,[System.Windows.Automation.ControlType]::Button)) { Write-Output ("Dialog control: name="+$e.Current.Name+" id="+$e.Current.AutomationId+" type="+$e.Current.ControlType.ProgrammaticName) }
+  if($e.Current.AutomationId -in @('1001','1148','FileNameTextBox','FileNameControlHost') -or $e.Current.Name -match '^File name:?$') {
+   $pattern=$null
+   if($e.TryGetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern,[ref]$pattern)) { $edit=$e }
+  }
+ }
+ if(!$edit){throw 'Accessible filename ValuePattern control not found'}
  $edit.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).SetValue($Path)
  $button=$dialog.FindFirst([System.Windows.Automation.TreeScope]::Descendants,([System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::AutomationIdProperty,'1')))
  $button.GetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern).Invoke()
