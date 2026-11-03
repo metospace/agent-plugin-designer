@@ -48,10 +48,9 @@ describe('beginner input and delivery defaults',()=>{
 
 describe('uid',()=>{
  it('returns a UUID-shaped id',()=>{expect(uid()).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);});
- it('falls back when randomUUID is unavailable',()=>{const original=crypto.randomUUID;const descriptor=Object.getOwnPropertyDescriptor(crypto,'randomUUID');
-  // @ts-expect-error force insecure-context shape
-  delete (crypto as {randomUUID?:unknown}).randomUUID;
+ it('falls back when randomUUID is unavailable',()=>{const descriptor=Object.getOwnPropertyDescriptor(crypto,'randomUUID');
+  Object.defineProperty(crypto,'randomUUID',{configurable:true,writable:true,value:undefined});
   try{const id=uid();expect(id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);expect(seed().id).toMatch(/^[0-9a-f-]{36}$/i);}
-  finally{if(descriptor)Object.defineProperty(crypto,'randomUUID',descriptor);else (crypto as {randomUUID:typeof original}).randomUUID=original;}
+  finally{if(descriptor)Object.defineProperty(crypto,'randomUUID',descriptor);else Reflect.deleteProperty(crypto,'randomUUID');}
  });
 });
