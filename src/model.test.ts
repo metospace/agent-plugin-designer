@@ -1,7 +1,7 @@
 import 'fake-indexeddb/auto';
 import {describe,it,expect} from 'vitest';
 import JSZip from 'jszip';
-import {seed,validate,serialize,parseProject,markdown,runtimeZip,saveLibrary,loadLibrary,needsZip,documentChecks,edgeKind,edgeLabel,nodeInputSummary,nodeOutputSummary} from './model';
+import {seed,uid,validate,serialize,parseProject,markdown,runtimeZip,saveLibrary,loadLibrary,needsZip,documentChecks,edgeKind,edgeLabel,nodeInputSummary,nodeOutputSummary} from './model';
 describe('project format',()=>{
  it('retains layout, all versions, bindings and bounded rework across round-trip',()=>{const p=seed();p.skills[0].versions.push({version:2,definition:'new version',resources:[]});expect(parseProject(serialize(p))).toEqual(p);});
  it('rejects corrupt, unknown versions and unsafe IDs',()=>{expect(()=>parseProject('{')).toThrow();const p=seed();expect(()=>parseProject(JSON.stringify({...p,schemaVersion:2}))).toThrow();p.skills[0].id='../escape';expect(()=>parseProject(JSON.stringify(p))).toThrow();});
@@ -44,4 +44,14 @@ describe('beginner input and delivery defaults',()=>{
  it('exports a complete simple flow with no IO, skill, condition or handoff text',()=>{const p=simple();expect(validate(p)).toEqual([]);expect(documentChecks(p)).toEqual([]);expect(parseProject(serialize(p))).toEqual(p);const text=markdown(p);expect(text).toContain('承接所有实际到达的上游步骤结果');expect(text).toContain('交付这一步完成后的结果');expect(text).toContain('承接上游步骤完成结果（未另行指定交接要求）');expect(text).not.toContain('输入输出尚未填写');});
  it('preserves detailed legacy IO and honors explicit configuration before role IO, delivery and defaults',()=>{const p=simple(),n=p.nodes.find(n=>n.id==='dev')!;n.data.delivery='一段通俗摘要';expect(nodeOutputSummary(p,n)).toBe('一段通俗摘要');p.roles[0].input='旧输入：经过确认的需求';p.roles[0].output='旧输出：完整验收报告';expect(nodeInputSummary(p,n)).toContain('旧输入：经过确认的需求');expect(nodeOutputSummary(p,n)).toContain('旧输出：完整验收报告');n.data.config={inputs:{source:'input.source'},outputs:{text:'data.report'},outputFields:[{name:'text',type:'string'}]};expect(nodeInputSummary(p,n)).toContain('高级输入映射');expect(nodeOutputSummary(p,n)).toContain('高级输出定义');expect(nodeOutputSummary(p,n)).toContain('本步骤交付说明作为补充：一段通俗摘要');const text=markdown(p);expect(text).toContain('旧输入：经过确认的需求');expect(text).toContain('旧输出：完整验收报告');expect(text).toContain('本步骤的可选交付说明：一段通俗摘要');expect(text).toContain('"text": "data.report"');expect(parseProject(serialize(p))).toEqual(p);});
  it('lists every upstream source and distinguishes actually arrived results from join waiting',()=>{const p=simple(),n=p.nodes.find(n=>n.id==='dev')!;p.edges.push({id:'other',source:'other-source',target:n.id,data:{condition:'',handoff:'',maxRetries:0,fallback:''}});let summary=nodeInputSummary(p,n);expect(summary).toContain('任务开始');expect(summary).toContain('待补全的上游步骤');expect(summary).toContain('所有实际到达');expect(summary).toContain('不默认等待未触发的条件分支');n.data.kind='join';summary=nodeInputSummary(p,n);expect(summary).toContain('等待对应并行流程的全部分支完成');expect(summary).toContain('任务开始');expect(summary).toContain('待补全的上游步骤');});
+});
+
+describe('uid',()=>{
+ it('returns a UUID-shaped id',()=>{expect(uid()).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);});
+ it('falls back when randomUUID is unavailable',()=>{const original=crypto.randomUUID;const descriptor=Object.getOwnPropertyDescriptor(crypto,'randomUUID');
+  // @ts-expect-error force insecure-context shape
+  delete (crypto as {randomUUID?:unknown}).randomUUID;
+  try{const id=uid();expect(id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);expect(seed().id).toMatch(/^[0-9a-f-]{36}$/i);}
+  finally{if(descriptor)Object.defineProperty(crypto,'randomUUID',descriptor);else (crypto as {randomUUID:typeof original}).randomUUID=original;}
+ });
 });
