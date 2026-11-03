@@ -1,0 +1,8 @@
+{
+  "evidencePrefix": "edge-document",
+  "fixtures": [
+    {"directory": "deliverables/edge-ui", "name": "mixed-connections"},
+    {"directory": "deliverables/edge-ui", "name": "legacy-constraints"},
+    {"directory": "deliverables/edge-ui", "name": "beginner-defaults"}
+  ]
+}

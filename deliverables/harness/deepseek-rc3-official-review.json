@@ -1,0 +1,98 @@
+{
+  "classification": "OFFICIAL PUBLISHED SOURCE REVIEW; NOT DESKTOP UI VERIFICATION",
+  "package": "@deepseek-ai/dsh@0.2.1-rc.3",
+  "registry": "https://registry.npmjs.org/@deepseek-ai/dsh/0.2.1-rc.3",
+  "isolatedInstall": "/tmp/apd-dsh-rc3",
+  "installArgs": [
+    "npm",
+    "install",
+    "--prefix",
+    "/tmp/apd-dsh-rc3",
+    "--cache",
+    "/tmp/apd-dsh-npm-cache",
+    "--ignore-scripts",
+    "--no-audit",
+    "--no-fund",
+    "@deepseek-ai/dsh@0.2.1-rc.3"
+  ],
+  "actualVersion": "0.2.1-rc.3",
+  "officialRepository": "https://github.com/deepseek-ai/deepseek-harness",
+  "officialReviewCommit": "1f81c047fc48fa190a683e469daa699857e9afe8",
+  "desktopReference": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/apps/desktop/README.zh.md#bundled-command-runtime",
+  "findings": {
+    "npmCliDesktopProfile": "rejected by rejectElectronProfile unless installation passes manageDesktopProfile",
+    "profileIsolation": "CLI workflow/web installation does not activate Desktop desktop profile",
+    "desktopSteps": [
+      "Initialize Desktop by opening it once",
+      "Fully quit Desktop",
+      "Use that Desktop installation resources/runtime/cli/bin/dsh (Windows dsh.cmd), not npm dsh",
+      "plugin --profile desktop add <permanent absolute extracted package directory>",
+      "Reopen Desktop and explicitly ask the model to call the unique guide tool with {}"
+    ],
+    "testedDesktopUi": false,
+    "toolApi": "defineTool with parameters {}, output string schema/render, execute returns complete Markdown; no subagent API needed",
+    "desktopBundledEntryConfirmedAtExactTag": true,
+    "desktopPackaging": "exact rc.3 electron-builder config extraResources copies prepared runtime to resources/runtime"
+  },
+  "files": [
+    {
+      "path": "dsh/package.json",
+      "sha256": "11831849c0a40031562e07b6b650e6b417bf4741d15bac896f73397cf8606a91"
+    },
+    {
+      "path": "dsh/README.zh.md",
+      "sha256": "52a3d6faef82968bc3ce8352d8010adebb1489a1accc9d402dd2e937d82cfba7"
+    },
+    {
+      "path": "dsh/lib/bin.js",
+      "sha256": "80112efe368efb1a39720c7ada0af00442e5131fb2744edaaff8a3e8bb499e6f"
+    },
+    {
+      "path": "dsh/lib/plugin-BiveYA7h.js",
+      "sha256": "90ecf1a560df0795198a572266fd6644c8ddf1a87f65990110d6caf5223c5b75"
+    },
+    {
+      "path": "dsh-tools/package.json",
+      "sha256": "625629cc08e44e134a9861a4d26b2f3a6d70bc2e50b12279275061607d7d702a"
+    },
+    {
+      "path": "dsh-tools/lib/types/index.d.ts",
+      "sha256": "049df0624956583b8ca05badfd6e9115c6933481571dc17965f36f407bdf95f0"
+    },
+    {
+      "path": "dsh-tools/lib/types/schema.d.ts",
+      "sha256": "ecb08a02eec791f3c8cec6209a27893f7b1ff58f9269abca77cfa5c173f96d14"
+    }
+  ],
+  "officialTag": "dsh-v0.2.1-rc.3",
+  "tagSourceFiles": [
+    {
+      "path": "apps/desktop/package.json",
+      "sha256": "4648b0248d3f2de2abce7d19ff83bccef1b642f7dedb024fbed1467a7d8c5c20"
+    },
+    {
+      "path": "apps/desktop/README.zh.md",
+      "sha256": "1f7fde0156dec035d592ad23e855e1db1ceae0f59a09401d5676e805fb772b93"
+    },
+    {
+      "path": "apps/desktop/cli/dsh.cmd",
+      "sha256": "5f017fef14b7b311414ecaffe272714ab470f9dabc9720687b5e676fcd5115b8"
+    },
+    {
+      "path": "apps/desktop/scripts/prepare-cli.ts",
+      "sha256": "f51ba0a09eef7b609170548a163c40938331744e751b91d799533f51ffac0438"
+    },
+    {
+      "path": "apps/desktop/scripts/prepare-runtime.ts",
+      "sha256": "a6459e1b0319ed5ced9d41c42c7a29e5a7953b8026453ac3fd4016bad6bcc79c"
+    },
+    {
+      "path": "apps/desktop-host/src/cli.ts",
+      "sha256": "135981854182762fdf680fcbf0fecbaa8e109f10c30d5b7e4a48f72b5ad3f235"
+    },
+    {
+      "path": "apps/desktop/scripts/electron-builder-config.mjs",
+      "sha256": "5f5fe52e0c5d275eac1344eef55ef16448edb4cea74ddd44f421fda9463d6dd0"
+    }
+  ]
+}

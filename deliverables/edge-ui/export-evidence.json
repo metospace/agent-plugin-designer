@@ -1,0 +1,56 @@
+{
+  "createdVia": "Real UI fields and native export buttons: tests/connections.spec.ts",
+  "mode": "documentation",
+  "previewEqualsMarkdownAndPackageWorkflow": true,
+  "dshDocumentPeerRange": "0.2.1-rc.3 || 0.2.1-rc.5",
+  "files": [
+    {
+      "file": "beginner-defaults-codex.zip",
+      "sha256": "296750e61df72fc05b22c351144f724fd1b0e3360d5649e60707e1bccf063932"
+    },
+    {
+      "file": "beginner-defaults-deepseek.zip",
+      "sha256": "b11f59f8d86343a5a0e3c297c803d4dfb9ee19c619d11e4e3ad6760d8657fcd5"
+    },
+    {
+      "file": "beginner-defaults.agent-project.json",
+      "sha256": "12967c92e2b2949bd7d31e5af83f08157ac29cecf683989e2f19d82ee9c1c8d8"
+    },
+    {
+      "file": "beginner-defaults.md",
+      "sha256": "c368195c16936baa0280b74fe90b0dd07d73511c59f109a5f3b7c8514da1d458"
+    },
+    {
+      "file": "legacy-constraints-codex.zip",
+      "sha256": "b22bd0a52ce2058741810d1401897c65a6b54156eca2ff73872665debf9182e5"
+    },
+    {
+      "file": "legacy-constraints-deepseek.zip",
+      "sha256": "7b01ba29dfd6c59e0213ea66ae9405097fe36e7750b0b5f9955dc509c5fda7ba"
+    },
+    {
+      "file": "legacy-constraints.agent-project.json",
+      "sha256": "30ca20dfdbbbf7707795a1c5a810b4bbe693da19c5e0bd6772b85b5a9f5cb3a7"
+    },
+    {
+      "file": "legacy-constraints.md",
+      "sha256": "52f556befd52b8b6e39d616a91272020f60be98b8427a509818bd636bd5dea62"
+    },
+    {
+      "file": "mixed-connections-codex.zip",
+      "sha256": "9f7f2f491ac357beb29b9ecaa5343e57dcf82a95a2b7191f86fd12263b239e97"
+    },
+    {
+      "file": "mixed-connections-deepseek.zip",
+      "sha256": "8b372586d3304335a8cfe341bb45ca3f8e5f19b96be5a568ee1761a902e4d4a6"
+    },
+    {
+      "file": "mixed-connections.agent-project.json",
+      "sha256": "3df49f43e901f90292108f0492c2e6fb336c67eb1220cf938fc4ab34141a7f66"
+    },
+    {
+      "file": "mixed-connections.md",
+      "sha256": "e142609a29cac92314c3dfc62a67797a77e5b1cddf1a0def3f73babccc1c0622"
+    }
+  ]
+}

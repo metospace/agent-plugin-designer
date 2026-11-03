@@ -98,6 +98,320 @@
   },
   "suites": [
     {
+      "title": "ai.spec.ts",
+      "file": "ai.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "AI browser preview without a native bridge stays unavailable",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1101,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T01:02:22.031Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f4c16ad2df3b1859900b-bba245a623ab316d9680",
+          "file": "ai.spec.ts",
+          "line": 39,
+          "column": 1
+        },
+        {
+          "title": "AI simulated success previews before one apply, blocks duplicate clicks, and undoes once",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1950,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T01:02:23.647Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f4c16ad2df3b1859900b-c34c18fb80b3ddd52126",
+          "file": "ai.spec.ts",
+          "line": 41,
+          "column": 1
+        },
+        {
+          "title": "AI can create in an empty graph without erasing another project",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1668,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T01:02:25.611Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f4c16ad2df3b1859900b-e28502991395a65426e1",
+          "file": "ai.spec.ts",
+          "line": 43,
+          "column": 1
+        },
+        {
+          "title": "AI selected-node changes require fresh consent and cannot modify another node",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2368,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T01:02:27.288Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f4c16ad2df3b1859900b-1f9aa62182edee548e95",
+          "file": "ai.spec.ts",
+          "line": 45,
+          "column": 1
+        },
+        {
+          "title": "AI full-context consent is per request and previous conversation is not sent automatically",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1306,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T01:02:29.669Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f4c16ad2df3b1859900b-8dc0b3141d7f936e9a6e",
+          "file": "ai.spec.ts",
+          "line": 47,
+          "column": 1
+        },
+        {
+          "title": "AI cancel ignores late results and editing the canvas invalidates a pending preview",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1867,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T01:02:30.983Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f4c16ad2df3b1859900b-a74536c7d75ee61b2843",
+          "file": "ai.spec.ts",
+          "line": 49,
+          "column": 1
+        },
+        {
+          "title": "AI rejects unknown fields, dangling references, oversize and tool calls without mutations",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2735,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T01:02:32.859Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f4c16ad2df3b1859900b-20fff7f0e6c9f0e34ae2",
+          "file": "ai.spec.ts",
+          "line": 51,
+          "column": 1
+        },
+        {
+          "title": "AI shows safe service errors and remote HTTP needs explicit confirmation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1342,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T01:02:35.606Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f4c16ad2df3b1859900b-7fb6031742c28c0d101f",
+          "file": "ai.spec.ts",
+          "line": 53,
+          "column": 1
+        },
+        {
+          "title": "AI keys never enter project, Markdown, ZIP or saved browser data and close clears the session",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1908,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T01:02:36.960Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f4c16ad2df3b1859900b-4aef13d3e38f3942730b",
+          "file": "ai.spec.ts",
+          "line": 55,
+          "column": 1
+        }
+      ]
+    },
+    {
       "title": "app.spec.ts",
       "file": "app.spec.ts",
       "column": 0,
@@ -119,12 +433,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 5364,
+                  "duration": 5121,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-03T00:06:15.225Z",
+                  "startTime": "2026-11-03T01:02:38.886Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -153,12 +467,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1463,
+                  "duration": 1488,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-03T00:06:21.067Z",
+                  "startTime": "2026-11-03T01:02:44.015Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -187,12 +501,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1291,
+                  "duration": 1275,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-03T00:06:22.540Z",
+                  "startTime": "2026-11-03T01:02:45.512Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -203,6 +517,116 @@
           "id": "c31ff144dc4fee3acd0a-753a7fc5d02e8ef75ae9",
           "file": "app.spec.ts",
           "line": 28,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "connections.spec.ts",
+      "file": "connections.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "ordinary and parallel edges need no condition; only branch edges offer conditions/default",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4312,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T01:02:46.804Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b748afb17871306c20bc-42e5ab2c434f2545323a",
+          "file": "connections.spec.ts",
+          "line": 7,
+          "column": 1
+        },
+        {
+          "title": "legacy sequence constraints remain visible editable and preserved with structured compatibility data",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1779,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T01:02:51.124Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b748afb17871306c20bc-2279c138a329a5a1b572",
+          "file": "connections.spec.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "beginner creates and exports an Agent workflow without any I/O, handoff or schema fields",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3116,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T01:02:52.914Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b748afb17871306c20bc-d67165cc10a2bc553edf",
+          "file": "connections.spec.ts",
+          "line": 10,
           "column": 1
         }
       ]
@@ -229,7 +653,7 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 17324,
+                  "duration": 18634,
                   "errors": [],
                   "stdout": [
                     {
@@ -262,7 +686,7 @@
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-03T00:06:23.877Z",
+                  "startTime": "2026-11-03T01:02:56.046Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -299,12 +723,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 12713,
+                  "duration": 12594,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-03T00:06:41.214Z",
+                  "startTime": "2026-11-03T01:03:14.694Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -341,7 +765,7 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 18705,
+                  "duration": 19307,
                   "errors": [],
                   "stdout": [
                     {
@@ -431,7 +855,7 @@
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-03T00:06:53.943Z",
+                  "startTime": "2026-11-03T01:03:27.306Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -460,12 +884,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 5801,
+                  "duration": 5826,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-03T00:07:12.658Z",
+                  "startTime": "2026-11-03T01:03:46.622Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -502,12 +926,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1262,
+                  "duration": 1209,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-03T00:07:18.471Z",
+                  "startTime": "2026-11-03T01:03:52.463Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -544,12 +968,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2023,
+                  "duration": 2046,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-03T00:07:19.751Z",
+                  "startTime": "2026-11-03T01:03:53.691Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -567,9 +991,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-11-03T00:06:14.629Z",
-    "duration": 67236.932,
-    "expected": 9,
+    "startTime": "2026-11-03T01:02:21.397Z",
+    "duration": 94437.386,
+    "expected": 21,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

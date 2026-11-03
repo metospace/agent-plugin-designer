@@ -1,15 +1,27 @@
-[WebServer] 127.0.0.1 - - [03/Nov/2026 00:06:14] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [03/Nov/2026 01:02:21] "GET / HTTP/1.1" 200 -
 
-Running 9 tests using 1 worker
+Running 21 tests using 1 worker
 
-(node:73847) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(node:91325) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
-  ✓  1 tests/app.spec.ts:3:1 › primary workflow, persistence, round-trip, CRUD, cancel and repeated actions (5.4s)
-  ✓  2 tests/app.spec.ts:22:1 › blank project connect, edge editing, node movement and validation focus (1.5s)
-[WebServer] 127.0.0.1 - - [03/Nov/2026 00:06:23] "GET / HTTP/1.1" 200 -
-[WebServer] 127.0.0.1 - - [03/Nov/2026 00:06:23] code 404, message File not found
-[WebServer] 127.0.0.1 - - [03/Nov/2026 00:06:23] "GET /favicon.ico HTTP/1.1" 404 -
-  ✓  3 tests/app.spec.ts:28:1 › 1280 layout and production build over HTTP (1.3s)
+  ✓   1 tests/ai.spec.ts:39:1 › AI browser preview without a native bridge stays unavailable (1.1s)
+  ✓   2 tests/ai.spec.ts:41:1 › AI simulated success previews before one apply, blocks duplicate clicks, and undoes once (1.9s)
+  ✓   3 tests/ai.spec.ts:43:1 › AI can create in an empty graph without erasing another project (1.7s)
+  ✓   4 tests/ai.spec.ts:45:1 › AI selected-node changes require fresh consent and cannot modify another node (2.4s)
+  ✓   5 tests/ai.spec.ts:47:1 › AI full-context consent is per request and previous conversation is not sent automatically (1.3s)
+  ✓   6 tests/ai.spec.ts:49:1 › AI cancel ignores late results and editing the canvas invalidates a pending preview (1.9s)
+  ✓   7 tests/ai.spec.ts:51:1 › AI rejects unknown fields, dangling references, oversize and tool calls without mutations (2.7s)
+  ✓   8 tests/ai.spec.ts:53:1 › AI shows safe service errors and remote HTTP needs explicit confirmation (1.3s)
+  ✓   9 tests/ai.spec.ts:55:1 › AI keys never enter project, Markdown, ZIP or saved browser data and close clears the session (1.9s)
+  ✓  10 tests/app.spec.ts:3:1 › primary workflow, persistence, round-trip, CRUD, cancel and repeated actions (5.1s)
+  ✓  11 tests/app.spec.ts:22:1 › blank project connect, edge editing, node movement and validation focus (1.5s)
+[WebServer] 127.0.0.1 - - [03/Nov/2026 01:02:46] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [03/Nov/2026 01:02:46] code 404, message File not found
+[WebServer] 127.0.0.1 - - [03/Nov/2026 01:02:46] "GET /favicon.ico HTTP/1.1" 404 -
+  ✓  12 tests/app.spec.ts:28:1 › 1280 layout and production build over HTTP (1.3s)
+  ✓  13 tests/connections.spec.ts:7:1 › ordinary and parallel edges need no condition; only branch edges offer conditions/default (4.3s)
+  ✓  14 tests/connections.spec.ts:9:1 › legacy sequence constraints remain visible editable and preserved with structured compatibility data (1.8s)
+  ✓  15 tests/connections.spec.ts:10:1 › beginner creates and exports an Agent workflow without any I/O, handoff or schema fields (3.1s)
 document blank 自然语言多路策划
 document team 策划研究员
 document export natural-branches
@@ -19,8 +31,8 @@ document export parallel-human
 document blank 未完成的迭代草稿
 document team 草稿编辑员
 document export draft-loop
-  ✓  4 tests/document-workflows.spec.ts:10:1 › document-first UI freely exports natural-language branches, parallel human work and unfinished loop drafts (17.3s)
-  ✓  5 tests/drag.spec.ts:5:1 › continuous drag keeps nodes, edge paths and viewport stable; schema, undo and reload preserve endpoints (12.7s)
+  ✓  16 tests/document-workflows.spec.ts:10:1 › document-first UI freely exports natural-language branches, parallel human work and unfinished loop drafts (18.6s)
+  ✓  17 tests/drag.spec.ts:5:1 › continuous drag keeps nodes, edge paths and viewport stable; schema, undo and reload preserve endpoints (12.6s)
 blank 通用顺序分析
 agent 收集事实
 agent 生成摘要
@@ -49,12 +61,12 @@ edge 市场研究 汇总证据
 edge 技术研究 汇总证据
 edge 汇总证据 交付结果
 export parallel
-  ✓  6 tests/general-workflows.spec.ts:12:1 › three general graphs created through visual forms export both installable bundles (18.7s)
-  ✓  7 tests/general-workflows.spec.ts:18:1 › invalid graph export focuses the editable routing rule (5.8s)
-  ✓  8 tests/harness.spec.ts:2:1 › both native installation bundles export and preserve editable project (1.3s)
-  ✓  9 tests/resources.spec.ts:4:1 › resource import, fixed-version ZIP and plugin rename (2.0s)
+  ✓  18 tests/general-workflows.spec.ts:12:1 › three general graphs created through visual forms export both installable bundles (19.3s)
+  ✓  19 tests/general-workflows.spec.ts:18:1 › invalid graph export focuses the editable routing rule (5.8s)
+  ✓  20 tests/harness.spec.ts:2:1 › both native installation bundles export and preserve editable project (1.2s)
+  ✓  21 tests/resources.spec.ts:4:1 › resource import, fixed-version ZIP and plugin rename (2.0s)
 
-  9 passed (1.1m)
+  21 passed (1.6m)
 npm notice
 npm notice New major version of npm available! 11.9.0 -> 12.2.1
 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1

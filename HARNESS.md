@@ -1,6 +1,6 @@
 # 流程说明书与可选宿主执行
 
-支持 **Codex 0.159.0-alpha.3** 与 **DeepSeek Harness 0.2.1-rc.5**。默认选择「导出插件 → 流程说明书插件 → 宿主可安装 ZIP」。用户自由配置节点与连线，大模型阅读并使用完整说明书；默认模式不运行任务，不强制调度。宿主安装与全文加载证据来自 Linux；Windows 原生应用导出 ZIP 与 Windows 宿主执行是独立事项。Windows／WSL 宿主尚未验证；只有高级 Codex CLI 适配器才要求 Windows 启动环境的 APD_CODEX_BIN 指向原生 codex.exe，禁止 shell:true 的 npm shim。
+支持 **Codex 0.159.0-alpha.3** 与 **DeepSeek Harness 文档模式 0.2.1-rc.3／0.2.1-rc.5**。默认选择「导出插件 → 流程说明书插件 → 宿主可安装 ZIP」。用户自由配置节点与连线，大模型阅读并使用完整说明书；默认模式不运行任务，不强制调度。宿主安装与全文加载证据来自 Linux；Windows 原生应用导出 ZIP 与 Windows 宿主执行是独立事项。Windows／WSL 宿主尚未验证；只有高级 Codex CLI 适配器才要求 Windows 启动环境的 APD_CODEX_BIN 指向原生 codex.exe，禁止 shell:true 的 npm shim。
 
 默认 Codex 输出是原生插件（`.codex-plugin/plugin.json`、显式调用技能、独立 marketplace）；技能正文内嵌完整说明书。默认 DeepSeek 输出是原生 Cordis bundle（`package.json` 的 `dsh.bundle`、patch 与只读文档工具），工具仅返回说明书全文。均无任务运行器、子会话依赖、安装脚本、后台服务或权限授予。
 
@@ -10,9 +10,30 @@
 
 Codex 解压后执行 `codex plugin marketplace add <目录>`、`codex plugin add <pluginId>@<pluginId>-market`，任务中明确选择 `$<pluginId>:<pluginId>`。原生技能直接加载完整说明书，不运行 Node 脚本，不要求 `APD_CODEX_DEVELOPER_SANDBOX`。用 `codex plugin list` 检查，`codex plugin remove <pluginId>@<pluginId>-market` 移除。
 
-DeepSeek 解压后执行 `dsh plugin --profile workflow add <目录>`，通过 `dsh --profile workflow --dump-config` 检查，然后在该 profile 中明确调用 `document.json` 的 `toolName`，参数为 `{}`。原生工具只返回 `WORKFLOW.md` 全文，无任务输入、子 Agent、调度状态或权限扩大。移除使用 `dsh plugin --profile workflow remove <package.json中的name>`。
+DeepSeek CLI/Web：解压到固定目录，执行 `dsh plugin --profile web add "绝对解压目录"`，用 `dsh --profile web --dump-config` 检查，在同一 profile 明确调用 `document.json` 的 `toolName`，参数 `{}`。只返回完整 Markdown，不运行任务。移除使用 `dsh plugin --profile web remove <package.json中的name>`。
+
+DeepSeek Desktop 的 `desktop` profile 与 CLI/Web 不同；npm CLI 拒绝管理它。桌面先运行一次初始化，再完全退出。找到 `DeepSeek Harness.exe` 所在的实际安装目录，使用它自带的命令，不使用 npm 全局 dsh：
+
+```powershell
+& "C:\实际桌面安装目录\resources\runtime\cli\bin\dsh.cmd" --version
+& "C:\实际桌面安装目录\resources\runtime\cli\bin\dsh.cmd" plugin --profile desktop add "C:\固定解压目录\说明书插件"
+```
+
+然后重开 Desktop，明确要求模型调用包内工具名 `{}`，先读取全文再处理任务。不能把文档读取成功报为任务完成。移除前退出桌面，使用同一内置命令 `plugin --profile desktop remove <包名>`。以上路径／管理机制已核对 [准确 rc.3 tag](https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/apps/desktop/README.zh.md#bundled-command-runtime)，不要求先升级 rc.3；打包 Desktop UI 尚未实测。
 
 说明书告诉模型怎样协作；模型能否理解并遵循自然语言约定不等于程序强制。实际模型遵循度与任务质量未由本地脚本测试证明。文档包的原生入口需要支持上述版本宿主，但独立 Markdown 可直接提供给其他模型阅读。
+
+## 1.4.0 普通连线与简易输入输出
+
+连线语义根据来源节点决定：普通节点出口是顺序连接，默认源节点完成后继续；condition 出口才是条件分支，可选默认分支；fork 出口是并行分发。`note` 是可选连接说明，不代替条件。旧普通／并行边的非空 `condition` 继续显示为“原有流转要求”，不能偷偷解释成无条件。说明书逐条保留全部边及原有约束。
+
+角色只需名称和职责，节点只需任务与负责人。无明确约定时承接所有实际到达的上游结果、交付步骤完成结果，交接为空不再产生必填提示。多入边列出全部来源，但普通连接不等待未触发分支，也不擅自决定业务合并；join 等待对应并行分支。既有 config 输入映射／输出定义优先，其次角色旧详细约定，其次节点可选 delivery，最后默认；高优先约定下 delivery 仍列为补充，不丢内容。高级配置继续可编辑，不改变旧 schemaVersion 1 数据。
+
+## 1.4.0 AI 草案连接
+
+AI 为可选桌面 Go 连接，不是任务执行器。用户配置自己的地址、模型与会话 Key，只有明确发送后请求非流式 Chat Completions 文本协议。默认只发送当前描述；选中节点和整个流程的共享逐次确认，不自动发送历史对话。Key 不持久化、不进入导出或日志。远程 HTTP 需要确认，localhost 模拟服务无需远程风险许可。生产页面 CSP 保持不允许直接外网；网络仅由专用桥处理。
+
+请求取消、45 秒超时、401／429／网络失败有受控提示。响应大小、严格草案 schema、引用、规模与选中范围均校验；拒绝工具调用和未知字段。草案不直接改图；用户应用时核对来源指纹，单步撤销；已应用或过期草案不能重复覆盖。只兼容 README 所述文本协议，未宣称真实厂商、Responses、Azure、图像或流式支持。
 
 ## 高级可选：可执行图
 
@@ -64,16 +85,17 @@ dsh --profile workflow
 状态存储 token 前沿、分支快照、汇合等待区、边计数、真实子会话 ID 和事件去重键。每次宿主派发前先原子持久化 dispatch_intent；中断恢复遇到未决意图或已启动子会话会阻塞，要求先检查实际子会话并显式 retry_dispatch，绝不静默重复派发。任务绑定注册表防止相同主会话和 taskId 切换插件／版本／状态文件。状态和备份只位于用户指定 workspace/.apd 路径。
 
 
-## 当前默认文档模式验证
+## 当前 1.4.0 验证
 
-- `npm test`：52 项测试通过（23 个模型／导出测试 + 29 个运行时回归）；9 项浏览器测试通过，并单独加强验证资源与旧版本保留。
-- `deliverables/document-ui/`：实际 UI 创建自然语言多分支、并行人工、草稿回路三份项目，绑定各自角色、技能 v1/v2 与资源，导出 3 Markdown、3 JSON、6 原生 ZIP 和 3 截图。`export-evidence.json` 记录全部 15 份文件的 SHA256。DOM 预览、单独 Markdown 与包内 `WORKFLOW.md` 逐字相等；草稿的双边、自回路和孤立节点完整保留。
-- `node scripts/verify-document-hosts.mjs codex`：真实 Codex CLI 的隔离配置内同时安装并列出三包，逐包显式选择原生技能；实际本地模型请求包含所选说明书完整正文，且没有另两份完整正文。随后真实移除三包。证据 `deliverables/harness/codex-document-real-host.json`。
-- `node scripts/verify-document-hosts.mjs deepseek`：真实 DSH CLI 安装／发现／移除三包；实际 Cordis／Session／AgentLoop 使用对应原生只读工具（参数 `{}`）。工具返回及随后本地模型消息中的字符串均逐字等于完整 Markdown，另两份全文未载入。没有加载子会话提供器或运行任务。证据 `deliverables/harness/deepseek-document-real-host.json`。
-- 两种宿主证据都直接消费最终 UI ZIP，并核对 ZIP、Markdown、来源 JSON 与 UI manifest 哈希。CLI 与原生会话是真的；响应提供器是本地脚本，没有外部模型或付费调用。这证明原生安装和显式全文加载，不能证明模型遵循流程或任务质量，也不声称文档具有程序强制效果。
-- Windows 本次 CI 待发布后验证。原生套件默认保存两个文档包并比较完整 Markdown／项目，再显式选择高级执行用途回归；Verification artifact 包含 Windows、document-ui、general-ui 与两类宿主 JSON。
+- 主 `npm test`：74 项通过（23 model + 11 harness + 11 AI + 29 runtime）；Go AI 的 8 组 std-only 测试与本地 race 检查通过。Windows CI 执行 `go test ai.go ai_test.go`，不要求 UI 编译依赖。
+- 最终浏览器 21 项通过，机读报告及原始日志保存；9 个 AI 场景明确使用模拟 bridge，不代表原生网络或真实模型质量。覆盖草案预览／应用／撤销、create/append/selected、逐次共享确认、取消与迟到、冲突、错误、未知／悬空／超量／工具调用、双击与 Key 不入项目／MD／ZIP／存储。
+- `deliverables/edge-ui/` 是本轮新 UI 交付：mixed-connections、legacy-constraints、beginner-defaults 三组项目／MD／双宿主包，共 12 个文件的 SHA256 在 manifest。无输入输出的新手角色、普通无条件连接、原有要求与多上游默认承接都保存并导出。本轮只检查代码、DOM、文本和日志，不访问任何截图。
+- `node scripts/verify-document-hosts.mjs codex scripts/document-edge-fixtures.json` 与同命令 `deepseek`：真实 Codex／DSH rc.5 各同时安装／发现／移除三包，逐个显式加载完整说明书，另两份全文不进入上下文。证据 `codex-edge-document-real-host.json`、`deepseek-edge-document-real-host.json`。
+- DSH rc.3 同样真实安装三包并通过原生 Session／AgentLoop 的完整返回、模型消息全文一致及选择隔离；证据 `deepseek-rc3-edge-ui-document-real-host.json`。准确官方 tag／打包链证据为 `deepseek-rc3-official-review.json`。没有 --force peer 绕过、没有外部模型或用户环境修改；Desktop UI 仍未实测。
+- 1.4.0 Windows 本次 CI 待发布后验证。native 保留全部原保存／取消／导入、13 次拖动、两项目重启、两个文档包的 MD／源图与显式高级导出；追加初心者真空白基本表单→导出→导入→四项目重启，以及真实 Go bridge 访问同机 HTTP mock 的 AI 验收。自动图片仅保留 artifact，不打印图片 base64，也不读取或物化图片。
+- `document-ui/`、`general-ui/` 与其原宿主 JSON 是 1.3.0 冻结历史证据，未覆盖。本轮实际宿主识别只使用新 edge-ui 包，不扩展或重跑可选执行调度。
 
-## 高级可执行模式回归证据
+## 1.3.0 高级可执行模式历史回归证据
 
 - 高级执行运行时的 29 项确定性回归保留，模拟宿主测试不代表实际 Agent 运行。UI 全套测试重新生成的当前六包已重新执行以下真实宿主用例，来源哈希与当前 general-ui manifest 对齐。
 - `deliverables/general-ui/`：通过真实 UI 创建／编辑的三种流程：3 Agent 共用 1 角色的顺序流、多分支／默认路由／2 次有界循环／人工流、乱序并行汇合流。包含三份可编辑项目、六个实际导出的 Codex／DeepSeek 原生 ZIP、截图与 `export-evidence.json` 哈希证据。
@@ -82,13 +104,13 @@ dsh --profile workflow
 - `node scripts/verify-deepseek-host.mjs`：实际 Session／AgentLoop／spawn 与本地脚本 LlmAdapter，9 个场景、18 个真实独立子会话；原生深度上限仍为 1，子会话不继承主会话私有上下文。证据 `deliverables/harness/deepseek-general-real-host.json`。
 - 两个宿主均验证顺序、成功分支、默认失败、循环耗尽人工暂停、人工继续／取消、乱序并行汇合、损坏结果阻塞、实际中断、幂等事件与恢复不重复派发。DSH 人工动作走实际用户命令边界；Codex 人工继续／取消均调用实际导出的 `scripts/human.mjs`，在真实 PTY 中按 Outcome／Reason 提示输入，并验证非 TTY 调用被拒绝。两者均为脚本化用户输入的边界测试，未冒充实际用户决定。
 - DSH 子会话实际调用会写文件的测试工具，宿主 guard 返回 `Workflow read-only child: tool denied by host guard`，文件未产生。Codex 实际 `exec_command` 写入探针在执行 shell 前被环境阻止：`error building bubblewrap command: app-server socket directory must be a user-owned directory with mode 0700`。文件未产生，但这不能证明本环境中的文件系统只读强制；报告保留这一限制，未授予额外权限或修改全局 socket。
-- Windows 套件保留持续拖动、原生保存／取消／导入、两项目重启全量比较，并检查两个宿主 ZIP 的原生保存、入口清单、contract v3 与原始项目全量比较。1.3.0 本次 Windows CI 尚待发布后运行，以最终状态为准。
+- Windows 套件保留持续拖动、原生保存／取消／导入、两项目重启全量比较，并检查两个宿主 ZIP 的原生保存、入口清单、contract v3 与原始项目全量比较。1.3.0 Windows 已有独立成功记录，不能代替 1.4.0 本次 CI。
 - 原 contract v2 的验证脚本保留为 `scripts/verify-*-host-legacy.mjs` 与 `scripts/verify-host-install-legacy.mjs`；旧 `codex-real-host.json`／`deepseek-native-host.json`／`real-host-install.json` 是历史证据。
 - **未调用外部模型，也未进行付费调用。** 本地脚本结果不是实际模型生成代码／QA 的质量评测。
 
 官方依据：
 
 - [OpenAI 插件格式](https://developers.openai.com/plugins/build/plugins)、[Codex 插件](https://developers.openai.com/codex/plugins)、[非交互模式](https://developers.openai.com/codex/noninteractive/)；实际安装 CLI 的 `--help`、`plugin add/list/remove` 和 `exec --json --output-schema` 已核验。
-- [DeepSeek 官方源码](https://github.com/deepseek-ai/deepseek-harness)、[插件打包安装](https://deepseek-harness.github.io/deepseek-harness/en/develop/basic/publish)、[子会话](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/subsystems/subagent.md)。研究 master 为 `ce7073d51254c26cd63b22a60835b8f948deb447`（0.2.2-alpha.2）；**支持版本以实际 npm 安装 0.2.1-rc.5 为准**，已按其发布 `.d.ts`／代码验证 `startActivation`、结构化结果、注入和人类命令，未直接假定 master API 兼容。
+- [DeepSeek 官方源码](https://github.com/deepseek-ai/deepseek-harness)、[插件打包安装](https://deepseek-harness.github.io/deepseek-harness/en/develop/basic/publish)、[子会话](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/subsystems/subagent.md)。此段仅为高级可执行模式的旧 rc.5 API 依据：研究 master 为 `ce7073d51254c26cd63b22a60835b8f948deb447`（0.2.2-alpha.2），执行适配器按实际 npm 0.2.1-rc.5 的发布类型／代码验证 startActivation、结构化结果、注入和人工命令。当前说明书模式的 rc.3／rc.5 支持以准确 rc.3 tag、两版本实际发布包与上方 edge-ui 真实宿主证据为准。
 
-复现原生证据：默认文档模式保留 `deliverables/document-ui/` 并执行两个 `verify-document-hosts.mjs` 命令；高级模式保留 `deliverables/general-ui/`，执行其三个验证命令。均从仓库根目录运行。Codex 需要受支持的实际 CLI，可用 `APD_CODEX_BIN` 指定原生二进制；DSH 先在隔离目录安装 `@deepseek-ai/dsh@0.2.1-rc.5`，用 `APD_DSH_NODE_MODULES` 指向该目录的 node_modules，用 `APD_DSH_BIN` 指定安装测试所用的 CLI。测试只创建隔离的临时宿主配置与工作区，不复制用户授权，不调用外部模型。旧双插件夹具的复现使用相应 `*-legacy.mjs`，不应与当前六包证据混用。
+复现 1.3.0 历史证据：旧文档模式保留 `deliverables/document-ui/` 并执行原默认 `verify-document-hosts.mjs` 命令；旧高级模式保留 `deliverables/general-ui/`，执行其三个历史验证命令。本轮 1.4.0 请使用上方 `scripts/document-edge-fixtures.json` 与 rc.3 专用脚本，直接消费 `deliverables/edge-ui/`。均从仓库根目录运行。Codex 需要受支持的实际 CLI，可用 `APD_CODEX_BIN` 指定原生二进制；DSH 先在隔离目录安装 `@deepseek-ai/dsh@0.2.1-rc.5`，用 `APD_DSH_NODE_MODULES` 指向该目录的 node_modules，用 `APD_DSH_BIN` 指定安装测试所用的 CLI。测试只创建隔离的临时宿主配置与工作区，不复制用户授权，不调用外部模型。旧双插件夹具的复现使用相应 `*-legacy.mjs`，不应与当前六包证据混用。

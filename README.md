@@ -1,6 +1,8 @@
 # Agent Studio · Windows Agent 团队插件设计器
 
-独立的中文桌面 Web 应用。React + TypeScript + Vite + React Flow。设计器本身不执行 Agent，无账号、后端、LLM API、云同步或付费服务；默认导出可供大模型阅读和使用的流程说明书；高级可执行模式另含数据驱动图运行器。所有字体与图标随浏览器或构建提供，不请求外部资源。
+独立的中文桌面应用。设计器负责自由配置流程并导出供模型理解的说明书，默认不连接模型、不执行任务。1.4.0 新增可选 AI 辅助：由用户填写 API 地址、模型和 Key，每次点击发送才通过桌面专用 Go 连接请求文本草案；预览后明确应用，一次撤销可还原。无托管账号或云同步。界面字体、图标与静态资源在本地提供。
+
+初学者只需填写角色名称和职责、这一步做什么，再把步骤连起来。普通连接默认“源步骤完成后继续”，不用填写条件或交接；条件节点的出口才填写分支条件或选择默认分支。输入输出约定、交付说明与连接说明均可选。未另行指定时，承接所有实际到达的上游结果，交付这一步完成后的结果；并行汇合等待对应分支。旧输入输出、交接和原有条件不会被清空，仍完整写入说明书。
 
 ## Windows 应用
 
@@ -8,8 +10,8 @@
 
 仓库 Actions → **Build Windows app** 在 main 推送后构建，仅上传 artifact，不创建 Release。下载成功运行中的 **Agent-Studio-MyGo-Windows-x64**：
 
-- `Agent-Studio-1.3.0-Windows-x64-Setup.exe`：当前用户安装版。
-- `Agent-Studio-1.3.0-Windows-x64-Portable.exe` / `.zip`：便携可执行文件，无需安装。
+- `Agent-Studio-1.4.0-Windows-x64-Setup.exe`：当前用户安装版。
+- `Agent-Studio-1.4.0-Windows-x64-Portable.exe` / `.zip`：便携可执行文件，无需安装。
 - `SHA256SUMS.txt`：下载文件校验。
 
 当前构建没有代码签名。系统可能显示发行者未知，请结合仓库源码、构建来源与校验值决定是否运行。**Agent-Studio-MyGo-Verification** 保存真实 Windows 启动、连续拖拽、原生保存／取消／导入对话框、插件 Markdown、进程重启和布局恢复的测试结果、截图，以及同一 CI 上测量的旧／新文件体积；另包含三套 UI 创建的项目、六种原生包及真实宿主本地脚本测试证据。请以该运行最终状态为准。
@@ -26,7 +28,7 @@ npm run desktop
 npm run dist:win
 ```
 
-`mygo.json` 使用 JSON 配置；CLI 嵌入前端并创建 NSIS 安装包。`npm run test:desktop` 需在 Windows 上执行；通过 WebView2 标准调试环境变量临时连接发布二进制，测试本身未嵌入应用，也未打包自动化插件。发布程序没有开放的调试端口，只有测试进程显式设置该变量时启用。导出经唯一的保存服务显示原生对话框，只写用户选择的文件，支持 JSON／Markdown／ZIP，单次导出上限 50 MB；页面不绑定任意路径读写或 shell 服务，拒绝权限与新窗口请求，并保留禁止外网的生产 CSP。
+`mygo.json` 使用 JSON 配置；CLI 嵌入前端并创建 NSIS 安装包。`npm run test:desktop` 需在 Windows 上执行；通过 WebView2 标准调试环境变量临时连接发布二进制，测试本身未嵌入应用，也未打包自动化插件。发布程序没有开放的调试端口，只有测试进程显式设置该变量时启用。导出经唯一的保存服务显示原生对话框，只写用户选择的文件，支持 JSON／Markdown／ZIP，单次导出上限 50 MB；页面不绑定任意路径读写或 shell 服务，拒绝权限与新窗口请求，并保留禁止页面直接访问外网的生产 CSP；用户明确发送的 AI 请求走专用 Go 连接，不放宽页面权限。
 
 ## 不安装 Node 的预览方式
 
@@ -38,12 +40,35 @@ npm run dist:win
 
 - 顶部插件名称打开插件库，可新建、重命名、复制或删除插件。
 - Agent 配置中定义职责、输入输出及独立会话要求。技能包支持文本定义导入、版本保留和文本资源。
-- 点击左侧组件／角色添加节点。拖动节点；从连接点拖出连线。按自己的想法编辑节点说明、技能与自然语言交接条件。高级程序执行配置是可选项。
+- 点击左侧组件／角色添加节点。拖动节点；从连接点拖出连线。只需写这一步做什么并选择 Agent；普通连线无需条件或交接，分支出口才填写条件。详细输入输出和程序执行配置折叠为可选项。
 - 编辑技能生成新版本；既有角色绑定保持旧版本。右侧技能页可手动选择版本、设置使用条件及能力要求。
 - Ctrl/⌘+Z 撤销，Ctrl/⌘+Shift+Z 重做，Delete/Backspace 删除节点或连线，Esc 取消选择。输入框编辑不触发画布快捷键。
 - 检查流程发现缺失字段、失效角色／技能、不可达节点、悬空连线和无界循环。点击结果定位节点。
 - 项目 JSON 是完整可编辑备份，保留技能历史、布局和规则；导入创建独立副本，不覆盖当前项目。
 - Markdown 是完整流程说明书，包含原始节点、连线、自然语言条件和技能资源。默认宿主插件 ZIP 将同一份说明书封装成 Codex 原生技能或 DeepSeek 只读文档工具，并保留完整项目 JSON；不执行调度，不要求把条件改成程序谓词。草稿也能导出，完整性提醒不会阻断。
+
+## 可选 AI 辅助
+
+点击「AI 辅助设计」，填写 API 地址、模型名称和 Key，描述想生成或修改的步骤。先查看草案，再点「应用到画布」；原图默认保留并追加，修改模式只影响确认的选中节点。可一次撤销；预览后手动编辑图会使旧草案失效，须重新生成。
+
+API 地址可填 `https://api.example.com/v1` 或完整的 `/chat/completions` 地址；实际模型名和鉴权由供应商提供。仅支持 [OpenAI Chat Completions 文本协议](https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create) 的 `messages`／`model` 请求和非流式 `choices[].message.content` 响应；未实测真实供应商，不支持 Responses、Azure 专用鉴权、图像、工具调用或流式输出。供应商可能收费；本项目测试全部使用本地模拟服务，没有真实付费调用。
+
+默认只发送这次文字描述，不自动发送项目或之前对话。发送选中节点或整个流程，必须逐次确认共享内容。Key、连接配置和对话仅在当前面板会话；关闭后清除，不写入项目、Markdown、ZIP 或浏览器持久化存储。远程 HTTP 需明确确认明文传输风险；本地 localhost 服务可直接使用。网页预览没有桌面连接，仍可手动设计与导出。
+
+## DeepSeek Harness 0.2.1-rc.3 怎么使用导出包
+
+最简单的用法是打开导出的 Markdown，把全文连同实际任务交给模型；不必先安装插件。想在 DSH 中使用原生工具，再选择说明书插件 ZIP，解压到以后不移动的目录，阅读 `INSTALL.md` 和 `document.json` 的 `toolName`。
+
+CLI/Web 使用 `dsh plugin --profile web add "解压目录"`，再运行同一 profile。这个安装不会进入 Electron 桌面版的会话。桌面版先启动一次完成初始化，然后完全退出；找到 `DeepSeek Harness.exe` 所在目录，在其 `resources\runtime\cli\bin` 下使用桌面自带的 `dsh.cmd`。PowerShell 示例（把两个占位路径换为真实绝对路径，不是 npm 全局命令）：
+
+```powershell
+& "C:\实际桌面安装目录\resources\runtime\cli\bin\dsh.cmd" --version
+& "C:\实际桌面安装目录\resources\runtime\cli\bin\dsh.cmd" plugin --profile desktop add "C:\固定解压目录\说明书插件"
+```
+
+重新打开桌面，向模型明确说明：“调用 document.json 中的工具名，参数为 {}，先读取完整说明书，再按说明书处理我的任务；不能满足的能力请说明。”工具返回全文只是读取成功，不代表任务已经执行完成。移除前同样退出桌面，再用该内置命令执行 `plugin --profile desktop remove <package.json中的name>`。
+
+路径与 profile 机制依据 [官方 rc.3 tag 的桌面说明](https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/apps/desktop/README.zh.md#bundled-command-runtime)。rc.3／rc.5 的真实 CLI 安装和原生文档工具已使用本地脚本提供器验证；打包的 DSH Desktop UI 尚未实际验收，不能把独立 CLI 的安装当成桌面会话已加载。
 
 ## 数据
 
@@ -73,9 +98,9 @@ npm run test:e2e
 
 本地旧实现复现：连续 12 次拖动采样 595 帧，282 帧存在隐藏节点，585 帧缺少边路径，并最终触发严格 schema 保存失败。修复后的连续拖动与回归结果见 `deliverables/drag-fixed/`；原有 13 个模型测试与 4 个端到端场景保留，新增持续拖动、保存／导出、撤销重做及刷新布局恢复场景。
 
-1.3.0 的默认「宿主可安装 ZIP」是说明书插件：按用户自由设计的图导出完整 Markdown，模型可明确选择、阅读和使用；自然语言分支、不完整草稿无需满足运行器规则。高级可执行模式可选，使用 contract v3 图调度，并兼容旧 contract v2。详情见 [HARNESS.md](HARNESS.md)。
+1.4.0 的默认「宿主可安装 ZIP」是说明书插件：按用户自由设计的图导出完整 Markdown，模型可明确选择、阅读和使用；自然语言分支、不完整草稿无需满足运行器规则。高级可执行模式可选，使用 contract v3 图调度，并兼容旧 contract v2。详情见 [HARNESS.md](HARNESS.md)。
 
 
 ## Codex 与 DeepSeek Harness 可安装导出
 
-在「导出插件」保留默认的「流程说明书插件」，选择宿主，再点「宿主可安装 ZIP」。支持 Codex 0.159.0-alpha.3 原生技能插件与 DeepSeek Harness 0.2.1-rc.5 原生只读说明书工具。包内 `WORKFLOW.md` 与独立 Markdown 下载逐字一致，`project.agent-project.json` 保留完整可编辑来源；没有任务运行器、子 Agent 或权限开关要求。选择「高级程序执行插件」才导出可执行运行器。完整安装／选择／移除与证据分类见 [HARNESS.md](HARNESS.md)。
+在「导出插件」保留默认的「流程说明书插件」，选择宿主，再点「宿主可安装 ZIP」。支持 Codex 0.159.0-alpha.3 原生技能插件与 DeepSeek Harness 0.2.1-rc.3／0.2.1-rc.5 原生只读说明书工具。包内 `WORKFLOW.md` 与独立 Markdown 下载逐字一致，`project.agent-project.json` 保留完整可编辑来源；没有任务运行器、子 Agent 或权限开关要求。选择「高级程序执行插件」才导出可执行运行器。完整安装／选择／移除与证据分类见 [HARNESS.md](HARNESS.md)。

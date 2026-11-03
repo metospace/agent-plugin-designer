@@ -11,6 +11,7 @@ func main() {
 	// A new profile keeps the old Electron data intact for explicit export/import.
 	mygo.App.SetName("Agent Studio")
 	mygo.Bind(Exports{})
+	mygo.Bind(NewAI())
 	if !mygo.App.RequestSingleInstanceLock() {
 		return
 	}
