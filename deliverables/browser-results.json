@@ -4,8 +4,8 @@
       "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
       "/workspace/agent-plugin-designer/node_modules/.bin/playwright",
       "test",
-      "tests/document-workflows.spec.ts",
-      "--workers=1"
+      "--workers=1",
+      "--reporter=list,json"
     ],
     "configFile": "/workspace/agent-plugin-designer/playwright.config.ts",
     "rootDir": "/workspace/agent-plugin-designer/tests",
@@ -78,14 +78,10 @@
     "quiet": false,
     "reporter": [
       [
-        "list",
-        null
+        "list"
       ],
       [
-        "json",
-        {
-          "outputFile": "deliverables/browser-results.json"
-        }
+        "json"
       ]
     ],
     "reportSlowTests": {
@@ -102,6 +98,116 @@
   },
   "suites": [
     {
+      "title": "app.spec.ts",
+      "file": "app.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "primary workflow, persistence, round-trip, CRUD, cancel and repeated actions",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5364,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T00:06:15.225Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c31ff144dc4fee3acd0a-6222ba65a39659fd83f1",
+          "file": "app.spec.ts",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "blank project connect, edge editing, node movement and validation focus",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1463,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T00:06:21.067Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c31ff144dc4fee3acd0a-3c4d36eea75573a85126",
+          "file": "app.spec.ts",
+          "line": 22,
+          "column": 1
+        },
+        {
+          "title": "1280 layout and production build over HTTP",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1291,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T00:06:22.540Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c31ff144dc4fee3acd0a-753a7fc5d02e8ef75ae9",
+          "file": "app.spec.ts",
+          "line": 28,
+          "column": 1
+        }
+      ]
+    },
+    {
       "title": "document-workflows.spec.ts",
       "file": "document-workflows.spec.ts",
       "column": 0,
@@ -109,7 +215,7 @@
       "specs": [
         {
           "title": "document-first UI freely exports natural-language branches, parallel human work and unfinished loop drafts",
-          "ok": false,
+          "ok": true,
           "tags": [],
           "tests": [
             {
@@ -122,40 +228,46 @@
                 {
                   "workerIndex": 0,
                   "parallelIndex": 0,
-                  "status": "timedOut",
-                  "duration": 180040,
-                  "error": {
-                    "message": "\u001b[31mTest timeout of 180000ms exceeded.\u001b[39m",
-                    "stack": "\u001b[31mTest timeout of 180000ms exceeded.\u001b[39m"
-                  },
-                  "errors": [
+                  "status": "passed",
+                  "duration": 17324,
+                  "errors": [],
+                  "stdout": [
                     {
-                      "message": "\u001b[31mTest timeout of 180000ms exceeded.\u001b[39m"
+                      "text": "document blank 自然语言多路策划\n"
                     },
                     {
-                      "location": {
-                        "file": "/workspace/agent-plugin-designer/tests/document-workflows.spec.ts",
-                        "column": 186,
-                        "line": 6
-                      },
-                      "message": "Error: locator.fill: Test timeout of 180000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('节点名称', { exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <input value=\"并行汇合\"/>\u001b[22m\n\u001b[2m    - fill(\"整合两路证据\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m  - element was detached from the DOM, retrying\u001b[22m\n\n\n  4 | async function blank(page:Page,name:string){console.log('document blank',name);await page.getByRole('button',{name:'插件库',exact:true}).click();await page.getByRole('button',{name:'新建空白插件'}).click();await page.getByRole('button',{name:'插件库',exact:true}).click();await page.getByTitle('重命名插件').last().click();await page.getByLabel('插件名称').fill(name);await page.getByRole('button',{name:'保存',exact:true}).click();await page.getByTitle('关闭对话框').click();}\n  5 | async function team(page:Page,name:string,version:string){console.log('document team',name);await page.getByTitle('新建角色').click();let d=page.getByRole('dialog');await d.getByLabel('角色名称').fill(name);await d.getByLabel('职责',{exact:true}).fill('根据工作流说明独立研究，说明依据并等待真实人工决定。');await d.getByLabel('输入',{exact:true}).fill('用户目标、前序研究材料、人工反馈');await d.getByLabel('输出',{exact:true}).fill('研究结果、证据、需要确认的问题');await d.getByLabel('必须使用独立会话').check();await d.getByRole('button',{name:'保存角色'}).click();await page.getByRole('button',{name:/^技能包/}).click();await page.getByRole('button',{name:'新建技能',exact:true}).click();await page.getByLabel('技能名称').fill(name+'技能');await page.getByLabel('技能定义').fill(name+'技能第一版：保留来源，遵循用户自然语言条件。');await page.getByLabel('附带文本资源').setInputFiles({name:'guide.txt',mimeType:'text/plain',buffer:Buffer.from(name+'冻结资源第一版')});await page.getByRole('button',{name:'保存技能版本'}).click();await page.locator('article').filter({hasText:name+'技能'}).getByRole('button',{name:'编辑并创建版本'}).click();await page.getByLabel('技能定义').fill(name+'技能第二版：核对来源并标记不确定性。');await page.getByRole('button',{name:'保存技能版本'}).click();await page.getByRole('button',{name:'流程设计',exact:true}).click();await node(page,'Agent',name+'任务');await page.getByLabel('绑定角色').selectOption({label:name});await page.locator('.inspector-tabs').getByRole('button',{name:'技能',exact:true}).click();await page.getByLabel('添加技能').selectOption({label:name+'技能'});await page.getByLabel('固定版本').selectOption(version);await page.getByLabel('使用条件').fill('按用户设计的流程需要研究时');await page.getByLabel('能力要求').fill('只读材料；其他操作先请用户确认');await page.locator('.inspector-tabs').getByRole('button',{name:'输入输出',exact:true}).click();await page.getByLabel('输入契约').fill('任务目标、工作流连线交接材料与用户反馈');return name+'任务';}\n> 6 | async function node(page:Page,kind:string,name:string){await page.locator('.node-palette').getByRole('button',{name:kind,exact:true}).click();await page.getByLabel('节点名称',{exact:true}).fill(name);await page.getByLabel('节点说明',{exact:true}).fill('由大模型阅读说明后，按用户定义理解并执行此步骤。');}\n    |                                                                                                                                                                                          ^\n  7 | async function agent(page:Page,name:string,role:string){await node(page,'Agent',name);await page.getByLabel('绑定角色').selectOption({label:role});}\n  8 | async function edge(page:Page,from:string,to:string,condition:string){await page.getByTitle('添加连线').click();await page.getByLabel('来源节点').selectOption({label:from});await page.getByLabel('目标节点').selectOption({label:to});await page.getByRole('button',{name:'创建连线'}).click();await page.getByLabel('流转条件').fill(condition);await page.getByLabel('交接数据').fill('前序结果、证据和当前用户要求');}\n  9 | async function exports(page:Page,name:string){console.log('document export',name);await page.getByTitle('自动排列节点').click();await page.waitForTimeout(400);let [dl]=await Promise.all([page.waitForEvent('download'),page.getByRole('button',{name:'保存项目文件',exact:true}).click()]);const source=JSON.parse(await readFile((await dl.path())!,'utf8'));await writeFile(`${out}/${name}.agent-project.json`,JSON.stringify(source,null,2));await page.getByRole('button',{name:'MD 预览',exact:true}).click();const preview=await page.locator('.md-page pre').textContent();expect(preview).toBeTruthy();await page.getByRole('button',{name:'导出插件',exact:false}).first().click();await expect(page.getByLabel('导出用途')).toHaveValue('document');[dl]=await Promise.all([page.waitForEvent('download'),page.getByRole('button',{name:/Markdown 插件/}).click()]);const md=await readFile((await dl.path())!,'utf8');expect(md).toBe(preview);await writeFile(`${out}/${name}.md`,md);for(const node of source.nodes)expect(md).toContain(node.data.label);for(const edge of source.edges)expect(md).toContain(edge.data.condition);for(const role of source.roles){expect(md).toContain(role.name);expect(md).toContain(role.input);expect(md).toContain(role.output);}for(const target of ['codex','deepseek']){await page.getByRole('button',{name:'导出插件',exact:false}).first().click();await page.getByLabel('执行宿主',{exact:true}).selectOption(target);if(name==='draft-loop')await expect(page.getByText(/项草稿提醒，仍可导出/)).toBeVisible();[dl]=await Promise.all([page.waitForEvent('download'),page.getByRole('button',{name:/宿主可安装 ZIP/}).click()]);const bytes=await readFile((await dl.path())!);await writeFile(`${out}/${name}-${target}.zip`,bytes);const zip=await JSZip.loadAsync(bytes);expect(await zip.file('WORKFLOW.md')!.async('string')).toBe(md);expect(JSON.parse(await zip.file('project.agent-project.json')!.async('string'))).toEqual(source);expect(zip.file('scripts/runner.mjs')).toBeNull();expect(zip.file(target==='codex'?'.codex-plugin/plugin.json':'package.json')).not.toBeNull();for(const role of source.roles)for(const b of role.bindings){const skill=source.skills.find((s:any)=>s.id===b.skillId),frozen=skill.versions.find((v:any)=>v.version===b.version);expect(md).toContain(frozen.definition);for(let i=0;i<frozen.resources.length;i++)expect(await zip.file(`skills/${b.skillId}/v${b.version}/${i}-${frozen.resources[i].name}`)!.async('string')).toBe(frozen.resources[i].content);}}await page.getByRole('button',{name:'流程设计',exact:true}).click();await page.waitForTimeout(400);await page.reload();await expect(page.locator('.react-flow__node')).toHaveCount(source.nodes.length);await page.locator('input[type=file][accept=\".json\"]').setInputFiles(`${out}/${name}.agent-project.json`);await expect(page.getByRole('status')).toContainText('已导入为独立项目');return source;}\n    at node (/workspace/agent-plugin-designer/tests/document-workflows.spec.ts:6:186)\n    at /workspace/agent-plugin-designer/tests/document-workflows.spec.ts:12:132"
+                      "text": "document team 策划研究员\n"
+                    },
+                    {
+                      "text": "document export natural-branches\n"
+                    },
+                    {
+                      "text": "document blank 并行研究与人工交付\n"
+                    },
+                    {
+                      "text": "document team 并行研究员\n"
+                    },
+                    {
+                      "text": "document export parallel-human\n"
+                    },
+                    {
+                      "text": "document blank 未完成的迭代草稿\n"
+                    },
+                    {
+                      "text": "document team 草稿编辑员\n"
+                    },
+                    {
+                      "text": "document export draft-loop\n"
                     }
                   ],
-                  "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-02T23:56:13.416Z",
+                  "startTime": "2026-11-03T00:06:23.877Z",
                   "annotations": [],
-                  "attachments": [
-                    {
-                      "name": "error-context",
-                      "contentType": "text/markdown",
-                      "path": "/workspace/agent-plugin-designer/test-results/document-workflows-documen-0073c--and-unfinished-loop-drafts/error-context.md"
-                    }
-                  ]
+                  "attachments": []
                 }
               ],
-              "status": "unexpected"
+              "status": "expected"
             }
           ],
           "id": "c8158fa2120ea609ea28-d85c0c5220eefeaad6ef",
@@ -164,15 +276,302 @@
           "column": 1
         }
       ]
+    },
+    {
+      "title": "drag.spec.ts",
+      "file": "drag.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "continuous drag keeps nodes, edge paths and viewport stable; schema, undo and reload preserve endpoints",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12713,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T00:06:41.214Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "17d65873884385b63cea-4d2c7bfbc04bb119d02b",
+          "file": "drag.spec.ts",
+          "line": 5,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "general-workflows.spec.ts",
+      "file": "general-workflows.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "three general graphs created through visual forms export both installable bundles",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 18705,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "blank 通用顺序分析\n"
+                    },
+                    {
+                      "text": "agent 收集事实\n"
+                    },
+                    {
+                      "text": "agent 生成摘要\n"
+                    },
+                    {
+                      "text": "agent 复核摘要\n"
+                    },
+                    {
+                      "text": "edge 任务开始 收集事实\n"
+                    },
+                    {
+                      "text": "edge 收集事实 生成摘要\n"
+                    },
+                    {
+                      "text": "edge 生成摘要 复核摘要\n"
+                    },
+                    {
+                      "text": "edge 复核摘要 交付结果\n"
+                    },
+                    {
+                      "text": "export sequence\n"
+                    },
+                    {
+                      "text": "blank 多路决策与人工恢复\n"
+                    },
+                    {
+                      "text": "agent 风险分类\n"
+                    },
+                    {
+                      "text": "edge 任务开始 风险分类\n"
+                    },
+                    {
+                      "text": "edge 风险分类 选择处理\n"
+                    },
+                    {
+                      "text": "edge 选择处理 交付结果\n"
+                    },
+                    {
+                      "text": "edge 选择处理 风险分类\n"
+                    },
+                    {
+                      "text": "edge 选择处理 失败退出\n"
+                    },
+                    {
+                      "text": "edge 人工决策 交付结果\n"
+                    },
+                    {
+                      "text": "export branch-loop-human\n"
+                    },
+                    {
+                      "text": "blank 并行只读研究\n"
+                    },
+                    {
+                      "text": "agent 市场研究\n"
+                    },
+                    {
+                      "text": "agent 技术研究\n"
+                    },
+                    {
+                      "text": "edge 任务开始 并行研究\n"
+                    },
+                    {
+                      "text": "edge 并行研究 市场研究\n"
+                    },
+                    {
+                      "text": "edge 并行研究 技术研究\n"
+                    },
+                    {
+                      "text": "edge 市场研究 汇总证据\n"
+                    },
+                    {
+                      "text": "edge 技术研究 汇总证据\n"
+                    },
+                    {
+                      "text": "edge 汇总证据 交付结果\n"
+                    },
+                    {
+                      "text": "export parallel\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T00:06:53.943Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5b8182fd583b80efe4f0-6322746926a908c6e217",
+          "file": "general-workflows.spec.ts",
+          "line": 12,
+          "column": 1
+        },
+        {
+          "title": "invalid graph export focuses the editable routing rule",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5801,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T00:07:12.658Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5b8182fd583b80efe4f0-6e8c7298bd2d21de0e1d",
+          "file": "general-workflows.spec.ts",
+          "line": 18,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "harness.spec.ts",
+      "file": "harness.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "both native installation bundles export and preserve editable project",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1262,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T00:07:18.471Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2726d9e30a893a88bbed-249e22f05eba400e5636",
+          "file": "harness.spec.ts",
+          "line": 2,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "resources.spec.ts",
+      "file": "resources.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "resource import, fixed-version ZIP and plugin rename",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2023,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T00:07:19.751Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c5a9a91e1b9b058112b5-6a70aa8b87deb8322e7d",
+          "file": "resources.spec.ts",
+          "line": 4,
+          "column": 1
+        }
+      ]
     }
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-11-02T23:56:12.714Z",
-    "duration": 181334.53,
-    "expected": 0,
+    "startTime": "2026-11-03T00:06:14.629Z",
+    "duration": 67236.932,
+    "expected": 9,
     "skipped": 0,
-    "unexpected": 1,
+    "unexpected": 0,
     "flaky": 0
   }
 }
