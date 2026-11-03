@@ -1,16 +1,18 @@
 # 流程说明书与可选宿主执行
 
+本次更新：默认模型入口读取精简且完整的有效流程指令 `WORKFLOW.instructions.md`；`WORKFLOW.md` 保留完整归档，仍与独立 Markdown 一致。下文早期验收记录仅代表其当时版本，不能当作本次运行器的宿主验收。当前固定任务评测及阻挡证据见 [evaluation/README.md](evaluation/README.md)，运行预算/恢复见 [runtime/LIMITS.md](runtime/LIMITS.md)。
+
 支持 **Codex 0.159.0-alpha.3** 与 **DeepSeek Harness 文档模式 0.2.1-rc.3／0.2.1-rc.5**。默认选择「导出插件 → 流程说明书插件 → 宿主可安装 ZIP」。用户自由配置节点与连线，大模型阅读并使用完整说明书；默认模式不运行任务，不强制调度。宿主安装与全文加载证据来自 Linux；Windows 原生应用导出 ZIP 与 Windows 宿主执行是独立事项。Windows／WSL 宿主尚未验证；只有高级 Codex CLI 适配器才要求 Windows 启动环境的 APD_CODEX_BIN 指向原生 codex.exe，禁止 shell:true 的 npm shim。
 
-默认 Codex 输出是原生插件（`.codex-plugin/plugin.json`、显式调用技能、独立 marketplace）；技能正文内嵌完整说明书。默认 DeepSeek 输出是原生 Cordis bundle（`package.json` 的 `dsh.bundle`、patch 与只读文档工具），工具仅返回说明书全文。均无任务运行器、子会话依赖、安装脚本、后台服务或权限授予。
+默认 Codex 输出是原生插件（`.codex-plugin/plugin.json`、显式调用技能、独立 marketplace）；技能正文内嵌有效流程指令，归档另存。默认 DeepSeek 输出是原生 Cordis bundle（`package.json` 的 `dsh.bundle`、patch 与只读文档工具），工具仅返回有效流程指令全文。均无任务运行器、子会话依赖、安装脚本、后台服务或权限授予。
 
 ## 默认：流程说明书插件
 
 `WORKFLOW.md` 与独立 Markdown 下载逐字一致，包含所有节点、连线、自然语言条件、技能固定版本与文本资源内容。`project.agent-project.json` 是完整可编辑来源；`document.json` 标记 `mode:documentation`、目标宿主、真实 pluginId／toolName 与非阻断提醒。内容摘要参与原生包名，不同来源／内容可以共存。草稿、未结构化分支与不完整流程仍能导出；提醒仅帮助作者完善说明。
 
-Codex 解压后执行 `codex plugin marketplace add <目录>`、`codex plugin add <pluginId>@<pluginId>-market`，任务中复制导出窗口的完整使用指令；默认明确选择 `$<pluginId>:guide`，旧兼容模式以 `document.json` 的 invocation 为准。原生技能直接加载完整说明书，不运行 Node 脚本，不要求 `APD_CODEX_DEVELOPER_SANDBOX`。用 `codex plugin list` 检查，`codex plugin remove <pluginId>@<pluginId>-market` 移除。
+Codex 解压后执行 `codex plugin marketplace add <目录>`、`codex plugin add <pluginId>@<pluginId>-market`，任务中复制导出窗口的完整使用指令；默认明确选择 `$<pluginId>:guide`，旧兼容模式以 `document.json` 的 invocation 为准。原生技能直接加载有效流程指令，不运行 Node 脚本，不要求 `APD_CODEX_DEVELOPER_SANDBOX`。用 `codex plugin list` 检查，`codex plugin remove <pluginId>@<pluginId>-market` 移除。
 
-DeepSeek CLI/Web：解压到固定目录，执行 `dsh plugin --profile web add "绝对解压目录"`，用 `dsh --profile web --dump-config` 检查，在同一 profile 明确调用 `document.json` 的 `toolName`，参数 `{}`。只返回完整 Markdown，不运行任务。移除使用 `dsh plugin --profile web remove <package.json中的name>`。
+DeepSeek CLI/Web：解压到固定目录，执行 `dsh plugin --profile web add "绝对解压目录"`，用 `dsh --profile web --dump-config` 检查，在同一 profile 明确调用 `document.json` 的 `toolName`，参数 `{}`。只返回 WORKFLOW.instructions.md，不运行任务。移除使用 `dsh plugin --profile web remove <package.json中的name>`。
 
 DeepSeek Desktop 的 `desktop` profile 与 CLI/Web 不同；npm CLI 拒绝管理它。桌面先运行一次初始化，再完全退出。找到 `DeepSeek Harness.exe` 所在的实际安装目录，使用它自带的命令，不使用 npm 全局 dsh：
 
@@ -25,7 +27,7 @@ DeepSeek Desktop 的 `desktop` profile 与 CLI/Web 不同；npm CLI 拒绝管理
 
 ## 1.4.1：显示名称、机器调用与旧入口
 
-`documentNaming` 是可选项目设置：英文 shortName 最多 32 字符，英文字母开头，后续可用英文字母、数字、连字符、下划线；空值自动选择可用短名，全中文自动值为 workflow。readable 是默认，legacy 必须明确开启。默认包名由可读短名、12 位来源摘要和 guide 构成；摘要来自不含命名设置的冻结来源。相同来源重复导出稳定；内容、身份或版本改变时摘要可能变化，改变短名会改变完整调用。
+`documentNaming` 是可选项目设置：英文 shortName 最多 32 字符，英文字母开头，后续可用英文字母、数字、连字符、下划线；空值自动选择可用短名，全中文自动值为 workflow。readable 是默认，legacy 必须明确开启。默认包名由可读短名、12 位来源摘要和 guide 构成；默认摘要来自不含命名设置和节点坐标的冻结来源。readable-v1 显式保留旧 1.4.1 算法，legacy 保留旧 1.4 算法。相同来源重复导出稳定；内容、身份或版本改变时摘要可能变化，改变短名会改变完整调用。
 
 metadata 区分 displayName、shortName、pluginId、toolName、skillName、invocation 与 invocationText。invocation 是纯机器入口；invocationText 是可复制给模型的中文指令，包含流程名、真实入口与先读全文再处理任务的要求，DSH 还明确参数 `{}`。不得把中文使用指令当机器函数名。默认 Codex skill 固定 guide，qualified plugin:skill 不超过公开 64 字符限制；旧本地安装的兼容格式保留原 skill，不据此声称符合新的公开提交约束。
 

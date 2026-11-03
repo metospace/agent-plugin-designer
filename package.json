@@ -6,11 +6,15 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "tsc -b && vite build && node scripts/csp.cjs",
-    "test": "vitest run src/model.test.ts src/harness.test.ts src/ai.test.ts && node --test tests/runtime.test.mjs",
+    "test": "vitest run src/model.test.ts src/harness.test.ts src/ai.test.ts src/web-ai.test.ts && node --test tests/runtime.test.mjs tests/evaluation.test.mjs",
     "test:e2e": "playwright test",
     "desktop": "go run github.com/egoist/mygo/cmd/mygo dev",
     "dist:win": "go run github.com/egoist/mygo/cmd/mygo build -platform windows/amd64",
-    "test:desktop": "node scripts/smoke-desktop.cjs"
+    "test:desktop": "node scripts/smoke-desktop.cjs",
+    "build:web": "tsc -b && vite build --mode web --outDir dist-web && node scripts/csp.cjs --web",
+    "preview:web": "vite preview --outDir dist-web --host 127.0.0.1",
+    "eval:real": "node scripts/eval-real-model.mjs",
+    "probe:native": "node scripts/probe-native-codex.mjs"
   },
   "dependencies": {
     "@noble/hashes": "^1.8.0",

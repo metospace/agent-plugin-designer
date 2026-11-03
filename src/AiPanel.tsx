@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { Project } from './model';
-import { aiBridgeAvailable, applyAiPreview, fingerprintProject, prepareAiDraft, requestAiDraft } from './ai';
+import { aiBridgeAvailable, browserAiAvailable, applyAiPreview, fingerprintProject, prepareAiDraft, requestAiDraft } from './ai';
 import type { AiContext, AiMode, AiPreview } from './ai';
 import './ai.css';
 
@@ -18,6 +18,7 @@ type Message = { role: 'user' | 'assistant'; text: string };
 const kinds: Record<string, string> = { start: '开始', agent: 'Agent', condition: '条件', human: '人工', end: '结束', fork: '并行', join: '汇合' };
 
 export default function AiPanel({ project, selectedNodeId, onApply, onClose }: AiPanelProps) {
+  const [browserConsent, setBrowserConsent] = useState(false);
   const [baseURL, setBaseURL] = useState('');
   const [model, setModel] = useState('');
   const [apiKey, setApiKey] = useState('');
@@ -45,6 +46,7 @@ export default function AiPanel({ project, selectedNodeId, onApply, onClose }: A
   let remoteHTTP = false;
   try { const u = new URL(baseURL); remoteHTTP = u.protocol === 'http:' && !['localhost', '127.0.0.1', '[::1]'].includes(u.hostname); } catch { /* engine validates at send */ }
   const available = aiBridgeAvailable();
+  const browserMode = browserAiAvailable();
   const context: AiContext | undefined = scope === 'project'
     ? { nodes: project.nodes, edges: project.edges, roles: project.roles, skills: project.skills }
     : scope === 'selected' && selected
@@ -52,7 +54,7 @@ export default function AiPanel({ project, selectedNodeId, onApply, onClose }: A
       : undefined;
   const conflict = !!preview && preview.baseFingerprint !== fingerprint;
   useEffect(() => { setConfirmed(false); }, [scope, selectedNodeId, fingerprint, mode]);
-  useEffect(() => { setAllowHTTP(false); }, [baseURL]);
+  useEffect(() => { setAllowHTTP(false); setBrowserConsent(false); }, [baseURL]);
   useEffect(() => () => { requestId.current++; controller.current?.abort(); }, []);
 
   function cancel() {
@@ -67,12 +69,14 @@ export default function AiPanel({ project, selectedNodeId, onApply, onClose }: A
     if (inFlight.current) return;
     setError(''); setNotice('');
     if (!available) { setError('AI 连接需要 Windows 桌面版。浏览器预览无法调用桌面连接，请在桌面版配置 API。'); return; }
+    if (browserMode && !browserConsent) { setError('请先确认浏览器直连和密钥使用说明。'); return; }
     if (!description.trim()) { setError('先描述你希望 AI 生成或修改的步骤。'); return; }
     if (apiKey && description.includes(apiKey)) { setError('描述中包含当前 API Key，请先移除密钥再发送。'); return; }
     if (!baseURL.trim() || !model.trim()) { setError('请填写 API 地址和模型名称。'); return; }
     if (scope === 'selected' && !selected) { setError('请先在画布选中一个节点。'); return; }
     if (mode === 'modify' && (scope !== 'selected' || !selected)) { setError('修改节点需要选择“选中节点”共享范围。'); return; }
     if (scope !== 'description' && !confirmed) { setError('请确认本次发送的共享内容。'); return; }
+    if (browserMode && remoteHTTP) { setError('Web 版不支持远程明文 HTTP，请改用 HTTPS。'); return; }
     if (remoteHTTP && !allowHTTP) { setError('远程 HTTP 连接未加密，请先明确确认。'); return; }
     const snapshot = structuredClone(project);
     const requestMode: AiMode = mode === 'modify' ? 'modify' : snapshot.nodes.length ? 'append' : 'create';
@@ -119,12 +123,13 @@ export default function AiPanel({ project, selectedNodeId, onApply, onClose }: A
   return <section className="ai-panel" aria-label="AI 辅助设计" data-testid="ai-panel">
     <div className="ai-heading"><div><h2>AI 辅助设计</h2><p>描述流程，预览后再加入画布。</p></div>{onClose && <button type="button" aria-label="关闭 AI 面板" onClick={onClose}>×</button>}</div>
     <p className="ai-subtle">兼容 OpenAI 风格的 chat/completions API。仅在点击发送后连接；供应商可能按用量计费。配置和对话只保留在本次面板会话。</p>
+    {browserMode && <div className="ai-warning"><p>Web 版直接连接你填写的 API，不经过本站服务器。供应商必须允许浏览器跨域（CORS）；仅支持 HTTPS 或本机服务（仍受浏览器本地网络访问策略限制）。请使用有限额度的临时 Key，不要填写团队共享或生产密钥。Key 只在此面板内存中保留，关闭即清除。</p><label className="ai-check"><input type="checkbox" checked={browserConsent} onChange={e => setBrowserConsent(e.target.checked)} />我确认将本次内容和 Key 直接发送到填写的 API</label></div>}
     {!available && <p className="ai-warning" role="status">浏览器预览无法连接 AI；请使用 Windows 桌面版。</p>}
     <details className="ai-config" open><summary>API 连接配置</summary><fieldset disabled={busy}>
       <label>API 地址<input aria-label="API 地址" type="url" value={baseURL} onChange={e => setBaseURL(e.target.value)} autoComplete="off" spellCheck={false} placeholder="https://api.example.com/v1" /></label>
       <label>模型名称<input aria-label="模型名称" value={model} onChange={e => setModel(e.target.value)} autoComplete="off" spellCheck={false} placeholder="填写供应商提供的模型名称" /></label>
       <label>API Key<input aria-label="API Key" type="password" value={apiKey} onChange={e => setApiKey(e.target.value)} autoComplete="off" spellCheck={false} placeholder="仅保留在当前会话" /></label>
-      {remoteHTTP && <label className="ai-check ai-warning"><input type="checkbox" checked={allowHTTP} onChange={e => setAllowHTTP(e.target.checked)} />我确认使用远程 HTTP：密钥与内容会明文传输</label>}
+      {remoteHTTP && !browserMode && <label className="ai-check ai-warning"><input type="checkbox" checked={allowHTTP} onChange={e => setAllowHTTP(e.target.checked)} />我确认使用远程 HTTP：密钥与内容会明文传输</label>}
     </fieldset></details>
     <fieldset className="ai-modes" disabled={busy}><legend>这次要做什么</legend>
       <label><input type="radio" name="ai-mode" checked={mode !== 'modify'} onChange={() => { setMode(project.nodes.length ? 'append' : 'create'); setConfirmed(false); }} />{project.nodes.length ? '追加新节点' : '生成新流程'}</label>

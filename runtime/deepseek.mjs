@@ -19,14 +19,15 @@ export function apply(ctx){
  const input=JSON.parse(args.input);input.mainSession=String(exec.agent.session.id);
  const host={
  async check(){const p=ctx.subagents?.getProvider('spawn');if(!p||p.inheritsParentContext||!p.capabilities.outputSchema||(ctx.subagents.resolveMaxDepth(undefined)!==undefined&&!p.capabilities.depthLimit))throw Error('Missing independent spawn provider with structured output; no same-session fallback');},
- async start({role,permission,prompt,schema,workspace}){
+ async start({role,permission,prompt,schema,workspace,signal}){
+ const dispatchSignal=signal?AbortSignal.any([exec.signal,signal]):exec.signal;dispatchSignal.throwIfAborted();
  const maxDepth=ctx.subagents.resolveMaxDepth(undefined);
  // Monotonic host guard is installed before child creation: no startup window permits writes.
  const readonly=role==='qa'||permission==='read-only';
  const readTools=new Set(['structured_output','read_file','read','list_directory','glob','grep']);
  const removeGuard=readonly?ctx.tools.guard(call=>call.agent&&ctx.agents.isOwnedBy(call.agent.session.id,exec.agent)&&!readTools.has(call.name)?'Workflow read-only child: tool denied by host guard':undefined):()=>{};
- let activation;try{activation=await ctx.subagents.startActivation({provider:'spawn',label:name+' '+role,request:{prompt:[{type:'text',text:prompt}],parent:exec.agent,cwd:workspace,outputSchema:schema,...maxDepth===undefined?{}:{maxDepth}},signal:exec.signal,delivery:'caller'});}catch(error){removeGuard();throw error;}
- const abort=()=>{void activation.dispose().catch(()=>{});};exec.signal.addEventListener('abort',abort,{once:true});if(exec.signal.aborted)abort();return {id:String(activation.childId),policy:readonly?'read-only-tools-guard':'host-native-permissions',result:activation.result,async dispose(){exec.signal.removeEventListener('abort',abort);try{await activation.dispose();}finally{removeGuard();}}};
+ let activation;try{activation=await ctx.subagents.startActivation({provider:'spawn',label:name+' '+role,request:{prompt:[{type:'text',text:prompt}],parent:exec.agent,cwd:workspace,outputSchema:schema,...maxDepth===undefined?{}:{maxDepth}},signal:dispatchSignal,delivery:'caller'});}catch(error){removeGuard();throw error;}
+ const abort=()=>{void activation.dispose().catch(()=>{});};dispatchSignal.addEventListener('abort',abort,{once:true});if(dispatchSignal.aborted)abort();return {id:String(activation.childId),policy:readonly?'read-only-tools-guard':'host-native-permissions',result:activation.result,async dispose(){dispatchSignal.removeEventListener('abort',abort);try{await activation.dispose();}finally{removeGuard();}}};
  }};
  return JSON.stringify(await runTask(bundle,input,host));
  }

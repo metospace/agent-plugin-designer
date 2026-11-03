@@ -43,3 +43,130 @@ test('graph runner blocks interrupted intents and parallel writes before host st
 test('join preserves largest configured edge counter from every isolated branch',()=>{const b=gb([gn('begin','start'),gn('split','fork'),gn('alpha','agent'),gn('beta','agent'),gn('merge','join',{join:{forkId:'split'}}),gn('after','agent'),gn('finish','end')],[ge('begin','split'),ge('split','alpha'),ge('split','beta'),ge('alpha','merge'),ge('beta','merge'),ge('merge','after'),ge('after','finish')]);let s=advance(b,createRun(b,gi()),{id:'tick',type:'tick'});const [a,z]=s.tokens.map(t=>t.id);s.tokens[0].counts.bound=1;s.tokens[1].counts.bound=4;s=graphResult(b,s,z,{text:'B'});s=graphResult(b,s,a,{text:'A'});assert.equal(s.tokens[0].nodeId,'after');assert.equal(s.tokens[0].counts.bound,4);});
 test('configured failed review cannot become passed by human continue',()=>{const b=gb([gn('begin','start'),gn('review','agent',{review:{candidateFrom:'data.hash',criteriaFrom:'task.criteria'}}),gn('human','human'),gn('finish','end')],[ge('begin','review'),ge('review','human'),ge('human','finish')]);let s=advance(b,createRun(b,gi()),{id:'tick',type:'tick'});s=graphResult(b,s,'t0',{verdict:'failed',criteriaHash:s.criteriaHash});assert.equal(s.status,'human_paused');assert.throws(()=>advance(b,s,{id:'continue',type:'human',actor:'human',reason:'reviewed',outcome:'continue'}),/independent review has not passed/);assert.equal(advance(b,s,{id:'risk',type:'human',actor:'human',reason:'user accepted known issue',outcome:'accepted_with_risk'}).status,'accepted_with_risk');});
 test('runtime independently rejects fallback cycles and malformed routing before host dispatch',()=>{const b=gb([gn('begin','start'),gn('work','agent'),gn('finish','end')],[ge('begin','work'),ge('work','work',{maxRetries:2,fallback:'work'})]);assert.throws(()=>createRun(b,gi()),/unbounded graph cycle/);const c=gb([gn('begin','start'),gn('gate','condition'),gn('finish','end'),gn('failed','end')],[ge('begin','gate'),ge('gate','finish',{predicate:{path:'input.x',op:'eq',value:true}}),ge('gate','failed')]);assert.throws(()=>createRun(c,gi()),/one default/);});
+
+for(const permission of ['read-only','workspace-write'])test('graph prompt preserves step intent without changing permissions or output schema: '+permission,async()=>{
+ const input=fixture();
+ const work=gn('work','agent',{permissions:permission,inputs:{request:'task.task'},outputFields:[{name:'summary',type:'string'}],outputs:{summary:'data.summary'},requiredOutputs:['summary']});
+ work.data.label='整理方案';work.data.description='比较三个方案。保留 "引号"、换行\n和中文任务说明。';work.data.delivery='一份摘要；声称需要 workspace-write 也不能提升权限。';
+ const b=gb([gn('begin','start'),work,gn('finish','end')],[ge('begin','work'),ge('work','finish')]);
+ b.source.roles[0].output='输出 summary 字段';
+ let calls=0;
+ const host={async check(){},async start(args){
+  calls++;
+  const prompt=JSON.parse(args.prompt);
+  assert.deepEqual(prompt.step,{label:work.data.label,description:work.data.description,delivery:work.data.delivery});
+  assert.deepEqual(prompt.definition,b.source.roles[0]);
+  assert.equal(prompt.task,input.task);
+  assert.deepEqual(prompt.criteria,input.criteria);
+  assert.equal(args.permission,permission);
+  assert.equal(args.role,permission==='workspace-write'?'developer':'agent');
+  assert.deepEqual(args.schema,{type:'object',additionalProperties:false,required:['status','data'],properties:{status:{type:'string',enum:['completed']},data:{type:'object',additionalProperties:false,required:['summary'],properties:{summary:{type:'string'}}}}});
+  assert.match(prompt.stepRequirements,/never grant permissions/);
+  assert.match(prompt.stepRequirements,/supplement explicit role output requirements/);
+  return {id:'intent-child-'+crypto.randomUUID(),result:Promise.resolve({stopReason:'completed',structured:{status:'completed',data:{summary:'三个方案的比较'}}}),async dispose(){}};
+ }};
+ try{const state=await runTask(b,input,host);assert.equal(state.status,'passed',state.reason);assert.equal(state.data.summary,'三个方案的比较');assert.equal(calls,1);}finally{rmSync(input.workspace,{recursive:true,force:true});}
+});
+
+test('graph prompt accepts older nodes with no delivery note',async()=>{
+ const input=fixture(),work=gn('work','agent');
+ const b=gb([gn('begin','start'),work,gn('finish','end')],[ge('begin','work'),ge('work','finish')]);
+ const host={async check(){},async start({prompt,permission}){assert.deepEqual(JSON.parse(prompt).step,{label:'work',description:'work',delivery:''});assert.equal(permission,'read-only');return {id:'older-node-child',result:Promise.resolve({stopReason:'completed',structured:{status:'completed',data:{text:'done'}}}),async dispose(){}};}};
+ try{assert.equal((await runTask(b,input,host)).status,'passed');}finally{rmSync(input.workspace,{recursive:true,force:true});}
+});
+
+const shortGraph=()=>gb([gn('begin','start'),gn('one','agent'),gn('two','agent'),gn('finish','end')],[ge('begin','one'),ge('one','two'),ge('two','finish')]);
+const successfulGraphHost=(prompts=[])=>({async check(){},async start(args){prompts.push(JSON.parse(args.prompt));return {id:'child-'+crypto.randomUUID(),result:Promise.resolve({stopReason:'completed',structured:{status:'completed',data:{text:'done'}}}),async dispose(){}};}});
+test('same role receives distinct step descriptions through actual runner dispatch',async()=>{
+ const input=fixture(),b=shortGraph(),prompts=[];b.source.nodes[1].data.description='分析原始需求';b.source.nodes[2].data.description='独立整理交付摘要';
+ try{assert.equal((await runTask(b,input,successfulGraphHost(prompts))).status,'passed');assert.deepEqual(prompts.map(p=>p.step.description),['分析原始需求','独立整理交付摘要']);assert.equal(prompts[0].definition.id,prompts[1].definition.id);}finally{rmSync(input.workspace,{recursive:true,force:true});}
+});
+test('dispatch budget is persisted and cannot silently reset on resume',async()=>{
+ const input={...fixture(),limits:{maxDispatches:1}},b=shortGraph(),prompts=[];
+ try{const s=await runTask(b,input,successfulGraphHost(prompts));assert.equal(s.status,'blocked');assert.match(s.reason,/dispatch budget/);assert.equal(prompts.length,1);assert.equal(s.runtime.dispatches,1);await runTask(b,input,successfulGraphHost(prompts));assert.equal(prompts.length,1);await assert.rejects(runTask(b,{...input,limits:{maxDispatches:2}},successfulGraphHost()),/limits changed/);}finally{rmSync(input.workspace,{recursive:true,force:true});}
+});
+test('step budget exhaustion preserves the unresolved dispatch and never retries automatically',async()=>{
+ const input={...fixture(),limits:{maxSteps:1}},b=shortGraph(),prompts=[];
+ try{const s=await runTask(b,input,successfulGraphHost(prompts));assert.equal(s.status,'blocked');assert.match(s.reason,/step budget/);assert.equal(s.tokens[0].phase,'running');await runTask(b,input,successfulGraphHost(prompts));assert.equal(prompts.length,1);}finally{rmSync(input.workspace,{recursive:true,force:true});}
+});
+for(const stage of ['check','start','result'])test('hung '+stage+' is bounded and persisted without redispatch',async()=>{
+ const input={...fixture(),limits:{timeoutMs:1000,dispatchTimeoutMs:15,hostCheckTimeoutMs:15,cleanupTimeoutMs:15}},b=shortGraph();let calls=0,disposed=0;
+ const never=()=>new Promise(()=>{}),host={check:stage==='check'?never:async()=>{},async start(){calls++;if(stage==='start')return never();return {id:'pending-child',result:never(),async dispose(){disposed++;}};}};
+ try{const s=await runTask(b,input,host);assert.equal(s.status,'blocked');assert.match(s.reason,/timed out/);if(stage!=='check')assert.equal(s.tokens[0].phase,stage==='start'?'dispatching':'running');const before=calls;await runTask(b,input,host);assert.equal(calls,before);assert.equal(disposed,stage==='result'?1:0);assert(!existsSync(input.statePath+'.lock'));}finally{rmSync(input.workspace,{recursive:true,force:true});}
+});
+test('late host start cannot advance timed-out state and is disposed best effort',async()=>{
+ const input={...fixture(),limits:{dispatchTimeoutMs:10,cleanupTimeoutMs:10}},b=shortGraph();let resolveStart,disposed=0;
+ const host={async check(){},start(){return new Promise(resolve=>{resolveStart=resolve;});}};
+ try{const s=await runTask(b,input,host);assert.equal(s.status,'blocked');resolveStart({id:'late-child',result:Promise.resolve({}),async dispose(){disposed++;}});await new Promise(r=>setTimeout(r,20));assert.equal(disposed,1);const disk=loadState(input.statePath);assert.equal(disk.status,'blocked');assert.equal(disk.tokens[0].phase,'dispatching');assert.equal(disk.events.filter(e=>e.type==='dispatch').length,0);}finally{rmSync(input.workspace,{recursive:true,force:true});}
+});
+for(const mode of ['throw','hang'])test('cleanup '+mode+' is bounded and recorded without obscuring completed evidence',async()=>{
+ const input={...fixture(),limits:{cleanupTimeoutMs:10}},b=shortGraph();const host=successfulGraphHost(),start=host.start;
+ host.start=async args=>({...await start(args),dispose:mode==='throw'?async()=>{throw Error('cleanup failed');}:()=>new Promise(()=>{})});
+ try{const s=await runTask(b,input,host);assert.equal(s.status,'passed');assert.equal(s.warnings.length,2);assert.match(s.warnings[0],/cleanup|Child cleanup/);assert(!existsSync(input.statePath+'.lock'));}finally{rmSync(input.workspace,{recursive:true,force:true});}
+});
+test('elapsed wall-clock budget includes downtime and blocks before host dispatch',async()=>{
+ const input={...fixture(),limits:{timeoutMs:10}},b=shortGraph();let calls=0;
+ try{const s=createRun(b,input);s.runtime.startedAt=Date.now()-100;persist(input.statePath,s);const next=await runTask(b,input,{async check(){calls++;},async start(){calls++;}});assert.equal(next.status,'blocked');assert.match(next.reason,/time budget/);assert.equal(calls,0);}finally{rmSync(input.workspace,{recursive:true,force:true});}
+});
+test('unsupported cost/token caps and invalid limits fail before host dispatch',()=>{
+ for(const limits of [{maxTokens:100},{maxCost:1},{constructor:1},JSON.parse('{"__proto__":1}'),{maxSteps:0},{timeoutMs:Infinity},{dispatchTimeoutMs:-1}])assert.throws(()=>createRun(shortGraph(),{...gi(),limits}),/execution limit/);
+});
+
+test('pre-limit graph states migrate without redispatching terminal work',async()=>{
+ const input=fixture(),b=shortGraph(),host=successfulGraphHost();
+ try{let s=await runTask(b,input,host);delete s.runtime;persist(input.statePath,s);const prompts=[];s=await runTask(b,input,successfulGraphHost(prompts));assert.equal(s.status,'passed');assert.equal(s.runtime.dispatches,2);assert.equal(prompts.length,0);}finally{rmSync(input.workspace,{recursive:true,force:true});}
+});
+test('automatic transition failures become persisted blockers before any host start',async()=>{
+ const input=fixture(),b=gb([gn('begin','start'),gn('gate','condition'),gn('one','agent'),gn('two','agent'),gn('finish','end')],[ge('begin','gate'),ge('gate','one',{predicate:{path:'task.task',op:'exists'}}),ge('gate','two',{predicate:{path:'task.task',op:'exists'}}),ge('gate','finish',{default:true}),ge('one','finish'),ge('two','finish')]);const prompts=[];
+ try{const s=await runTask(b,input,successfulGraphHost(prompts));assert.equal(s.status,'blocked');assert.match(s.reason,/ambiguous matching/);assert.equal(loadState(input.statePath).status,'blocked');assert.equal(prompts.length,0);}finally{rmSync(input.workspace,{recursive:true,force:true});}
+});
+
+for(const stage of ['start','result'])test(stage+' deadline aborts host signal and ignores late results',async()=>{
+ const input={...fixture(),limits:{dispatchTimeoutMs:10}},b=shortGraph();let signal,resolveResult;
+ const host={async check(){},async start(args){signal=args.signal;if(stage==='start')return new Promise(()=>{});return {id:'abort-child',result:new Promise(r=>{resolveResult=r;}),async dispose(){}};}};
+ try{const s=await runTask(b,input,host);assert.equal(s.status,'blocked');assert.equal(signal.aborted,true);resolveResult?.({stopReason:'completed',structured:{status:'completed',data:{text:'late'}}});await new Promise(r=>setTimeout(r,5));assert.equal(loadState(input.statePath).status,'blocked');assert.equal(loadState(input.statePath).events.filter(e=>e.type==='result').length,0);}finally{rmSync(input.workspace,{recursive:true,force:true});}
+});
+test('Codex abort terminates local process while waiting for identity',{skip:process.platform==='win32'},async()=>{
+ const {codexHost}=await import('../runtime/codex.mjs');const {chmodSync,readFileSync}=await import('node:fs');const input=fixture(),script=join(input.workspace,'fake-codex.mjs'),pidPath=join(input.workspace,'pid');
+ writeFileSync(script,'#!/usr/bin/env node\nimport {writeFileSync} from "node:fs";writeFileSync('+JSON.stringify(pidPath)+',String(process.pid));writeFileSync('+JSON.stringify(pidPath+'.args')+',JSON.stringify(process.argv.slice(2)));setInterval(()=>{},1000);');chmodSync(script,0o700);
+ const controller=new AbortController();const pending=codexHost(script,{model:'explicit-eval-model',ignoreUserConfig:true,ephemeral:true}).start({role:'agent',permission:'read-only',prompt:'test',schema:{},workspace:input.workspace,signal:controller.signal});pending.catch(()=>{});
+ try{for(let i=0;i<100&&!existsSync(pidPath);i++)await new Promise(r=>setTimeout(r,10));assert(existsSync(pidPath),'fake host started');const args=JSON.parse(readFileSync(pidPath+'.args','utf8'));assert.deepEqual(args.slice(0,5),['exec','--ignore-user-config','--ephemeral','--model','explicit-eval-model']);const pid=Number(readFileSync(pidPath,'utf8'));controller.abort();await assert.rejects(pending,/aborted/);await new Promise(r=>setTimeout(r,20));assert.throws(()=>process.kill(pid,0),/ESRCH/);}finally{controller.abort();rmSync(input.workspace,{recursive:true,force:true});}
+});
+
+test('explicit human recovery requires inspected/stopped confirmation and reason, preserves budgets',async()=>{
+ const {retryInspectedTask,recoverySummary}=await import('../runtime/human.mjs');const b=shortGraph();let s=createRun(b,gi());s=advance(b,s,{id:'tick',type:'tick'});s=advance(b,s,{id:'intent',type:'dispatch_intent',tokenId:'t0'});s=advance(b,s,{id:'dispatch',type:'dispatch',tokenId:'t0',sessionId:'actual-child'});s=advance(b,s,{id:'block',type:'blocked',reason:'interrupted'});
+ assert.equal(recoverySummary(s).children[0].sessionId,'actual-child');assert.equal(recoverySummary(s).children[0].intentId,'intent');
+ for(const value of [{inspected:false,reason:'checked'},{inspected:'true',reason:'checked'},{inspected:true,reason:' '}])assert.throws(()=>retryInspectedTask(b,s,value));
+ const next=retryInspectedTask(b,s,{inspected:true,reason:'Inspected and terminated child'});assert.equal(next.status,'running');assert.equal(next.tokens[0].phase,'ready');assert.deepEqual(next.runtime,s.runtime);assert.equal(next.events.at(-1).inspected,true);assert.equal(next.events.filter(e=>e.type==='dispatch').length,1);
+ for(const patch of [{steps:s.runtime.limits.maxSteps},{dispatches:s.runtime.limits.maxDispatches},{startedAt:0}])assert.throws(()=>retryInspectedTask(b,{...s,runtime:{...s.runtime,...patch}},{inspected:true,reason:'checked'}),/budget exhausted/);
+ assert.throws(()=>retryInspectedTask(b,{...s,reviewInvalidated:true},{inspected:true,reason:'checked'}),/invalidated independent review/);
+});
+
+test('Codex explicit model/config options validate rather than silently ignoring configuration',async()=>{
+ const {codexHost}=await import('../runtime/codex.mjs');for(const options of [{model:''},{model:42},{ignoreUserConfig:'yes'},{ephemeral:1},{unknown:true}])assert.throws(()=>codexHost('codex',options));assert.doesNotThrow(()=>codexHost('codex',{model:'explicit-model',ignoreUserConfig:true,ephemeral:true}));
+});
+
+test('expired persisted deadline prevents human continuation to success outside runner',()=>{
+ const b=gb([gn('begin','start'),gn('human','human'),gn('finish','end')],[ge('begin','human'),ge('human','finish')]);let s=advance(b,createRun(b,gi()),{id:'tick',type:'tick'});assert.equal(s.status,'human_paused');s.runtime.startedAt=0;
+ assert.throws(()=>advance(b,s,{id:'continue',type:'human',actor:'human',reason:'checked',outcome:'continue'}),/time budget exhausted/);assert.equal(advance(b,s,{id:'cancel',type:'cancel'}).status,'cancelled');assert.equal(advance(b,s,{id:'fail',type:'human',actor:'human',reason:'expired',outcome:'failed'}).status,'failed');
+});
+
+test('model prompt avoids duplicate task context while retaining upstream and mapped inputs',async()=>{
+ const input={...fixture(),data:{request:'original data'}},b=shortGraph(),prompts=[];b.source.nodes[1].data.config={outputs:{text:'data.summary'}};b.source.nodes[2].data.config={inputs:{originalTask:'task.task',upstream:'data.summary'}};
+ try{assert.equal((await runTask(b,input,successfulGraphHost(prompts))).status,'passed');for(const p of prompts){assert.equal(p.task,input.task);assert.deepEqual(p.criteria,input.criteria);assert.equal(Object.hasOwn(p.context,'task'),false);assert.deepEqual(p.context.input,input.data);}assert.deepEqual(prompts[1].context.data,{summary:'done'});assert.equal(prompts[1].context.nodes.one.data.text,'done');assert.deepEqual(prompts[1].input,{originalTask:input.task,upstream:'done'});}finally{rmSync(input.workspace,{recursive:true,force:true});}
+});
+
+test('Codex checks requested optional flags on the accepted version before dispatch',{skip:process.platform==='win32'},async()=>{
+ const {codexHost}=await import('../runtime/codex.mjs');const {chmodSync}=await import('node:fs');const input=fixture(),script=join(input.workspace,'capability-codex.mjs'),previous=process.env.APD_CODEX_DEVELOPER_SANDBOX;
+ process.env.APD_CODEX_DEVELOPER_SANDBOX='read-only';
+ const write=help=>{writeFileSync(script,'#!/usr/bin/env node\nconsole.log(process.argv.includes("--version")?"codex-cli 0.159.0-alpha.3":'+JSON.stringify(help)+');');chmodSync(script,0o700);};
+ try{write('--model');await assert.rejects(codexHost(script,{model:'test',ephemeral:true}).check(),/does not advertise requested option --ephemeral/);write('--model --ephemeral --ignore-user-config');await codexHost(script,{model:'test',ephemeral:true,ignoreUserConfig:true}).check();}finally{if(previous===undefined)delete process.env.APD_CODEX_DEVELOPER_SANDBOX;else process.env.APD_CODEX_DEVELOPER_SANDBOX=previous;rmSync(input.workspace,{recursive:true,force:true});}
+});
+
+test('Codex abort terminates Unix process group including ordinary tool descendants',{skip:process.platform==='win32'},async()=>{
+ const {codexHost}=await import('../runtime/codex.mjs');const {chmodSync}=await import('node:fs');const input=fixture(),script=join(input.workspace,'fake-parent.mjs'),pidPath=join(input.workspace,'descendant-pid'),heartbeat=join(input.workspace,'heartbeat');
+ const descendant='const fs=require("node:fs");fs.writeFileSync('+JSON.stringify(pidPath)+',String(process.pid));setInterval(()=>fs.writeFileSync('+JSON.stringify(heartbeat)+',String(Date.now())),10);';
+ writeFileSync(script,'#!/usr/bin/env node\nimport {spawn} from "node:child_process";spawn(process.execPath,["-e",'+JSON.stringify(descendant)+'],{stdio:"ignore"});setInterval(()=>{},1000);');chmodSync(script,0o700);
+ const controller=new AbortController(),pending=codexHost(script).start({role:'agent',permission:'read-only',prompt:'test',schema:{},workspace:input.workspace,signal:controller.signal});pending.catch(()=>{});let pid;
+ try{for(let i=0;i<100&&!existsSync(heartbeat);i++)await new Promise(r=>setTimeout(r,10));assert(existsSync(heartbeat),'descendant is writing');pid=Number(readFileSync(pidPath,'utf8'));controller.abort();await assert.rejects(pending,/aborted/);await new Promise(r=>setTimeout(r,40));const stopped=readFileSync(heartbeat,'utf8');await new Promise(r=>setTimeout(r,100));assert.equal(readFileSync(heartbeat,'utf8'),stopped,'descendant cannot continue workspace writes');if(process.platform==='linux'&&existsSync('/proc/'+pid+'/stat'))assert.equal(readFileSync('/proc/'+pid+'/stat','utf8').split(') ')[1][0],'Z','remaining descendant must be a dead zombie awaiting reaping');else assert.throws(()=>process.kill(pid,0),/ESRCH/);}finally{controller.abort();if(pid)try{process.kill(pid,'SIGKILL');}catch{}rmSync(input.workspace,{recursive:true,force:true});}
+});

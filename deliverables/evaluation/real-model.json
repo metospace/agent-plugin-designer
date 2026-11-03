@@ -1,0 +1,14 @@
+{
+  "startedAt": "2026-11-03T14:17:07.250Z",
+  "classification": "REAL MODEL EVALUATION PREFLIGHT; NO MODEL CALLS YET",
+  "complete": false,
+  "qualityGatePassed": false,
+  "host": {
+    "model": "gpt-6.1-sol",
+    "provider": "OpenAI default with --ignore-user-config",
+    "ephemeral": true,
+    "sandbox": "read-only"
+  },
+  "blocker": "Requires Codex 0.159.0-alpha.3; run installation capability check",
+  "finishedAt": "2026-11-03T14:17:07.263Z"
+}

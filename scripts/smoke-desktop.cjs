@@ -51,7 +51,7 @@ async function open(){
  // Naming stays readable, optional, and explicit; no clipboard permission is granted.
  await p.getByRole('button',{name:'导出插件',exact:false}).first().click();
  await p.getByLabel('英文调用短名（选填）',{exact:true}).fill('native-flow');
- await showNamingCompatibility(p);await p.getByLabel('保持旧调用标识',{exact:true}).check();await p.getByLabel('保持旧调用标识',{exact:true}).uncheck();
+ await showNamingCompatibility(p);await p.getByLabel('命名兼容方式',{exact:true}).selectOption('legacy');await p.getByLabel('命名兼容方式',{exact:true}).selectOption('readable');
  const namingDisplay=(await p.getByTestId('document-display-name').textContent()).trim();assert.ok(/[\u4e00-\u9fff]/.test(namingDisplay));assert.notEqual(await p.getByLabel('调用方式',{exact:true}).getAttribute('readonly'),null);
  await p.getByTitle('关闭对话框',{exact:true}).click();await sleep(400);
  const first=join(root,'project.json');
@@ -84,12 +84,12 @@ async function open(){
   require('node:fs').copyFileSync(documentPath,join(out,target+'-install.zip'));
   await p.getByRole('button',{name:'导出插件',exact:false}).first().click();
   const repeatPath=join(root,'naming-repeat-'+target+'.zip');await dialog(p,()=>p.getByRole('button',{name:/宿主可安装 ZIP/}).click(),repeatPath,'保存 Agent Studio 导出文件');const repeatArchive=await until(async()=>require('jszip').loadAsync(readFileSync(repeatPath)));const repeatMetadata=JSON.parse(await repeatArchive.file('document.json').async('string'));assert.equal(repeatMetadata.pluginId,document.pluginId);assert.equal(repeatMetadata.invocation,document.invocation);assert.deepEqual(JSON.parse(await repeatArchive.file('project.agent-project.json').async('string')),original);
-  await p.getByRole('button',{name:'导出插件',exact:false}).first().click();await showNamingCompatibility(p);await p.getByLabel('保持旧调用标识',{exact:true}).check();
+  await p.getByRole('button',{name:'导出插件',exact:false}).first().click();await showNamingCompatibility(p);await p.getByLabel('命名兼容方式',{exact:true}).selectOption('legacy');
   const legacyPath=join(root,'naming-legacy-'+target+'.zip');await dialog(p,()=>p.getByRole('button',{name:/宿主可安装 ZIP/}).click(),legacyPath,'保存 Agent Studio 导出文件');const legacyArchive=await until(async()=>require('jszip').loadAsync(readFileSync(legacyPath)));const legacyMetadata=JSON.parse(await legacyArchive.file('document.json').async('string'));assert.equal(legacyMetadata.namingMode,'legacy');assert.equal(legacyMetadata.pluginId,document.legacyIds.pluginId);assert.equal(legacyMetadata.invocation,document.legacyIds.invocation);assert.notEqual(legacyMetadata.pluginId,document.pluginId);assert.deepEqual(JSON.parse(await legacyArchive.file('project.agent-project.json').async('string')),{...original,documentNaming:{...original.documentNaming,mode:'legacy'}});require('node:fs').copyFileSync(legacyPath,join(out,target+'-legacy-install.zip'));
   harnessExports[target].naming={chineseDisplay:namingDisplay,readOnlyInvocationText:displayedInvocation,windowsClipboardMatches:true,shortName:document.shortName,pluginId:document.pluginId,repeatIdentityStable:true,legacyPluginId:legacyMetadata.pluginId,legacyModeSourcePreserved:true,legacyAndReadableIdsDiffer:true};
 
   await p.getByRole('button',{name:'导出插件',exact:false}).first().click();
-  await showNamingCompatibility(p);await p.getByLabel('保持旧调用标识',{exact:true}).uncheck();
+  await showNamingCompatibility(p);await p.getByLabel('命名兼容方式',{exact:true}).selectOption('readable');
   await p.getByLabel('导出用途',{exact:true}).selectOption('runtime');
   const path=join(root,'agent-plugin-'+target+'.zip');
   await dialog(p,()=>p.getByRole('button',{name:/宿主可安装 ZIP/}).click(),path,'保存 Agent Studio 导出文件');

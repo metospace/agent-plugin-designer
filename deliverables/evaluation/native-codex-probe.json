@@ -1,0 +1,14 @@
+{
+  "classification": "NATIVE CODEX COMPATIBILITY PROBE ATTEMPT; REAL MODEL EXECUTION NOT ASSUMED",
+  "version": "codex-cli 0.166.0-alpha.1",
+  "model": "gpt-6.1-sol",
+  "provider": "OpenAI default with --ignore-user-config",
+  "timeoutMs": 60000,
+  "events": [],
+  "passed": false,
+  "exitCode": 1,
+  "signal": null,
+  "timedOut": false,
+  "stderr": "Reading additional input from stdin...\nError: failed to initialize in-process app-server client: Read-only file system (os error 30)\n",
+  "observedModelCompletion": false
+}

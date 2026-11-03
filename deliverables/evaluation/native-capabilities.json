@@ -1,0 +1,22 @@
+{
+  "classification": "ACTUAL CLI HELP DISCOVERY ONLY; NOT EXECUTION ACCEPTANCE",
+  "at": "2026-11-03T14:15:38.102Z",
+  "execExit": 0,
+  "pluginExit": 0,
+  "execFlags": {
+    "--json": true,
+    "--sandbox": true,
+    "--cd": true,
+    "--output-schema": true,
+    "--output-last-message": true,
+    "--ignore-user-config": true,
+    "--ephemeral": true,
+    "--model": true
+  },
+  "pluginCommands": {
+    "add": true,
+    "list": true,
+    "remove": true,
+    "marketplace": true
+  }
+}

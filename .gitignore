@@ -9,3 +9,7 @@ release/
 build/
 .mygo/
 mygo.ts
+
+dist/
+dist-web/
+__pycache__/
