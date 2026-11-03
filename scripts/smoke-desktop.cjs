@@ -10,6 +10,10 @@ const exe=resolve(process.argv[2]||'build/windows-amd64/Agent Studio.exe');
 let active;const messages=[];
 async function preview(page,label){const c=await page.context().newCDPSession(page);const size=await page.evaluate(()=>({width:innerWidth,height:innerHeight}));const shot=await c.send('Page.captureScreenshot',{format:'jpeg',quality:65,clip:{x:0,y:0,...size,scale:.6}});writeFileSync(join(out,'preview-'+label.toLowerCase()+'.jpg'),Buffer.from(shot.data,'base64'));console.log('WINDOWS_PREVIEW_SAVED',label);await c.detach();}
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+async function showNamingCompatibility(page){const details=page.locator('details.naming-details');if(await details.getAttribute('open')===null)await details.locator('summary').click();}
+function clipboardText(){const result=spawnSync('powershell',['-STA','-NoProfile','-Command','[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false); Get-Clipboard -Raw'],{encoding:'utf8',shell:false});if(result.status!==0)throw Error('Unable to read controlled Windows CI clipboard');return result.stdout.replace(/\r\n/g,'\n').replace(/\n$/,'');}
+async function copyNamingInvocation(page,expected){await page.getByRole('button',{name:'复制调用方式',exact:true}).click();await until(async()=>{if(await page.getByRole('status').filter({hasText:'无法自动复制'}).count())throw Object.assign(Error('Native copy invocation was rejected; manual fallback is not clipboard verification'),{fatal:true});return clipboardText()===expected.replace(/\r\n/g,'\n');});}
+
 async function until(fn){let last;const end=Date.now()+60000;while(Date.now()<end){try{const v=await fn();if(v)return v;}catch(e){last=e;if(e.fatal)throw e;}await sleep(100);}throw Error('Timed out waiting for Windows app or export: '+(last?.message||'no matching target'));}
 async function dialog(page,action,path,name,cancel=false){
  const args=['-STA','-NoProfile','-ExecutionPolicy','Bypass','-File',resolve('scripts/native-dialog.ps1'),'-Title',name,'-Screenshot',join(out,cancel?'save-cancel.png':path.endsWith('.json')?'project-dialog.png':'plugin-dialog.png')];
@@ -44,6 +48,12 @@ async function open(){
  const connectionNote='Native ordinary connection note';await p.getByLabel('连接说明（可选）',{exact:true}).fill(connectionNote);await sleep(400);
  const ordinaryConnection={legacyRequirementVisibleAndPreserved:true,legacyRequirementExplicitlyCleared:true,noBranchConditionField:true,optionalNote:connectionNote};
 
+ // Naming stays readable, optional, and explicit; no clipboard permission is granted.
+ await p.getByRole('button',{name:'导出插件',exact:false}).first().click();
+ await p.getByLabel('英文调用短名（选填）',{exact:true}).fill('native-flow');
+ await showNamingCompatibility(p);await p.getByLabel('保持旧调用标识',{exact:true}).check();await p.getByLabel('保持旧调用标识',{exact:true}).uncheck();
+ const namingDisplay=(await p.getByTestId('document-display-name').textContent()).trim();assert.ok(/[\u4e00-\u9fff]/.test(namingDisplay));assert.notEqual(await p.getByLabel('调用方式',{exact:true}).getAttribute('readonly'),null);
+ await p.getByTitle('关闭对话框',{exact:true}).click();await sleep(400);
  const first=join(root,'project.json');
  await dialog(p,()=>p.getByRole('button',{name:'保存项目文件',exact:true}).click(),first,'保存 Agent Studio 导出文件');
  const original=await until(()=>JSON.parse(readFileSync(first,'utf8')));
@@ -60,11 +70,12 @@ async function open(){
   await p.getByRole('button',{name:'导出插件',exact:false}).first().click();
   await p.getByLabel('执行宿主',{exact:true}).selectOption(target);
   await p.getByLabel('导出用途',{exact:true}).selectOption('document');
+  const displayedInvocation=await p.getByLabel('调用方式',{exact:true}).inputValue();assert.notEqual(await p.getByLabel('调用方式',{exact:true}).getAttribute('readonly'),null);await copyNamingInvocation(p,displayedInvocation);
   const documentPath=join(root,'agent-document-'+target+'.zip');
   await dialog(p,()=>p.getByRole('button',{name:/宿主可安装 ZIP/}).click(),documentPath,'保存 Agent Studio 导出文件');
   const documentArchive=await until(async()=>require('jszip').loadAsync(readFileSync(documentPath)));
   const document=JSON.parse(await documentArchive.file('document.json').async('string'));
-  assert.equal(document.mode,'documentation');assert.equal(document.format,'agent-workflow-document');
+  assert.equal(document.mode,'documentation');assert.equal(document.format,'agent-workflow-document');assert.equal(document.namingMode,'readable');assert.equal(document.shortName,'native-flow');assert.equal(document.invocationText,displayedInvocation);assert.ok(displayedInvocation.includes(document.invocation));assert.equal(document.displayName,namingDisplay);if(target==='codex')assert.equal(document.skillName,'guide');
   assert.equal(await documentArchive.file('WORKFLOW.md').async('string'),readFileSync(md,'utf8'));
   assert.deepEqual(JSON.parse(await documentArchive.file('project.agent-project.json').async('string')),original);
   assert.ok(!documentArchive.file('scripts/runner.mjs'));assert.ok(!documentArchive.file('bundle.json'));
@@ -72,6 +83,13 @@ async function open(){
   harnessExports[target]={nativeSave:true,mode:'documentation',manifest:documentEntry,fullMarkdownPreserved:true,sourceProjectPreserved:true,bytes:readFileSync(documentPath).length};
   require('node:fs').copyFileSync(documentPath,join(out,target+'-install.zip'));
   await p.getByRole('button',{name:'导出插件',exact:false}).first().click();
+  const repeatPath=join(root,'naming-repeat-'+target+'.zip');await dialog(p,()=>p.getByRole('button',{name:/宿主可安装 ZIP/}).click(),repeatPath,'保存 Agent Studio 导出文件');const repeatArchive=await until(async()=>require('jszip').loadAsync(readFileSync(repeatPath)));const repeatMetadata=JSON.parse(await repeatArchive.file('document.json').async('string'));assert.equal(repeatMetadata.pluginId,document.pluginId);assert.equal(repeatMetadata.invocation,document.invocation);assert.deepEqual(JSON.parse(await repeatArchive.file('project.agent-project.json').async('string')),original);
+  await p.getByRole('button',{name:'导出插件',exact:false}).first().click();await showNamingCompatibility(p);await p.getByLabel('保持旧调用标识',{exact:true}).check();
+  const legacyPath=join(root,'naming-legacy-'+target+'.zip');await dialog(p,()=>p.getByRole('button',{name:/宿主可安装 ZIP/}).click(),legacyPath,'保存 Agent Studio 导出文件');const legacyArchive=await until(async()=>require('jszip').loadAsync(readFileSync(legacyPath)));const legacyMetadata=JSON.parse(await legacyArchive.file('document.json').async('string'));assert.equal(legacyMetadata.namingMode,'legacy');assert.equal(legacyMetadata.pluginId,document.legacyIds.pluginId);assert.equal(legacyMetadata.invocation,document.legacyIds.invocation);assert.notEqual(legacyMetadata.pluginId,document.pluginId);assert.deepEqual(JSON.parse(await legacyArchive.file('project.agent-project.json').async('string')),{...original,documentNaming:{...original.documentNaming,mode:'legacy'}});require('node:fs').copyFileSync(legacyPath,join(out,target+'-legacy-install.zip'));
+  harnessExports[target].naming={chineseDisplay:namingDisplay,readOnlyInvocationText:displayedInvocation,windowsClipboardMatches:true,shortName:document.shortName,pluginId:document.pluginId,repeatIdentityStable:true,legacyPluginId:legacyMetadata.pluginId,legacyModeSourcePreserved:true,legacyAndReadableIdsDiffer:true};
+
+  await p.getByRole('button',{name:'导出插件',exact:false}).first().click();
+  await showNamingCompatibility(p);await p.getByLabel('保持旧调用标识',{exact:true}).uncheck();
   await p.getByLabel('导出用途',{exact:true}).selectOption('runtime');
   const path=join(root,'agent-plugin-'+target+'.zip');
   await dialog(p,()=>p.getByRole('button',{name:/宿主可安装 ZIP/}).click(),path,'保存 Agent Studio 导出文件');
@@ -91,7 +109,7 @@ async function open(){
  const expected=await p.evaluate(async()=>{const db=await new Promise((res,rej)=>{const r=indexedDB.open('agent-plugin-designer',1);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});const tx=db.transaction('workspace');const value=await new Promise(res=>{const r=tx.objectStore('workspace').get('current');r.onsuccess=()=>res(r.result)});db.close();return value});
  assert.equal(expected.projects.length,2);await s.close();s=await open();
  await s.page.locator('.project-title').filter({hasText:imported.name}).waitFor();
- const after=join(root,'after.json');await dialog(s.page,()=>s.page.getByRole('button',{name:'保存项目文件',exact:true}).click(),after,'保存 Agent Studio 导出文件');await until(()=>existsSync(after));const actual=JSON.parse(readFileSync(after,'utf8'));assert.deepEqual(actual.nodes,imported.nodes);assert.deepEqual(actual.edges,imported.edges);assert.equal(actual.name,imported.name);assert.deepEqual(actual,{...imported,id:actual.id});
+ const after=join(root,'after.json');await dialog(s.page,()=>s.page.getByRole('button',{name:'保存项目文件',exact:true}).click(),after,'保存 Agent Studio 导出文件');await until(()=>existsSync(after));const actual=JSON.parse(readFileSync(after,'utf8'));assert.deepEqual(actual.nodes,imported.nodes);assert.deepEqual(actual.edges,imported.edges);assert.equal(actual.name,imported.name);assert.deepEqual(actual,{...imported,id:actual.id,documentNaming:{...imported.documentNaming,legacySourceId:imported.documentNaming?.legacySourceId??imported.id}});
  const retained=await s.page.evaluate(async()=>{const db=await new Promise(res=>{const r=indexedDB.open('agent-plugin-designer',1);r.onsuccess=()=>res(r.result)});const value=await new Promise(res=>{const r=db.transaction('workspace').objectStore('workspace').get('current');r.onsuccess=()=>res(r.result)});db.close();return value});assert.deepEqual(retained,expected);
  await s.page.screenshot({path:join(out,'windows-restarted.png')});await preview(s.page,'RESTART');await s.close();assert.deepEqual(errors,[]);
  // A beginner completes a new project through basic UI only, then native export/import/restart.
@@ -113,7 +131,7 @@ async function open(){
  const noviceExports={};for(const target of ['codex','deepseek']){await novice.getByRole('button',{name:'导出插件',exact:false}).first().click();await novice.getByLabel('导出用途',{exact:true}).selectOption('document');await novice.getByLabel('执行宿主',{exact:true}).selectOption(target);const path=join(root,'beginner-'+target+'.zip');await dialog(novice,()=>novice.getByRole('button',{name:/宿主可安装 ZIP/}).click(),path,'保存 Agent Studio 导出文件');const archive=await until(async()=>require('jszip').loadAsync(readFileSync(path)));assert.equal(await archive.file('WORKFLOW.md').async('string'),noviceMarkdown);assert.deepEqual(JSON.parse(await archive.file('project.agent-project.json').async('string')),noviceProject);assert.ok(!archive.file('scripts/runner.mjs'));noviceExports[target]={nativeSave:true,fullMarkdownPreserved:true,sourceProjectPreserved:true,bytes:readFileSync(path).length};require('node:fs').copyFileSync(path,join(out,'beginner-'+target+'-install.zip'));}
  await dialog(novice,()=>novice.getByRole('button',{name:'导入项目',exact:true}).click(),noviceProjectPath,'Open');await novice.getByRole('status').filter({hasText:'已导入为独立项目'}).waitFor();await sleep(700);
  const beginnerExpected=await novice.evaluate(async()=>{const db=await new Promise(res=>{const r=indexedDB.open('agent-plugin-designer',1);r.onsuccess=()=>res(r.result)});const value=await new Promise(res=>{const r=db.transaction('workspace').objectStore('workspace').get('current');r.onsuccess=()=>res(r.result)});db.close();return value});assert.equal(beginnerExpected.projects.length,4);await s.close();s=await open();s.page.on('pageerror',e=>errors.push(e.message));
- await s.page.locator('.project-title').filter({hasText:noviceProject.name}).waitFor();const noviceAfter=join(root,'beginner-after.json');await dialog(s.page,()=>s.page.getByRole('button',{name:'保存项目文件',exact:true}).click(),noviceAfter,'保存 Agent Studio 导出文件');await until(()=>existsSync(noviceAfter));const noviceActual=JSON.parse(readFileSync(noviceAfter,'utf8'));assert.deepEqual(noviceActual,{...noviceProject,id:noviceActual.id});
+ await s.page.locator('.project-title').filter({hasText:noviceProject.name}).waitFor();const noviceAfter=join(root,'beginner-after.json');await dialog(s.page,()=>s.page.getByRole('button',{name:'保存项目文件',exact:true}).click(),noviceAfter,'保存 Agent Studio 导出文件');await until(()=>existsSync(noviceAfter));const noviceActual=JSON.parse(readFileSync(noviceAfter,'utf8'));assert.deepEqual(noviceActual,{...noviceProject,id:noviceActual.id,documentNaming:{...noviceProject.documentNaming,legacySourceId:noviceProject.documentNaming?.legacySourceId??noviceProject.id}});
  const beginnerRetained=await s.page.evaluate(async()=>{const db=await new Promise(res=>{const r=indexedDB.open('agent-plugin-designer',1);r.onsuccess=()=>res(r.result)});const value=await new Promise(res=>{const r=db.transaction('workspace').objectStore('workspace').get('current');r.onsuccess=()=>res(r.result)});db.close();return value});assert.deepEqual(beginnerRetained,beginnerExpected);await s.close();assert.deepEqual(errors,[]);
  const beginnerFlow={createdThroughBasicUI:true,roleNameAndResponsibilityOnly:true,nodeTaskOnly:true,conditionAndHandoffEmpty:true,defaultInputsOutputsPreserved:true,nativeSave:true,nativeImport:true,processRestart:true,projectsRetained:4,exports:noviceExports};
  s=await open();s.page.on('pageerror',e=>errors.push(e.message));const ai=await aiNativeSmoke({page:s.page,root,dialog,until});await s.close();assert.deepEqual(errors,[]);

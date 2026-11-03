@@ -1,0 +1,345 @@
+{
+  "classification": "EXACT OFFICIAL RC.3 SOURCE REVIEW ONLY; NO SCREENSHOTS, LIBRARY, MODEL CALLS, DSH SOURCE OR USER INSTALLATION MUTATIONS",
+  "version": "0.2.1-rc.3",
+  "tag": "dsh-v0.2.1-rc.3",
+  "commit": "1f81c047fc48fa190a683e469daa699857e9afe8",
+  "scope": "Readable tool/package names and native send_message ID semantics. Only this evidence file written.",
+  "findings": {
+    "toolNameConstraints": {
+      "sdk": "DefineToolOptions.name and LLM ToolSchema.name are string. In reviewed defineTool/register path, no ASCII regex or maximum length is imposed; registry rejects duplicate names in the same layer and reserved run_code.",
+      "provider": "rc.3 DeepSeek Messages adapter serializes tool.name unchanged alongside description and input_schema. This source does not establish a server-side allowed-character or length guarantee. Do not claim SDK requires 64 chars or that arbitrary Unicode is accepted by every provider.",
+      "recommendedProjectPolicy": "Use a short deterministic collision-resistant ASCII machine name such as apd_dev_qa_<12hex>_guide; this is an exporter interoperability policy, not a proven rc.3 SDK character limit.",
+      "sources": [
+        {
+          "file": "packages/core/tools/src/schema.ts",
+          "line": 483,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/core/tools/src/schema.ts#L483"
+        },
+        {
+          "file": "packages/core/tools/src/index.ts",
+          "line": 1066,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/core/tools/src/index.ts#L1066"
+        },
+        {
+          "file": "packages/core/tools/src/index.ts",
+          "line": 744,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/core/tools/src/index.ts#L744"
+        },
+        {
+          "file": "packages/llm/llm/src/types.ts",
+          "line": 491,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/llm/llm/src/types.ts#L491"
+        },
+        {
+          "file": "packages/llm/llm-deepseek/src/serialize.ts",
+          "line": 160,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/llm/llm-deepseek/src/serialize.ts#L160"
+        }
+      ]
+    },
+    "toolDisplay": {
+      "unsupportedAutomaticFields": "No top-level title/displayName documented in DefineToolOptions/ToolDefinition as an automatic built-in Desktop/Web tool-call label. Do not add guessed fields.",
+      "description": "Tool definition description is sent to model; output.render renders canonical result into model/native content. Neither is the generic call-row title.",
+      "hostPresenterCaveat": "presentCall/presentResult genuinely exist and can return a title string for Host-local consumers, but built-in Web Client explicitly does not consume them. Desktop uses shared Web UI; adding these alone does not fix Desktop call-card naming.",
+      "actualClientChain": "tool.call.toolview is a keyed Client slot by exact wire toolName. Unknown toolName uses generic row. toolRowModel selects tool.title.generic and prepends the machine toolName to summary; generic args may append raw/first string values. No package locale-title lookup occurs here.",
+      "minimalCorrectOptions": [
+        "Immediately shorten readable ASCII toolName and preserve human project name in description/document/INSTALL; does not promise Chinese native call-row title.",
+        "For Chinese call-row titles, author a real Client renderer keyed by exported toolName through tool.call.toolview. That is a separate client plugin surface, not unknown tool metadata.",
+        "If changing DSH itself, implement explicit readable-title metadata transport with Client validation and fallback, or enrich generic renderer using a validated known metadata contract; current rc.3 does not supply that automatic bridge."
+      ],
+      "sources": [
+        {
+          "file": "packages/core/tools/src/schema.ts",
+          "line": 483,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/core/tools/src/schema.ts#L483"
+        },
+        {
+          "file": "packages/core/tools/src/schema.ts",
+          "line": 490,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/core/tools/src/schema.ts#L490"
+        },
+        {
+          "file": "packages/core/tools/src/schema.ts",
+          "line": 537,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/core/tools/src/schema.ts#L537"
+        },
+        {
+          "file": "packages/core/tools/README.zh.md",
+          "line": 95,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/core/tools/README.zh.md#L95"
+        },
+        {
+          "file": "packages/client/ui-tool/README.zh.md",
+          "line": 54,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/client/ui-tool/README.zh.md#L54"
+        },
+        {
+          "file": "packages/client/ui-tool/src/client/contract/slots.ts",
+          "line": 16,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/client/ui-tool/src/client/contract/slots.ts#L16"
+        },
+        {
+          "file": "packages/client/ui-tool/src/client/tool/models/tool-call-model.ts",
+          "line": 302,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/client/ui-tool/src/client/tool/models/tool-call-model.ts#L302"
+        }
+      ]
+    },
+    "packageDisplay": {
+      "supported": "Package manager/settings bundle cards support locale meta.title/meta.description, with package.json.name/description fallback. Export locale/*.json and package.json; retain en.json discovery entry, add zh.json for Chinese. Preserve runtime root export when adding exports.",
+      "notToolCallTitle": "These fields affect installed bundle/plugin inventory views; registry install preview still uses npm metadata. They do not rename tool call rows or subagents.",
+      "sources": [
+        {
+          "file": "docs/cookbook/adding-a-package.zh.md",
+          "line": 120,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/docs/cookbook/adding-a-package.zh.md#L120"
+        },
+        {
+          "file": "docs/cookbook/adding-a-package.zh.md",
+          "line": 127,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/docs/cookbook/adding-a-package.zh.md#L127"
+        },
+        {
+          "file": "docs/cookbook/adding-a-package.zh.md",
+          "line": 139,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/docs/cookbook/adding-a-package.zh.md#L139"
+        },
+        {
+          "file": "docs/cookbook/adding-a-package.zh.md",
+          "line": 150,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/docs/cookbook/adding-a-package.zh.md#L150"
+        },
+        {
+          "file": "packages/boot/app-boot/src/package-meta.ts",
+          "line": 124,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/boot/app-boot/src/package-meta.ts#L124"
+        },
+        {
+          "file": "packages/boot/app-boot/tests/package-meta.spec.ts",
+          "line": 418,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/boot/app-boot/tests/package-meta.spec.ts#L418"
+        }
+      ],
+      "exactExportsConfirmed": {
+        ".": "./index.mjs",
+        "./package.json": "./package.json",
+        "./locale/en.json": "./locale/en.json",
+        "./locale/zh.json": "./locale/zh.json"
+      },
+      "explicitExportCaveat": "Exact en/zh exports are sufficient; wildcard is optional. Resolver scans all JSON siblings of exported en and requires each discovered locale JSON to be exported from that same physical directory. Existing root runtime export and all package files must remain published."
+    },
+    "sendMessageRendererAndIds": {
+      "clientRenderer": "send_message -> tool.title.sendMessage -> Chinese 发送消息; keyed DetailsRow displays localized title and receipt/argument-derived summary.",
+      "legacySubagent": "@deepseek-ai/dsh-tool-subagent-control defines send_message(agent_id,message). agent_id is cast to SessionId and passed to ctx.subagents.sendMessage(sender,targetId,...); it denotes durable adjacent parent/child Session identity, not activation/run ID. Successful canonical output messageId is a different inbox MessageId.",
+      "experimentalTeam": "@deepseek-ai/dsh-experimental-tool-agent-team also defines send_message(target,message). target is a Team member name including lead; resolveActiveMember trims name then matches member.name, resolving internally to SessionId. This is a distinct scoped implementation with the same wire tool name.",
+      "displayedSummary": "controlDetails target preference is args.target || args.agent_id || args.sessionId || args.job_id; accepted/queued results or recognized legacy text render receipt(target). Running generic fallback can show first string argument, or callId when argsRaw is empty.",
+      "unknownUserUuid": "The supplied text 8f9048ad-... after 发送消息 is insufficient to identify one concrete object. If logged args contain agent_id it is the legacy target SessionId; if target it is the experimental model-facing member address; if shown as call identity/in Inspect it may be ToolCallId. Need text-only exact tool arguments/result or field label to disambiguate. Do not call it activationId or infer it came from our guide plugin.",
+      "minimalDshUiImprovement": "In DetailsRow/controlDetails send_message rendering, resolve a target SessionId against the authorized subagent catalog or member name and show readable label with the exact ID in secondary/detail text. Keep send semantics and IDs unchanged; join needs proper data/context rather than mutating IDs or blindly treating every UUID as a session.",
+      "sources": [
+        {
+          "file": "packages/client/ui-conversation/src/client/locales.ts",
+          "line": 161,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/client/ui-conversation/src/client/locales.ts#L161"
+        },
+        {
+          "file": "packages/client/ui-tool/src/client/tool/models/tool-call-model.ts",
+          "line": 105,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/client/ui-tool/src/client/tool/models/tool-call-model.ts#L105"
+        },
+        {
+          "file": "packages/client/ui-tool/src/client/tool/toolviews/details-row.tsx",
+          "line": 46,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/client/ui-tool/src/client/tool/toolviews/details-row.tsx#L46"
+        },
+        {
+          "file": "packages/client/ui-tool/src/client/tool/toolviews/details-row.tsx",
+          "line": 100,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/client/ui-tool/src/client/tool/toolviews/details-row.tsx#L100"
+        },
+        {
+          "file": "packages/client/ui-tool/src/client/tool/models/control-details-model.ts",
+          "line": 112,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/client/ui-tool/src/client/tool/models/control-details-model.ts#L112"
+        },
+        {
+          "file": "packages/client/ui-tool/src/client/tool/models/control-details-model.ts",
+          "line": 133,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/client/ui-tool/src/client/tool/models/control-details-model.ts#L133"
+        },
+        {
+          "file": "packages/subagent/tool-subagent-control/src/index.ts",
+          "line": 29,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/subagent/tool-subagent-control/src/index.ts#L29"
+        },
+        {
+          "file": "packages/subagent/tool-subagent-control/src/index.ts",
+          "line": 45,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/subagent/tool-subagent-control/src/index.ts#L45"
+        },
+        {
+          "file": "packages/subagent/tool-subagent-control/src/index.ts",
+          "line": 64,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/subagent/tool-subagent-control/src/index.ts#L64"
+        },
+        {
+          "file": "packages/subagent/subagent/src/index.ts",
+          "line": 300,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/subagent/subagent/src/index.ts#L300"
+        },
+        {
+          "file": "packages/experimental/tool-agent-team/src/index.ts",
+          "line": 222,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/experimental/tool-agent-team/src/index.ts#L222"
+        },
+        {
+          "file": "packages/experimental/agent-team/src/roster.ts",
+          "line": 42,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/experimental/agent-team/src/roster.ts#L42"
+        },
+        {
+          "file": "packages/client/ui-tool/src/client/tool/models/tool-call-model.ts",
+          "line": 318,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/client/ui-tool/src/client/tool/models/tool-call-model.ts#L318"
+        }
+      ]
+    },
+    "subagentReadableNames": {
+      "ordinaryNativeSubagent": "Native subagent tool requires description (short display description) and passes it as startActivation.label. Service request has optional label persisted with session-backed child; startActivation owns a required label. There is no need to invent displayName/name fields.",
+      "clientLabelUsage": "SubagentHeaderLineage reads entry.label ?? entry.id and renders label, so child labels can improve lineage UI. send_message DetailsRow still uses raw target and does not automatically substitute that label.",
+      "experimentalNamedTeam": "spawn_teammate accepts name plus description; member name must match lower-kebab-case, max 64 characters, not lead, and cannot be reused in team. This 64 limit applies to teammate names, not proof of a general tool-name limit.",
+      "documentPluginBoundary": "Current documentation guide only injects tools and returns WORKFLOW.md; it creates no subagent and cannot set native child labels or rename existing sessions via package metadata. Document can suggest main model use meaningful description when it independently chooses native subagent delegation, but cannot guarantee behavior or UI labels. Do not turn this documentation fix into an executor.",
+      "sources": [
+        {
+          "file": "packages/subagent/tool-subagent/src/index.ts",
+          "line": 225,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/subagent/tool-subagent/src/index.ts#L225"
+        },
+        {
+          "file": "packages/subagent/tool-subagent/src/index.ts",
+          "line": 330,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/subagent/tool-subagent/src/index.ts#L330"
+        },
+        {
+          "file": "packages/subagent/subagent/src/types.ts",
+          "line": 145,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/subagent/subagent/src/types.ts#L145"
+        },
+        {
+          "file": "packages/subagent/subagent/src/manager.ts",
+          "line": 394,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/subagent/subagent/src/manager.ts#L394"
+        },
+        {
+          "file": "packages/client/ui-subagent/src/client/SubagentHeaderLineage.tsx",
+          "line": 247,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/client/ui-subagent/src/client/SubagentHeaderLineage.tsx#L247"
+        },
+        {
+          "file": "packages/client/ui-subagent/src/client/SubagentHeaderLineage.tsx",
+          "line": 340,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/client/ui-subagent/src/client/SubagentHeaderLineage.tsx#L340"
+        },
+        {
+          "file": "packages/experimental/tool-agent-team/src/index.ts",
+          "line": 193,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/experimental/tool-agent-team/src/index.ts#L193"
+        },
+        {
+          "file": "packages/experimental/agent-team/src/roster.ts",
+          "line": 435,
+          "url": "https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/packages/experimental/agent-team/src/roster.ts#L435"
+        }
+      ]
+    }
+  },
+  "officialSourceHashes": [
+    {
+      "file": "docs/cookbook/adding-a-package.zh.md",
+      "sha256": "7e030b862d37961798bc2d76524f789982db64e2b2abfdb43bf6fccd31e0a4df"
+    },
+    {
+      "file": "packages/client/ui-conversation/src/client/locales.ts",
+      "sha256": "af432eed0de34bc27258bd383f239c51b02b630f8ad58f6a2c9b6771b34d24f5"
+    },
+    {
+      "file": "packages/client/ui-subagent/src/client/SubagentHeaderLineage.tsx",
+      "sha256": "c026366d1a2696d4b4f0d674fe26ca3ccbba99cf6a0c4d005325b4eeb773571b"
+    },
+    {
+      "file": "packages/client/ui-tool/README.zh.md",
+      "sha256": "2077cacc872ed63db4a700145450fe71a79e6e60fe87000acf8db990e05710a3"
+    },
+    {
+      "file": "packages/client/ui-tool/src/client/contract/slots.ts",
+      "sha256": "ba3d869c09fead1a4de6eef0b23a276d795ab159a3f9d5df1c5e8fe1c40a7415"
+    },
+    {
+      "file": "packages/client/ui-tool/src/client/tool/models/control-details-model.ts",
+      "sha256": "8d22c29ab0286e036cb863f87b9a9431bc08a6cce1bcfa16de9253c3a9fefd8d"
+    },
+    {
+      "file": "packages/client/ui-tool/src/client/tool/models/tool-call-model.ts",
+      "sha256": "1c9d44c2a2da9953edd922e21a9987995356dfc7fb8f3f066938e779a7927384"
+    },
+    {
+      "file": "packages/client/ui-tool/src/client/tool/toolviews/details-row.tsx",
+      "sha256": "4c5cb1cf76ce176c834dbd929b8f076612c21957ee19bd3ad1b3e3c00c55fc12"
+    },
+    {
+      "file": "packages/core/tools/README.zh.md",
+      "sha256": "b4ef23bb0848626ea98b99f308ba0eb442f34e889f3b3db8a665b24e6be23176"
+    },
+    {
+      "file": "packages/core/tools/src/index.ts",
+      "sha256": "398bcdeb221e450d088510830b77d99a513e65ab31e40ade71688a19cdf5e6aa"
+    },
+    {
+      "file": "packages/core/tools/src/schema.ts",
+      "sha256": "096f679e38626cc52536b8ecb9eef4c551c1a8a095c8e84f7a3b6156ee533653"
+    },
+    {
+      "file": "packages/experimental/agent-team/src/roster.ts",
+      "sha256": "29cd1662e69b00eba7175b2b6f0568e918af887992b732c9d2d7656b2ce6c60b"
+    },
+    {
+      "file": "packages/experimental/tool-agent-team/src/index.ts",
+      "sha256": "9a0970ccf12c1b5385a4bff9b8c4a5f81a07a31d6cefb674a6e26548208c8cd8"
+    },
+    {
+      "file": "packages/llm/llm-deepseek/src/serialize.ts",
+      "sha256": "2a9f9ae77bde951bf9dec21ceec36d87dbeb74e4a9d3f784496f19b55ccbe0a1"
+    },
+    {
+      "file": "packages/llm/llm/src/types.ts",
+      "sha256": "3ced1a7f722bdf2d8391fc660b0c19dd809d9c0f3f7eb74e8a128d0216b37585"
+    },
+    {
+      "file": "packages/subagent/subagent/src/index.ts",
+      "sha256": "83fe0b12c038765037c2b6be66c51d6418073113b98fe1b9be8f872c352371da"
+    },
+    {
+      "file": "packages/subagent/subagent/src/manager.ts",
+      "sha256": "87298342da27dd567897bd23145fdec7d841e1f26a4e6b5dfa9a48b0b477d03e"
+    },
+    {
+      "file": "packages/subagent/subagent/src/types.ts",
+      "sha256": "9150cb7c1c7059843d932be465bd4ddf869b5df08cdfa099e01023f681865920"
+    },
+    {
+      "file": "packages/subagent/tool-subagent-control/src/index.ts",
+      "sha256": "6a76864666ebd859339380f19752d096962d3580e4f938133e1ccaf513911ea3"
+    },
+    {
+      "file": "packages/subagent/tool-subagent/src/index.ts",
+      "sha256": "11d0011edc86fb51e219a612e53c7bbc11b4adea3832cf02d3ffc9393db04095"
+    },
+    {
+      "file": "packages/boot/app-boot/src/package-meta.ts",
+      "sha256": "2b09e3ce0ec793971c53176eded347b735ee41be2ddfdcbfd3492f945fd68e2a"
+    },
+    {
+      "file": "packages/boot/app-boot/tests/package-meta.spec.ts",
+      "sha256": "8c3d58e4b4e1a9d23f16a7fe8bb9f97eda2d0f25e4592fc243996a1ef2d599f2"
+    }
+  ]
+}

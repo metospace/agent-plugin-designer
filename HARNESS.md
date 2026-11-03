@@ -8,7 +8,7 @@
 
 `WORKFLOW.md` 与独立 Markdown 下载逐字一致，包含所有节点、连线、自然语言条件、技能固定版本与文本资源内容。`project.agent-project.json` 是完整可编辑来源；`document.json` 标记 `mode:documentation`、目标宿主、真实 pluginId／toolName 与非阻断提醒。内容摘要参与原生包名，不同来源／内容可以共存。草稿、未结构化分支与不完整流程仍能导出；提醒仅帮助作者完善说明。
 
-Codex 解压后执行 `codex plugin marketplace add <目录>`、`codex plugin add <pluginId>@<pluginId>-market`，任务中明确选择 `$<pluginId>:<pluginId>`。原生技能直接加载完整说明书，不运行 Node 脚本，不要求 `APD_CODEX_DEVELOPER_SANDBOX`。用 `codex plugin list` 检查，`codex plugin remove <pluginId>@<pluginId>-market` 移除。
+Codex 解压后执行 `codex plugin marketplace add <目录>`、`codex plugin add <pluginId>@<pluginId>-market`，任务中复制导出窗口的完整使用指令；默认明确选择 `$<pluginId>:guide`，旧兼容模式以 `document.json` 的 invocation 为准。原生技能直接加载完整说明书，不运行 Node 脚本，不要求 `APD_CODEX_DEVELOPER_SANDBOX`。用 `codex plugin list` 检查，`codex plugin remove <pluginId>@<pluginId>-market` 移除。
 
 DeepSeek CLI/Web：解压到固定目录，执行 `dsh plugin --profile web add "绝对解压目录"`，用 `dsh --profile web --dump-config` 检查，在同一 profile 明确调用 `document.json` 的 `toolName`，参数 `{}`。只返回完整 Markdown，不运行任务。移除使用 `dsh plugin --profile web remove <package.json中的name>`。
 
@@ -22,6 +22,16 @@ DeepSeek Desktop 的 `desktop` profile 与 CLI/Web 不同；npm CLI 拒绝管理
 然后重开 Desktop，明确要求模型调用包内工具名 `{}`，先读取全文再处理任务。不能把文档读取成功报为任务完成。移除前退出桌面，使用同一内置命令 `plugin --profile desktop remove <包名>`。以上路径／管理机制已核对 [准确 rc.3 tag](https://github.com/deepseek-ai/deepseek-harness/blob/1f81c047fc48fa190a683e469daa699857e9afe8/apps/desktop/README.zh.md#bundled-command-runtime)，不要求先升级 rc.3；打包 Desktop UI 尚未实测。
 
 说明书告诉模型怎样协作；模型能否理解并遵循自然语言约定不等于程序强制。实际模型遵循度与任务质量未由本地脚本测试证明。文档包的原生入口需要支持上述版本宿主，但独立 Markdown 可直接提供给其他模型阅读。
+
+## 1.4.1：显示名称、机器调用与旧入口
+
+`documentNaming` 是可选项目设置：英文 shortName 最多 32 字符，英文字母开头，后续可用英文字母、数字、连字符、下划线；空值自动选择可用短名，全中文自动值为 workflow。readable 是默认，legacy 必须明确开启。默认包名由可读短名、12 位来源摘要和 guide 构成；摘要来自不含命名设置的冻结来源。相同来源重复导出稳定；内容、身份或版本改变时摘要可能变化，改变短名会改变完整调用。
+
+metadata 区分 displayName、shortName、pluginId、toolName、skillName、invocation 与 invocationText。invocation 是纯机器入口；invocationText 是可复制给模型的中文指令，包含流程名、真实入口与先读全文再处理任务的要求，DSH 还明确参数 `{}`。不得把中文使用指令当机器函数名。默认 Codex skill 固定 guide，qualified plugin:skill 不超过公开 64 字符限制；旧本地安装的兼容格式保留原 skill，不据此声称符合新的公开提交约束。
+
+legacyIds 保存精确旧 1.4 入口映射。import 仍生成新项目 ID，并以只读 legacySourceId 锚住原身份；legacy helper 删除新命名字段、还原原 ID，从未改的旧内容／版本复现旧包标识。copy 清锚、默认 readable、保留自定义短名。默认新旧入口可独立同时安装；不自动注册 legacy 别名，不修改用户安装。显式兼容包与原包同 ID，不能当作第二个新包重复注册，只能按宿主规则由用户更新。
+
+可控边界：Codex agents/openai.yaml 的 interface.display_name 是技能显示元数据；DSH 包 exports/locale 的 meta.title 是插件管理标题。中文工具 description 发给模型，但不等于 DSH 通用调用行标题；Host-local presentCall/presentResult 也不会自动作用于 Web Client。调用行、会话 UUID 和消息目标仍属于宿主。主模型委派时可用角色名填写 description 改善 lineage label，但发送消息仍需真实 SessionId／合法目标，不能用显示名伪造目标。普通与 experimental send_message 的参数语义不同，不能假定桌面已启用具名 teammate。准确 rc.3 官方源码依据及边界见 `readable-name-official-review.json`；没有读取截图或修改 DSH。
 
 ## 1.4.0 普通连线与简易输入输出
 
@@ -85,7 +95,16 @@ dsh --profile workflow
 状态存储 token 前沿、分支快照、汇合等待区、边计数、真实子会话 ID 和事件去重键。每次宿主派发前先原子持久化 dispatch_intent；中断恢复遇到未决意图或已启动子会话会阻塞，要求先检查实际子会话并显式 retry_dispatch，绝不静默重复派发。任务绑定注册表防止相同主会话和 taskId 切换插件／版本／状态文件。状态和备份只位于用户指定 workspace/.apd 路径。
 
 
-## 当前 1.4.0 验证
+## 当前 1.4.1 命名验证
+
+- 主 npm test：84 项通过（23 model、21 harness、11 AI、29 runtime）。浏览器原完整命名套件 23 项通过；另有真实历史迁移专项 1 项通过，是两次独立运行，未合并成伪造的单次 24 项。机器报告／原始日志分别保留。
+- `deliverables/naming-ui/` 六组、24 份 MD／JSON／ZIP 与 manifest：同中文名称的不同项目及版本、显式 legacy、真实旧 1.4 来源导入后的 readable／compatible。历史原包不改，compatibility archive 与原旧 ID 精确对应；相同 ID 的 archive 只核对导出，不重复安装。
+- `node scripts/verify-document-hosts.mjs codex scripts/document-naming-fixtures.json` 实际同时安装 4 新 readable 与原 1.4 legacy 共 5 包，逐个完整说明书选择隔离。真实 app-server skills/list 解析 4 个新 skill 的中文 interface.displayName；不声称已验收其 GUI 渲染。兼容导出则静态核实旧 ID／skill／调用与来源投影精确一致。
+- DSH rc.3／rc.5 均实际同时安装同一套 5 包，逐个原生工具全文与选择隔离通过。另在 rc.3 使用官方 `readPluginMeta(pluginId,parentURL)` 实际解析 4 个新包，`title.zh` 与中文显示名称逐一相同：`node --expose-internals --input-type=module` 导入 `@deepseek-ai/dsh-app-boot/lib/index.js`，在隔离临时目录建立包名 symlink，以该目录 entry.mjs 的 file URL 为 parentURL。证据 `deepseek-rc3-naming-metadata-real-host.json`；rc.5 本轮仅声明原生文档调用验证，不冒充额外 loader 读取。metadata 数据读取不代表 Desktop GUI 或工具卡标题已渲染；没有改动用户 profile 或使用 --force。
+- 1.4.1 Windows 发布后运行原完整 native／初心者／AI／drag 回归；新增中文显示、短名设置、实际复制按钮→Windows OS Get-Clipboard 全文比较、同来源重复导出稳定、新旧模式完整来源与 import 锚断言。此处不能用浏览器 mock clipboard 代替原生证明；若复制被拒绝须报告，不扩大所有权限。当前 Windows CI 仍待本次最终结果。
+- 全部宿主模型响应为本地脚本，不是真实提供器质量评测或付费调用。DSH 打包 Desktop UI 和工具卡片视觉呈现仍未实际验收。本轮只读代码／纯文字／JSON，不访问图片或 Library；1.4 的 API/IO/原生回归保留。
+
+## 1.4.0 历史验证
 
 - 主 `npm test`：74 项通过（23 model + 11 harness + 11 AI + 29 runtime）；Go AI 的 8 组 std-only 测试与本地 race 检查通过。Windows CI 执行 `go test ai.go ai_test.go`，不要求 UI 编译依赖。
 - 最终浏览器 21 项通过，机读报告及原始日志保存；9 个 AI 场景明确使用模拟 bridge，不代表原生网络或真实模型质量。覆盖草案预览／应用／撤销、create/append/selected、逐次共享确认、取消与迟到、冲突、错误、未知／悬空／超量／工具调用、双击与 Key 不入项目／MD／ZIP／存储。

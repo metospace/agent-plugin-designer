@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "4aea3172-241a-4e2a-8bbe-8c420dad90b9",
+  "name": "市场调研流程",
+  "version": "2.0.0",
+  "roles": [],
+  "skills": [],
+  "nodes": [
+    {
+      "id": "start",
+      "type": "step",
+      "position": {
+        "x": 230,
+        "y": 30
+      },
+      "data": {
+        "kind": "start",
+        "label": "任务开始",
+        "roleId": "",
+        "description": "接收任务与输入数据"
+      }
+    },
+    {
+      "id": "end",
+      "type": "step",
+      "position": {
+        "x": 480,
+        "y": 625
+      },
+      "data": {
+        "kind": "end",
+        "label": "交付结果",
+        "roleId": "",
+        "description": "交付工作流结果"
+      }
+    }
+  ],
+  "edges": [],
+  "documentNaming": {
+    "shortName": "Market_Research",
+    "mode": "readable"
+  }
+}

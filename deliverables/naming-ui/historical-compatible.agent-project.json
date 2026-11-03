@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "id": "fe5c3c71-9c62-4471-aae8-1c48bbfe1aa2",
+  "name": "未命名插件",
+  "version": "1.0.0",
+  "roles": [
+    {
+      "id": "b58e4016-c80f-4d28-bc73-a68aa12b3f30",
+      "name": "计划助手",
+      "responsibility": "帮用户整理清晰的计划",
+      "input": "",
+      "output": "",
+      "independent": false,
+      "bindings": []
+    }
+  ],
+  "skills": [],
+  "nodes": [
+    {
+      "id": "start",
+      "type": "step",
+      "position": {
+        "x": 230,
+        "y": 30
+      },
+      "data": {
+        "kind": "start",
+        "label": "任务开始",
+        "roleId": "",
+        "description": "接收任务与输入数据"
+      }
+    },
+    {
+      "id": "end",
+      "type": "step",
+      "position": {
+        "x": 480,
+        "y": 625
+      },
+      "data": {
+        "kind": "end",
+        "label": "交付结果",
+        "roleId": "",
+        "description": "交付工作流结果"
+      }
+    },
+    {
+      "id": "c026e954-6df1-48c3-b5ad-aa054a4566df",
+      "type": "step",
+      "position": {
+        "x": 300,
+        "y": 300
+      },
+      "data": {
+        "kind": "agent",
+        "label": "写简短计划",
+        "roleId": "b58e4016-c80f-4d28-bc73-a68aa12b3f30",
+        "description": "把用户的想法整理成三个具体步骤"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "af4e3218-2484-481c-8f20-05a5c1497f59",
+      "source": "start",
+      "target": "c026e954-6df1-48c3-b5ad-aa054a4566df",
+      "data": {
+        "condition": "",
+        "note": "",
+        "handoff": "",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    },
+    {
+      "id": "c6eae9d3-96d1-42c6-ad29-cc974d5ed2f9",
+      "source": "c026e954-6df1-48c3-b5ad-aa054a4566df",
+      "target": "end",
+      "data": {
+        "condition": "",
+        "note": "",
+        "handoff": "",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    }
+  ],
+  "documentNaming": {
+    "shortName": "beginner-plan",
+    "mode": "legacy",
+    "legacySourceId": "ee734e0f-049e-447a-be13-c2b8688af31c"
+  }
+}

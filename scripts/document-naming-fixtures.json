@@ -1,0 +1,14 @@
+{
+  "evidencePrefix": "naming-document",
+  "fixtures": [
+    {"directory": "deliverables/naming-ui", "name": "readable-main"},
+    {"directory": "deliverables/naming-ui", "name": "readable-copy"},
+    {"directory": "deliverables/naming-ui", "name": "readable-version"},
+    {"directory": "deliverables/naming-ui", "name": "historical-readable"},
+    {"directory": "deliverables/edge-ui", "name": "beginner-defaults"}
+  ],
+  "namingChecks": {
+    "migrationPairs": [{"readable": "historical-readable", "historical": "beginner-defaults"}],
+    "compatibilityExports": [{"directory": "deliverables/naming-ui", "name": "historical-compatible", "historical": "beginner-defaults"}]
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "classification": "ACTUAL PUBLISHED RC.3 OFFICIAL METADATA RESOLVER; NOT DESKTOP UI RENDERING",
+  "version": "0.2.1-rc.3",
+  "api": "@deepseek-ai/dsh-app-boot readPluginMeta",
+  "commandRuntime": "node --expose-internals",
+  "root": "/tmp/apd-rc3-naming-metadata-pYNWHM",
+  "parentURL": "file:///tmp/apd-rc3-naming-metadata-pYNWHM/entry.mjs",
+  "sourceNativeEvidence": "deepseek-rc3-naming-document-real-host.json",
+  "uiManifestSha256": [
+    {
+      "directory": "deliverables/naming-ui",
+      "sha256": "10a57ba6adf603ff1191e4889c4fbbdfc24d7f97ca21168cd8829bb746342b21"
+    },
+    {
+      "directory": "deliverables/edge-ui",
+      "sha256": "34487d55c9377ec7b72a57e94c98b203c32f6126c5bdd2d98302982172643f49"
+    }
+  ],
+  "cases": [
+    {
+      "fixture": "readable-main",
+      "packageName": "apd-market-research-98bf0649a3f8-guide",
+      "expectedChineseTitle": "市场调研流程",
+      "action": "readPluginMeta(packageName, isolatedParentURL)",
+      "result": {
+        "title": {
+          "en": "市场调研流程",
+          "zh": "市场调研流程"
+        },
+        "description": {
+          "en": "读取用户设计的完整 Agent 流程说明书",
+          "zh": "读取用户设计的完整 Agent 流程说明书"
+        }
+      },
+      "passed": true
+    },
+    {
+      "fixture": "readable-copy",
+      "packageName": "apd-market-research-184f05365d75-guide",
+      "expectedChineseTitle": "市场调研流程",
+      "action": "readPluginMeta(packageName, isolatedParentURL)",
+      "result": {
+        "title": {
+          "en": "市场调研流程",
+          "zh": "市场调研流程"
+        },
+        "description": {
+          "en": "读取用户设计的完整 Agent 流程说明书",
+          "zh": "读取用户设计的完整 Agent 流程说明书"
+        }
+      },
+      "passed": true
+    },
+    {
+      "fixture": "readable-version",
+      "packageName": "apd-market-research-880e6d77e849-guide",
+      "expectedChineseTitle": "市场调研流程",
+      "action": "readPluginMeta(packageName, isolatedParentURL)",
+      "result": {
+        "title": {
+          "en": "市场调研流程",
+          "zh": "市场调研流程"
+        },
+        "description": {
+          "en": "读取用户设计的完整 Agent 流程说明书",
+          "zh": "读取用户设计的完整 Agent 流程说明书"
+        }
+      },
+      "passed": true
+    },
+    {
+      "fixture": "historical-readable",
+      "packageName": "apd-beginner-plan-37aa10621130-guide",
+      "expectedChineseTitle": "未命名插件",
+      "action": "readPluginMeta(packageName, isolatedParentURL)",
+      "result": {
+        "title": {
+          "en": "未命名插件",
+          "zh": "未命名插件"
+        },
+        "description": {
+          "en": "读取用户设计的完整 Agent 流程说明书",
+          "zh": "读取用户设计的完整 Agent 流程说明书"
+        }
+      },
+      "passed": true
+    }
+  ],
+  "allPassed": true,
+  "limits": "Reads actual exported package resources through official module resolver. Proves metadata data discovery, not plugin-list UI rendering or tool-call titles."
+}

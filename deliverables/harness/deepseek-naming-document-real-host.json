@@ -1,0 +1,403 @@
+{
+  "classification": "ACTUAL NATIVE DOCUMENTATION PLUGINS; LOCAL SCRIPTED PROVIDER; NOT MODEL QUALITY OR ENFORCED WORKFLOW EXECUTION",
+  "target": "deepseek",
+  "root": "/tmp/apd-document-deepseek-vAUrZd",
+  "externalLlmCalls": 0,
+  "operations": [
+    {
+      "command": "/tmp/harness-host-test/node_modules/.bin/dsh",
+      "args": [
+        "--version"
+      ],
+      "status": 0,
+      "stdout": "0.2.1-rc.5\n",
+      "stderr": ""
+    },
+    {
+      "command": "/tmp/harness-host-test/node_modules/.bin/dsh",
+      "args": [
+        "plugin",
+        "--profile",
+        "document-test",
+        "add",
+        "/tmp/apd-document-deepseek-vAUrZd/readable-main"
+      ],
+      "status": 0,
+      "stdout": "\ndependencies:\n+ apd-market-research-98bf0649a3f8-guide link:/tmp/apd-document-deepseek-vAUrZd/readable-main\n\nAlready up to date\nDone in 436ms using pnpm v11.19.0\n\n   ╭──────────────────────────────────────────╮\n   │                                          │\n   │   Update available! 11.19.0 → 12.16.1.   │\n   │   Changelog: https://pnpm.io/v/12.16.1   │\n   │     To update, run: pnpm add -g pnpm     │\n   │                                          │\n   ╰──────────────────────────────────────────╯\n\n",
+      "stderr": "dsh: initialized profile document-test at /tmp/apd-document-deepseek-vAUrZd/dsh-home/profiles/document-test\n"
+    },
+    {
+      "command": "/tmp/harness-host-test/node_modules/.bin/dsh",
+      "args": [
+        "plugin",
+        "--profile",
+        "document-test",
+        "add",
+        "/tmp/apd-document-deepseek-vAUrZd/readable-copy"
+      ],
+      "status": 0,
+      "stdout": "✓ Lockfile passes supply-chain policies (verified 663ms ago)\n\ndependencies:\n+ apd-market-research-184f05365d75-guide link:/tmp/apd-document-deepseek-vAUrZd/readable-copy\n\nAlready up to date\nDone in 416ms using pnpm v11.19.0\n\n   ╭──────────────────────────────────────────╮\n   │                                          │\n   │   Update available! 11.19.0 → 12.16.1.   │\n   │   Changelog: https://pnpm.io/v/12.16.1   │\n   │     To update, run: pnpm add -g pnpm     │\n   │                                          │\n   ╰──────────────────────────────────────────╯\n\n",
+      "stderr": ""
+    },
+    {
+      "command": "/tmp/harness-host-test/node_modules/.bin/dsh",
+      "args": [
+        "plugin",
+        "--profile",
+        "document-test",
+        "add",
+        "/tmp/apd-document-deepseek-vAUrZd/readable-version"
+      ],
+      "status": 0,
+      "stdout": "✓ Lockfile passes supply-chain policies (verified 636ms ago)\n\ndependencies:\n+ apd-market-research-880e6d77e849-guide link:/tmp/apd-document-deepseek-vAUrZd/readable-version\n\nAlready up to date\n\n   ╭──────────────────────────────────────────╮\n   │                                          │\n   │   Update available! 11.19.0 → 12.16.1.   │\n   │   Changelog: https://pnpm.io/v/12.16.1   │\n   │     To update, run: pnpm add -g pnpm     │\n   │                                          │\n   ╰──────────────────────────────────────────╯\n\nDone in 445ms using pnpm v11.19.0\n",
+      "stderr": ""
+    },
+    {
+      "command": "/tmp/harness-host-test/node_modules/.bin/dsh",
+      "args": [
+        "plugin",
+        "--profile",
+        "document-test",
+        "add",
+        "/tmp/apd-document-deepseek-vAUrZd/historical-readable"
+      ],
+      "status": 0,
+      "stdout": "✓ Lockfile passes supply-chain policies (verified 601ms ago)\n\ndependencies:\n+ apd-beginner-plan-37aa10621130-guide link:/tmp/apd-document-deepseek-vAUrZd/historical-readable\n\nAlready up to date\n\n   ╭──────────────────────────────────────────╮\n   │                                          │\n   │   Update available! 11.19.0 → 12.16.1.   │\n   │   Changelog: https://pnpm.io/v/12.16.1   │\n   │     To update, run: pnpm add -g pnpm     │\n   │                                          │\n   ╰──────────────────────────────────────────╯\n\nDone in 430ms using pnpm v11.19.0\n",
+      "stderr": ""
+    },
+    {
+      "command": "/tmp/harness-host-test/node_modules/.bin/dsh",
+      "args": [
+        "plugin",
+        "--profile",
+        "document-test",
+        "add",
+        "/tmp/apd-document-deepseek-vAUrZd/beginner-defaults"
+      ],
+      "status": 0,
+      "stdout": "✓ Lockfile passes supply-chain policies (verified 578ms ago)\n\ndependencies:\n+ apd-guide-ee734e0f-12967c92e2b2949bd7d31e5af83f0815 link:/tmp/apd-document-deepseek-vAUrZd/beginner-defaults\n\nAlready up to date\nDone in 405ms using pnpm v11.19.0\n\n   ╭──────────────────────────────────────────╮\n   │                                          │\n   │   Update available! 11.19.0 → 12.16.1.   │\n   │   Changelog: https://pnpm.io/v/12.16.1   │\n   │     To update, run: pnpm add -g pnpm     │\n   │                                          │\n   ╰──────────────────────────────────────────╯\n\n",
+      "stderr": ""
+    },
+    {
+      "command": "/tmp/harness-host-test/node_modules/.bin/dsh",
+      "args": [
+        "--profile",
+        "document-test",
+        "--dump-config"
+      ],
+      "status": 0,
+      "stdout": "# == @deepseek-ai/dsh-base\n- id: tool-plugin-manager\n  name: '@deepseek-ai/dsh-plugin-manager/tools'\n  disabled: true\n- id: plugin-manager\n  name: '@deepseek-ai/dsh-plugin-manager'\n  disabled: !!js '!ctx.get(''profileContext'')'\n- id: timer\n  name: '@deepseek-ai/cordis-plugin-timer'\n- id: hmr\n  name: '@deepseek-ai/dsh-hmr'\n  disabled: !!js '!ctx.get(''profileContext'')'\n  config:\n    root: []\n- id: llm\n  name: '@deepseek-ai/dsh-llm'\n- id: deepseek-llm-api-extensions\n  name: '@deepseek-ai/dsh-deepseek-llm-api-extensions'\n- id: session\n  name: '@deepseek-ai/dsh-session'\n- id: session-log-deepseek\n  name: '@deepseek-ai/dsh-session-log-deepseek'\n- id: typert\n  name: '@deepseek-ai/dsh-typert-registry'\n- id: typert-loader\n  name: '@deepseek-ai/dsh-typert-loader'\n- id: typert-gateway\n  name: '@deepseek-ai/dsh-api-gateway'\n- id: remote-access\n  name: '@deepseek-ai/dsh-api-remote-access'\n- id: session-title\n  name: '@deepseek-ai/dsh-session-title'\n  config:\n    fallbackMaxWords: 5\n    fallbackMaxBytes: 40\n    maxTitleBytes: 80\n- id: session-title-llm\n  name: '@deepseek-ai/dsh-session-title-first-prompt-llm'\n  config:\n    targetWords: 5\n    targetCjkCharacters: 10\n    maxInputBytes: 4096\n    maxOutputTokens: 4096\n    timeoutMs: 60000\n- id: user-questions\n  name: '@deepseek-ai/dsh-user-questions'\n- id: agent\n  name: '@deepseek-ai/dsh-agent'\n- id: plugin-package-inventory-deepseek\n  name: '@deepseek-ai/dsh-plugin-package-inventory-deepseek'\n- id: agent-default-model\n  name: '@deepseek-ai/dsh-agent-default-model'\n  config:\n    provider: deepseek-official\n    model: deepseek-flash\n- id: jobs\n  name: '@deepseek-ai/dsh-jobs-local'\n- id: llm-retry\n  name: '@deepseek-ai/dsh-llm-retry'\n- id: config-editor\n  name: '@deepseek-ai/dsh-config-editor'\n  disabled: !!js '!ctx.get(''profileContext'')'\n- id: settings\n  name: '@deepseek-ai/dsh-settings'\n  disabled: !!js '!ctx.get(''profileContext'')'\n- id: authorization\n  name: '@deepseek-ai/dsh-authorization'\n- id: deepseek-account\n  name: '@deepseek-ai/dsh-deepseek-account-platform'\n  config:\n    desktopPlatform: !!js >-\n      ctx.get('profileContext')?.name === 'desktop' && ['darwin',\n      'win32'].includes(process.platform) ? process.platform : null\n- id: credentials\n  name: '@deepseek-ai/dsh-credentials-local'\n- id: llm-pi-ai\n  name: '@deepseek-ai/dsh-llm-pi-ai'\n- id: session-persistence-jsonl\n  name: '@deepseek-ai/dsh-session-persistence-jsonl'\n  config:\n    root: !!js dshHomePath('sessions')\n- id: attachment-local\n  name: '@deepseek-ai/dsh-attachment-local'\n- id: session-query-sqlite\n  name: '@deepseek-ai/dsh-session-query-sqlite'\n  config:\n    path: ':memory:'\n    openAt: never\n- id: working-directory\n  name: '@deepseek-ai/dsh-working-directory'\n- id: tool-working-directory\n  name: '@deepseek-ai/dsh-tool-working-directory'\n- id: session-projection\n  name: '@deepseek-ai/dsh-session-projection'\n- id: storage\n  name: '@deepseek-ai/dsh-storage'\n- id: storage-json\n  name: '@deepseek-ai/dsh-storage-json'\n  config:\n    root: !!js dshHomePath('storages')\n- id: storage-domain\n  name: '@deepseek-ai/dsh-storage-domain'\n  config:\n    backend: json\n- id: session-projection-cache\n  name: '@deepseek-ai/dsh-session-projection-cache'\n  config:\n    writeEveryEvents: 200\n    writeIntervalMs: 5000\n- id: otel\n  name: '@deepseek-ai/dsh-otel'\n- id: session-telemetry-otel\n  name: '@deepseek-ai/dsh-session-telemetry-otel'\n  config:\n    mode: !!js process.env.DSH_TELEMETRY_MODE || 'FEEDBACK_ONLY'\n    shutdownTimeoutMillis: 3000\n    maxRequestBytes: 4000000\n    exporter:\n      url: !!js >-\n        process.env.DSH_TELEMETRY_OTLP_URL ??\n        'https://dsh-otel-collector.deepseeksvc.com/v1/logs'\n      compression: gzip\n      timeoutMillis: 1000\n    processor:\n      scheduledDelayMillis: 10000\n      maxQueueSize: 2048\n      maxExportBatchSize: 2048\n      exportTimeoutMillis: 1500\n- id: subprocess\n  name: '@deepseek-ai/dsh-subprocess-local'\n- id: sandbox\n  name: '@deepseek-ai/dsh-sandbox-local'\n- id: sandbox-policy\n  name: '@deepseek-ai/dsh-sandbox-policy'\n  config:\n    mode: !!js process.env.DSH_PERMISSION_MODE ?? 'workspace-write'\n    workspaceRoot: !!js process.cwd()\n- id: bash-sandbox\n  name: '@deepseek-ai/dsh-bash-sandbox'\n  disabled: !!js process.platform === 'win32'\n  config:\n    timeoutMs: 60000\n- id: pwsh-sandbox\n  name: '@deepseek-ai/dsh-pwsh-sandbox'\n  disabled: !!js process.platform !== 'win32'\n- id: approval\n  name: '@deepseek-ai/dsh-user-approval'\n  config:\n    policy: !!js >-\n      (process.env.DSH_PERMISSION_MODE ?? 'workspace-write') ===\n      'danger-full-access' ? 'never' : 'ask'\n- id: permission\n  name: '@deepseek-ai/dsh-permission-presets'\n  config:\n    presets:\n      read-only:\n        sandbox: read-only\n        approval: ask\n      workspace-write:\n        sandbox: workspace-write\n        approval: ask\n      danger-full-access:\n        sandbox: danger-full-access\n        approval: never\n- id: shell-env\n  name: '@deepseek-ai/dsh-shell-env'\n- id: tool-bash\n  name: '@deepseek-ai/dsh-tool-bash'\n  disabled: !!js process.platform === 'win32'\n- id: tool-pwsh\n  name: '@deepseek-ai/dsh-tool-pwsh'\n  disabled: !!js process.platform !== 'win32'\n- id: tool-jobs\n  name: '@deepseek-ai/dsh-tool-jobs'\n- id: fs-observation-policy\n  name: '@deepseek-ai/dsh-fs-observation-policy'\n- id: tool-fs\n  name: '@deepseek-ai/dsh-tool-fs'\n- id: tool-fs-search\n  name: '@deepseek-ai/dsh-tool-fs-search'\n  config:\n    sampleOverCapGlobResults: false\n- id: agent-instructions\n  name: '@deepseek-ai/dsh-agent-instructions'\n  config:\n    maxBytes: 65536\n- id: skill\n  name: '@deepseek-ai/dsh-skill'\n- id: skill-filesystem\n  name: '@deepseek-ai/dsh-skill-filesystem'\n- id: tool-skill\n  name: '@deepseek-ai/dsh-tool-skill'\n- id: commands\n  name: '@deepseek-ai/dsh-commands'\n- id: command-feedback\n  name: '@deepseek-ai/dsh-command-feedback'\n- id: goal\n  name: '@deepseek-ai/dsh-goal'\n- id: goal-round-driver\n  name: '@deepseek-ai/dsh-goal-round-driver'\n- id: command-goal\n  name: '@deepseek-ai/dsh-command-goal'\n- id: plan-mode\n  name: '@deepseek-ai/dsh-plan-mode'\n  config:\n    section: >\n      You are in plan mode. Stay in plan mode until the user approves your plan\n      through exit_plan_mode or switches the session mode. Imperative language\n      to implement changes means plan the implementation, not execute it. A\n      user's conversational agreement — including an answer confirming something\n      you asked — approves nothing and does not end plan mode; fold the\n      confirmed decision into the plan and submit it through exit_plan_mode.\n\n\n      Explore first. Use non-mutating reads, searches, static analysis, and\n      checks to ground the plan in the actual repository. Do not edit or write\n      files, change configuration, run formatters or code generation that\n      rewrites tracked files, commit, or otherwise carry out the plan. Prefer\n      existing functions and patterns over new machinery.\n\n\n      The tool catalog stays the same across modes for request-cache stability.\n      These plan-mode rules override any later tool description or guidance that\n      suggests using mutation tools; those tools remain listed only to keep the\n      request shape stable. Do not use todo_write to track this planning phase:\n      it tracks implementation after an approved plan, while the plan itself\n      belongs in exit_plan_mode.\n\n\n      Resolve discoverable facts by inspection. Use ask_user_question only for\n      user-owned choices or material ambiguity that inspection cannot answer. Do\n      not ask the user where code lives or how current behavior works when you\n      can find out.\n\n\n      Make the plan decision-complete: state the goal and success criteria;\n      group implementation changes by subsystem; identify public API, schema,\n      and data-flow changes; cover edge cases, failure modes, tests, acceptance\n      criteria, and explicit assumptions. Keep it concise enough to review but\n      detailed enough that another engineer can implement it without making\n      design decisions.\n\n\n      When ready, call exit_plan_mode with the complete plan markdown, starting\n      with a # title. Make exit_plan_mode the only and final tool call in that\n      assistant response: it presents the plan for approval, and implementation\n      begins only in a later step after approval. Do not paste the final plan as\n      a plain reply or ask \"should I proceed?\" through prose or\n      ask_user_question. If review rejects it, incorporate the feedback and\n      present again. If the review channel is unavailable or aborted, stay in\n      plan mode and ask the user to switch modes manually; do not proceed with\n      implementation.\n- id: token-meter\n  name: '@deepseek-ai/dsh-token-meter'\n- id: compaction-basic\n  name: '@deepseek-ai/dsh-compaction-basic'\n- id: command-compact\n  name: '@deepseek-ai/dsh-command-compact'\n- id: subagent\n  name: '@deepseek-ai/dsh-subagent'\n- id: subagent-spawn-in-process\n  name: '@deepseek-ai/dsh-subagent-spawn-in-process'\n  config:\n    providerName: spawn\n- id: subagent-fork-in-process\n  name: '@deepseek-ai/dsh-subagent-fork-in-process'\n  config:\n    providerName: fork\n- id: tool-subagent-control\n  name: '@deepseek-ai/dsh-tool-subagent-control'\n- id: tool-subagent-list-agents\n  name: '@deepseek-ai/dsh-tool-subagent-control/list-agents'\n- id: tool-subagent\n  name: '@deepseek-ai/dsh-tool-subagent'\n  config:\n    provider: spawn\n    toolName: subagent\n- id: tool-subagent-fork\n  name: '@deepseek-ai/dsh-tool-subagent'\n  config:\n    provider: fork\n    toolName: subagent_fork\n- id: ptc-runtime\n  name: '@deepseek-ai/dsh-ptc-runtime-node'\n- id: workflow-ptc\n  name: '@deepseek-ai/dsh-workflow-ptc'\n  config:\n    provider: spawn\n- id: tool-workflow\n  name: '@deepseek-ai/dsh-tool-workflow'\n- id: timeout-policy\n  name: '@deepseek-ai/dsh-tool-call-timeout-policy'\n- id: spill-local\n  name: '@deepseek-ai/dsh-spill-local'\n- id: spill-policy\n  name: '@deepseek-ai/dsh-spill-policy'\n  config:\n    maxInlineTokens: 12500\n- id: session-checkpoint-policy\n  name: '@deepseek-ai/dsh-session-checkpoint-policy'\n- id: tool-result-pruner\n  name: '@deepseek-ai/dsh-compaction-tool-result-pruner'\n  config:\n    thresholdChars: 8192\n    headChars: 4096\n    tailChars: 1024\n- id: image-offload\n  name: '@deepseek-ai/dsh-compaction-image-offload'\n- id: tool-todo\n  name: '@deepseek-ai/dsh-tool-todo'\n  config:\n    allowParallelInProgress: true\n- id: tool-goal\n  name: '@deepseek-ai/dsh-tool-goal'\n- id: repeat-tool-reminder\n  name: '@deepseek-ai/dsh-repeat-tool-reminder'\n  config:\n    thresholds:\n      - 3\n      - 5\n      - 8\n    argumentsPreviewChars: 500\n- id: web\n  name: '@deepseek-ai/dsh-web'\n  config:\n    searchProvider: deepseek-official\n    fetchProvider: http\n- id: web-search-deepseek\n  name: '@deepseek-ai/dsh-web-search-deepseek'\n  config:\n    apiKeyEnv: DEEPSEEK_API_KEY\n- id: web-deepseek-api\n  name: '@deepseek-ai/dsh-web-deepseek-api'\n  config:\n    apiKeyEnv: DEEPSEEK_API_KEY\n- id: web-fetch-http\n  name: '@deepseek-ai/dsh-web-fetch-http'\n- id: tool-web\n  name: '@deepseek-ai/dsh-tool-web'\n  config:\n    fetch: true\n    searchTimeoutMs: 60000\n- id: mcp-resources\n  name: '@deepseek-ai/dsh-mcp-resources'\n- id: tools\n  name: '@deepseek-ai/dsh-tools'\n- id: system-prompt\n  name: '@deepseek-ai/dsh-system-prompt'\n  config:\n    personaPrefix: ''\n- id: agent-loop\n  name: '@deepseek-ai/dsh-agent-loop'\n  config:\n    agents: []\n- id: fs-sandbox\n  name: '@deepseek-ai/dsh-fs-sandbox'\n- id: llm-deepseek\n  name: '@deepseek-ai/dsh-llm-deepseek-api-key'\n- id: llm-deepseek-account\n  name: '@deepseek-ai/dsh-llm-deepseek-account'\n# == apd-market-research-98bf0649a3f8-guide\n- id: apd-market-research-98bf0649a3f8-guide\n  name: apd-market-research-98bf0649a3f8-guide\n# == apd-market-research-184f05365d75-guide\n- id: apd-market-research-184f05365d75-guide\n  name: apd-market-research-184f05365d75-guide\n# == apd-market-research-880e6d77e849-guide\n- id: apd-market-research-880e6d77e849-guide\n  name: apd-market-research-880e6d77e849-guide\n# == apd-beginner-plan-37aa10621130-guide\n- id: apd-beginner-plan-37aa10621130-guide\n  name: apd-beginner-plan-37aa10621130-guide\n# == apd-guide-ee734e0f-12967c92e2b2949bd7d31e5af83f0815\n- id: apd-guide-ee734e0f-12967c92e2b2949bd7d31e5af83f0815\n  name: apd-guide-ee734e0f-12967c92e2b2949bd7d31e5af83f0815\n",
+      "stderr": ""
+    },
+    {
+      "command": "/tmp/harness-host-test/node_modules/.bin/dsh",
+      "args": [
+        "plugin",
+        "--profile",
+        "document-test",
+        "remove",
+        "apd-market-research-98bf0649a3f8-guide"
+      ],
+      "status": 0,
+      "stdout": "✓ Lockfile passes supply-chain policies (verified 842ms ago)\n\ndependencies:\n- apd-market-research-98bf0649a3f8-guide link:/tmp/apd-document-deepseek-vAUrZd/readable-main\n\nAlready up to date\nDone in 403ms using pnpm v11.19.0\n",
+      "stderr": ""
+    },
+    {
+      "command": "/tmp/harness-host-test/node_modules/.bin/dsh",
+      "args": [
+        "plugin",
+        "--profile",
+        "document-test",
+        "remove",
+        "apd-market-research-184f05365d75-guide"
+      ],
+      "status": 0,
+      "stdout": "✓ Lockfile passes supply-chain policies (verified 545ms ago)\n\ndependencies:\n- apd-market-research-184f05365d75-guide link:/tmp/apd-document-deepseek-vAUrZd/readable-copy\n\nAlready up to date\nDone in 392ms using pnpm v11.19.0\n",
+      "stderr": ""
+    },
+    {
+      "command": "/tmp/harness-host-test/node_modules/.bin/dsh",
+      "args": [
+        "plugin",
+        "--profile",
+        "document-test",
+        "remove",
+        "apd-market-research-880e6d77e849-guide"
+      ],
+      "status": 0,
+      "stdout": "✓ Lockfile passes supply-chain policies (verified 524ms ago)\n\ndependencies:\n- apd-market-research-880e6d77e849-guide link:/tmp/apd-document-deepseek-vAUrZd/readable-version\n\nAlready up to date\nDone in 366ms using pnpm v11.19.0\n",
+      "stderr": ""
+    },
+    {
+      "command": "/tmp/harness-host-test/node_modules/.bin/dsh",
+      "args": [
+        "plugin",
+        "--profile",
+        "document-test",
+        "remove",
+        "apd-beginner-plan-37aa10621130-guide"
+      ],
+      "status": 0,
+      "stdout": "✓ Lockfile passes supply-chain policies (verified 532ms ago)\n\ndependencies:\n- apd-beginner-plan-37aa10621130-guide link:/tmp/apd-document-deepseek-vAUrZd/historical-readable\n\nAlready up to date\nDone in 386ms using pnpm v11.19.0\n",
+      "stderr": ""
+    },
+    {
+      "command": "/tmp/harness-host-test/node_modules/.bin/dsh",
+      "args": [
+        "plugin",
+        "--profile",
+        "document-test",
+        "remove",
+        "apd-guide-ee734e0f-12967c92e2b2949bd7d31e5af83f0815"
+      ],
+      "status": 0,
+      "stdout": "✓ Lockfile passes supply-chain policies (verified 539ms ago)\n\ndependencies:\n- apd-guide-ee734e0f-12967c92e2b2949bd7d31e5af83f0815 link:/tmp/apd-document-deepseek-vAUrZd/beginner-defaults\n\nAlready up to date\nDone in 370ms using pnpm v11.19.0\n",
+      "stderr": ""
+    }
+  ],
+  "packages": [
+    {
+      "name": "readable-main",
+      "directory": "deliverables/naming-ui",
+      "pluginId": "apd-market-research-98bf0649a3f8-guide",
+      "zipSha256": "54b5e9fa555c69d43ded109e47cb8d095a4098f593468babd80d58e395d67e47",
+      "markdownSha256": "e3966c3cd3c5faafd595d76164ad36a01e3f5f5e97688d06144d58d0fd1f7851",
+      "sourceSha256": "2252f11e6d8d245bf30f4a64e6f5cf189f335237021b7ac98c12a43ab4c5e5b5",
+      "warnings": [
+        {
+          "message": "节点尚未与其他节点连接；作为草稿完整保留",
+          "nodeId": "start"
+        },
+        {
+          "message": "节点尚无后续连线，请确认此处是否结束或仍待补全",
+          "nodeId": "start"
+        },
+        {
+          "message": "节点尚未与其他节点连接；作为草稿完整保留",
+          "nodeId": "end"
+        }
+      ],
+      "mode": "documentation",
+      "namingMode": "readable",
+      "displayName": "市场调研流程",
+      "shortName": "market-research",
+      "skillName": "guide",
+      "toolName": "apd_market_research_98bf0649a3f8_guide",
+      "invocation": "apd_market_research_98bf0649a3f8_guide",
+      "invocationText": "使用流程：市场调研流程\n调用 apd_market_research_98bf0649a3f8_guide，参数 {}。\n先读取完整说明书，再按该流程处理我的任务。",
+      "legacyIds": {
+        "pluginId": "apd-guide-6e4a169f-98bf0649a3f8f1b65ee01f2624834351",
+        "toolName": "apd_guide_6e4a169f_98bf0649a3f8f1b65ee01f2624834351_guide",
+        "skillName": "apd-guide-6e4a169f-98bf0649a3f8f1b65ee01f2624834351",
+        "invocation": "apd_guide_6e4a169f_98bf0649a3f8f1b65ee01f2624834351_guide"
+      },
+      "hasRuntime": false
+    },
+    {
+      "name": "readable-copy",
+      "directory": "deliverables/naming-ui",
+      "pluginId": "apd-market-research-184f05365d75-guide",
+      "zipSha256": "1f6b4f9cb2e83f01fb52b88859f9f63a69c0cbb6f4464734af49a89e7ae24336",
+      "markdownSha256": "80327eb50713c2042438e8d97d8f2a15f25d17f22348522c9037fd68c19d46f3",
+      "sourceSha256": "e3ec0116157ac33dba5e1e2af95198d674bb84d1bf142336dd067b6b6dd93547",
+      "warnings": [
+        {
+          "message": "节点尚未与其他节点连接；作为草稿完整保留",
+          "nodeId": "start"
+        },
+        {
+          "message": "节点尚无后续连线，请确认此处是否结束或仍待补全",
+          "nodeId": "start"
+        },
+        {
+          "message": "节点尚未与其他节点连接；作为草稿完整保留",
+          "nodeId": "end"
+        }
+      ],
+      "mode": "documentation",
+      "namingMode": "readable",
+      "displayName": "市场调研流程",
+      "shortName": "market-research",
+      "skillName": "guide",
+      "toolName": "apd_market_research_184f05365d75_guide",
+      "invocation": "apd_market_research_184f05365d75_guide",
+      "invocationText": "使用流程：市场调研流程\n调用 apd_market_research_184f05365d75_guide，参数 {}。\n先读取完整说明书，再按该流程处理我的任务。",
+      "legacyIds": {
+        "pluginId": "apd-guide-4aea3172-184f05365d75544bb228734be65bb46a",
+        "toolName": "apd_guide_4aea3172_184f05365d75544bb228734be65bb46a_guide",
+        "skillName": "apd-guide-4aea3172-184f05365d75544bb228734be65bb46a",
+        "invocation": "apd_guide_4aea3172_184f05365d75544bb228734be65bb46a_guide"
+      },
+      "hasRuntime": false
+    },
+    {
+      "name": "readable-version",
+      "directory": "deliverables/naming-ui",
+      "pluginId": "apd-market-research-880e6d77e849-guide",
+      "zipSha256": "46a913135349b42bd96fb9347bd9bb18144cf4789ae72a134fe9ca4e1280a2b8",
+      "markdownSha256": "184095752ce18ce52ed7295499fe96856a2d9c229be60cb61f090829849bd00f",
+      "sourceSha256": "54e5c6925faa6e305fe33bab07327391190bc3523bd9140c4a013fd4d01c5b21",
+      "warnings": [
+        {
+          "message": "节点尚未与其他节点连接；作为草稿完整保留",
+          "nodeId": "start"
+        },
+        {
+          "message": "节点尚无后续连线，请确认此处是否结束或仍待补全",
+          "nodeId": "start"
+        },
+        {
+          "message": "节点尚未与其他节点连接；作为草稿完整保留",
+          "nodeId": "end"
+        }
+      ],
+      "mode": "documentation",
+      "namingMode": "readable",
+      "displayName": "市场调研流程",
+      "shortName": "market-research",
+      "skillName": "guide",
+      "toolName": "apd_market_research_880e6d77e849_guide",
+      "invocation": "apd_market_research_880e6d77e849_guide",
+      "invocationText": "使用流程：市场调研流程\n调用 apd_market_research_880e6d77e849_guide，参数 {}。\n先读取完整说明书，再按该流程处理我的任务。",
+      "legacyIds": {
+        "pluginId": "apd-guide-4aea3172-880e6d77e849ed630d057c3272a746fe",
+        "toolName": "apd_guide_4aea3172_880e6d77e849ed630d057c3272a746fe_guide",
+        "skillName": "apd-guide-4aea3172-880e6d77e849ed630d057c3272a746fe",
+        "invocation": "apd_guide_4aea3172_880e6d77e849ed630d057c3272a746fe_guide"
+      },
+      "hasRuntime": false
+    },
+    {
+      "name": "historical-readable",
+      "directory": "deliverables/naming-ui",
+      "pluginId": "apd-beginner-plan-37aa10621130-guide",
+      "zipSha256": "5e3807cb4cddf2a89ebfa3e68c6e02f471f590e2b7045514cf9fd09be6749fc3",
+      "markdownSha256": "4c9839037504834abbcfbe2ae44d4b3662a98a0958b86a770f8701738ee9dd5c",
+      "sourceSha256": "ec4f316d511c903e5bc05aec555d09054ac4ca9c0ad5d42eba939b29cfa2b750",
+      "warnings": [],
+      "mode": "documentation",
+      "namingMode": "readable",
+      "displayName": "未命名插件",
+      "shortName": "beginner-plan",
+      "skillName": "guide",
+      "toolName": "apd_beginner_plan_37aa10621130_guide",
+      "invocation": "apd_beginner_plan_37aa10621130_guide",
+      "invocationText": "使用流程：未命名插件\n调用 apd_beginner_plan_37aa10621130_guide，参数 {}。\n先读取完整说明书，再按该流程处理我的任务。",
+      "legacyIds": {
+        "pluginId": "apd-guide-ee734e0f-12967c92e2b2949bd7d31e5af83f0815",
+        "toolName": "apd_guide_ee734e0f_12967c92e2b2949bd7d31e5af83f0815_guide",
+        "skillName": "apd-guide-ee734e0f-12967c92e2b2949bd7d31e5af83f0815",
+        "invocation": "apd_guide_ee734e0f_12967c92e2b2949bd7d31e5af83f0815_guide"
+      },
+      "hasRuntime": false
+    },
+    {
+      "name": "beginner-defaults",
+      "directory": "deliverables/edge-ui",
+      "pluginId": "apd-guide-ee734e0f-12967c92e2b2949bd7d31e5af83f0815",
+      "zipSha256": "b11f59f8d86343a5a0e3c297c803d4dfb9ee19c619d11e4e3ad6760d8657fcd5",
+      "markdownSha256": "c368195c16936baa0280b74fe90b0dd07d73511c59f109a5f3b7c8514da1d458",
+      "sourceSha256": "12967c92e2b2949bd7d31e5af83f08157ac29cecf683989e2f19d82ee9c1c8d8",
+      "warnings": [],
+      "mode": "documentation",
+      "namingMode": "historical-legacy",
+      "displayName": "未命名插件",
+      "toolName": "apd_guide_ee734e0f_12967c92e2b2949bd7d31e5af83f0815_guide",
+      "hasRuntime": false
+    }
+  ],
+  "cases": [
+    {
+      "name": "readable-main",
+      "sessionId": "document-main-readable-main",
+      "selectedTool": "apd_market_research_98bf0649a3f8_guide",
+      "namingMode": "readable",
+      "nativeToolReturnsExactMarkdown": true,
+      "fullExactMarkdownReachesModel": true,
+      "unselectedFullDocumentsAbsent": true,
+      "documentSha256": "e3966c3cd3c5faafd595d76164ad36a01e3f5f5e97688d06144d58d0fd1f7851",
+      "noSubagentServiceLoaded": true,
+      "noWorkflowExecution": true
+    },
+    {
+      "name": "readable-copy",
+      "sessionId": "document-main-readable-copy",
+      "selectedTool": "apd_market_research_184f05365d75_guide",
+      "namingMode": "readable",
+      "nativeToolReturnsExactMarkdown": true,
+      "fullExactMarkdownReachesModel": true,
+      "unselectedFullDocumentsAbsent": true,
+      "documentSha256": "80327eb50713c2042438e8d97d8f2a15f25d17f22348522c9037fd68c19d46f3",
+      "noSubagentServiceLoaded": true,
+      "noWorkflowExecution": true
+    },
+    {
+      "name": "readable-version",
+      "sessionId": "document-main-readable-version",
+      "selectedTool": "apd_market_research_880e6d77e849_guide",
+      "namingMode": "readable",
+      "nativeToolReturnsExactMarkdown": true,
+      "fullExactMarkdownReachesModel": true,
+      "unselectedFullDocumentsAbsent": true,
+      "documentSha256": "184095752ce18ce52ed7295499fe96856a2d9c229be60cb61f090829849bd00f",
+      "noSubagentServiceLoaded": true,
+      "noWorkflowExecution": true
+    },
+    {
+      "name": "historical-readable",
+      "sessionId": "document-main-historical-readable",
+      "selectedTool": "apd_beginner_plan_37aa10621130_guide",
+      "namingMode": "readable",
+      "nativeToolReturnsExactMarkdown": true,
+      "fullExactMarkdownReachesModel": true,
+      "unselectedFullDocumentsAbsent": true,
+      "documentSha256": "4c9839037504834abbcfbe2ae44d4b3662a98a0958b86a770f8701738ee9dd5c",
+      "noSubagentServiceLoaded": true,
+      "noWorkflowExecution": true
+    },
+    {
+      "name": "beginner-defaults",
+      "sessionId": "document-main-beginner-defaults",
+      "selectedTool": "apd_guide_ee734e0f_12967c92e2b2949bd7d31e5af83f0815_guide",
+      "namingMode": "historical-legacy",
+      "nativeToolReturnsExactMarkdown": true,
+      "fullExactMarkdownReachesModel": true,
+      "unselectedFullDocumentsAbsent": true,
+      "documentSha256": "c368195c16936baa0280b74fe90b0dd07d73511c59f109a5f3b7c8514da1d458",
+      "noSubagentServiceLoaded": true,
+      "noWorkflowExecution": true
+    }
+  ],
+  "uiManifests": [
+    {
+      "directory": "deliverables/naming-ui",
+      "sha256": "10a57ba6adf603ff1191e4889c4fbbdfc24d7f97ca21168cd8829bb746342b21"
+    },
+    {
+      "directory": "deliverables/edge-ui",
+      "sha256": "34487d55c9377ec7b72a57e94c98b203c32f6126c5bdd2d98302982172643f49"
+    }
+  ],
+  "distinctInstalledPackageIdentities": true,
+  "distinctToolIdentities": true,
+  "sameChineseNameDistinctProjectsAndVersions": true,
+  "historicalReadableMigration": {
+    "readable": "apd-beginner-plan-37aa10621130-guide",
+    "historical": "apd-guide-ee734e0f-12967c92e2b2949bd7d31e5af83f0815",
+    "sourcePreserved": true,
+    "distinctLiveEntrypoints": true
+  },
+  "compatibilityExports": [
+    {
+      "name": "historical-compatible",
+      "pluginId": "apd-guide-ee734e0f-12967c92e2b2949bd7d31e5af83f0815",
+      "zipSha256": "2fcc15ca7629a280966f806e3e42c17fd01716303b4d3488def6e141f7d5ddd5",
+      "exactHistoricalIdentity": true,
+      "sourcePreserved": true,
+      "notRegisteredAsDuplicate": true
+    }
+  ],
+  "version": "0.2.1-rc.5",
+  "installedTogetherCount": 5,
+  "threePackagesInstalledTogether": false
+}

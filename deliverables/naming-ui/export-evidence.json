@@ -1,0 +1,268 @@
+{
+  "createdVia": "Real UI naming, actual clipboard success/denial, save/reload/import/copy/version editing and native ZIP controls: tests/naming.spec.ts",
+  "previewEqualsMarkdownAndPackageWorkflow": true,
+  "verification": "23-test complete regression plus separate actual historical migration test; no claim of one combined 24-test run",
+  "historicalSourceChain": {
+    "source": {
+      "file": "deliverables/edge-ui/beginner-defaults.agent-project.json",
+      "sha256": "12967c92e2b2949bd7d31e5af83f08157ac29cecf683989e2f19d82ee9c1c8d8"
+    },
+    "packages": {
+      "codex": {
+        "file": "deliverables/edge-ui/beginner-defaults-codex.zip",
+        "sha256": "296750e61df72fc05b22c351144f724fd1b0e3360d5649e60707e1bccf063932",
+        "pluginId": "apd-guide-ee734e0f-12967c92e2b2949bd7d31e5af83f0815"
+      },
+      "deepseek": {
+        "file": "deliverables/edge-ui/beginner-defaults-deepseek.zip",
+        "sha256": "b11f59f8d86343a5a0e3c297c803d4dfb9ee19c619d11e4e3ad6760d8657fcd5",
+        "pluginId": "apd-guide-ee734e0f-12967c92e2b2949bd7d31e5af83f0815",
+        "toolName": "apd_guide_ee734e0f_12967c92e2b2949bd7d31e5af83f0815_guide"
+      }
+    }
+  },
+  "cases": [
+    {
+      "name": "readable-main",
+      "displayName": "市场调研流程",
+      "version": "1.0.0",
+      "projectId": "6e4a169f-af48-41f0-835f-fcc5a91a7173",
+      "targets": {
+        "codex": {
+          "pluginId": "apd-market-research-98bf0649a3f8-guide",
+          "toolName": "apd_market_research_98bf0649a3f8_guide",
+          "invocation": "$apd-market-research-98bf0649a3f8-guide:guide",
+          "invocationText": "使用流程：市场调研流程\n$apd-market-research-98bf0649a3f8-guide:guide\n先读取完整说明书，再按该流程处理我的任务。",
+          "namingMode": "readable",
+          "skillName": "guide"
+        },
+        "deepseek": {
+          "pluginId": "apd-market-research-98bf0649a3f8-guide",
+          "toolName": "apd_market_research_98bf0649a3f8_guide",
+          "invocation": "apd_market_research_98bf0649a3f8_guide",
+          "invocationText": "使用流程：市场调研流程\n调用 apd_market_research_98bf0649a3f8_guide，参数 {}。\n先读取完整说明书，再按该流程处理我的任务。",
+          "namingMode": "readable",
+          "skillName": "guide"
+        }
+      }
+    },
+    {
+      "name": "readable-copy",
+      "displayName": "市场调研流程",
+      "version": "1.0.0",
+      "projectId": "4aea3172-241a-4e2a-8bbe-8c420dad90b9",
+      "targets": {
+        "codex": {
+          "pluginId": "apd-market-research-184f05365d75-guide",
+          "toolName": "apd_market_research_184f05365d75_guide",
+          "invocation": "$apd-market-research-184f05365d75-guide:guide",
+          "invocationText": "使用流程：市场调研流程\n$apd-market-research-184f05365d75-guide:guide\n先读取完整说明书，再按该流程处理我的任务。",
+          "namingMode": "readable",
+          "skillName": "guide"
+        },
+        "deepseek": {
+          "pluginId": "apd-market-research-184f05365d75-guide",
+          "toolName": "apd_market_research_184f05365d75_guide",
+          "invocation": "apd_market_research_184f05365d75_guide",
+          "invocationText": "使用流程：市场调研流程\n调用 apd_market_research_184f05365d75_guide，参数 {}。\n先读取完整说明书，再按该流程处理我的任务。",
+          "namingMode": "readable",
+          "skillName": "guide"
+        }
+      }
+    },
+    {
+      "name": "readable-version",
+      "displayName": "市场调研流程",
+      "version": "2.0.0",
+      "projectId": "4aea3172-241a-4e2a-8bbe-8c420dad90b9",
+      "targets": {
+        "codex": {
+          "pluginId": "apd-market-research-880e6d77e849-guide",
+          "toolName": "apd_market_research_880e6d77e849_guide",
+          "invocation": "$apd-market-research-880e6d77e849-guide:guide",
+          "invocationText": "使用流程：市场调研流程\n$apd-market-research-880e6d77e849-guide:guide\n先读取完整说明书，再按该流程处理我的任务。",
+          "namingMode": "readable",
+          "skillName": "guide"
+        },
+        "deepseek": {
+          "pluginId": "apd-market-research-880e6d77e849-guide",
+          "toolName": "apd_market_research_880e6d77e849_guide",
+          "invocation": "apd_market_research_880e6d77e849_guide",
+          "invocationText": "使用流程：市场调研流程\n调用 apd_market_research_880e6d77e849_guide，参数 {}。\n先读取完整说明书，再按该流程处理我的任务。",
+          "namingMode": "readable",
+          "skillName": "guide"
+        }
+      }
+    },
+    {
+      "name": "legacy-compatible",
+      "displayName": "开发质检产线",
+      "version": "1.0.0",
+      "projectId": "94579c4b-f8a4-49b3-97df-f2f21f8e381d",
+      "targets": {
+        "codex": {
+          "pluginId": "apd-guide-37a71a05-62d8dade74e628ea3adda39d934e2c29",
+          "toolName": "apd_guide_37a71a05_62d8dade74e628ea3adda39d934e2c29_guide",
+          "invocation": "$apd-guide-37a71a05-62d8dade74e628ea3adda39d934e2c29:apd-guide-37a71a05-62d8dade74e628ea3adda39d934e2c29",
+          "invocationText": "使用流程：开发质检产线\n$apd-guide-37a71a05-62d8dade74e628ea3adda39d934e2c29:apd-guide-37a71a05-62d8dade74e628ea3adda39d934e2c29\n先读取完整说明书，再按该流程处理我的任务。",
+          "namingMode": "legacy",
+          "skillName": "apd-guide-37a71a05-62d8dade74e628ea3adda39d934e2c29"
+        },
+        "deepseek": {
+          "pluginId": "apd-guide-37a71a05-62d8dade74e628ea3adda39d934e2c29",
+          "toolName": "apd_guide_37a71a05_62d8dade74e628ea3adda39d934e2c29_guide",
+          "invocation": "apd_guide_37a71a05_62d8dade74e628ea3adda39d934e2c29_guide",
+          "invocationText": "使用流程：开发质检产线\n调用 apd_guide_37a71a05_62d8dade74e628ea3adda39d934e2c29_guide，参数 {}。\n先读取完整说明书，再按该流程处理我的任务。",
+          "namingMode": "legacy",
+          "skillName": "apd-guide-37a71a05-62d8dade74e628ea3adda39d934e2c29"
+        }
+      }
+    },
+    {
+      "name": "historical-readable",
+      "displayName": "未命名插件",
+      "version": "1.0.0",
+      "projectId": "fe5c3c71-9c62-4471-aae8-1c48bbfe1aa2",
+      "targets": {
+        "codex": {
+          "pluginId": "apd-beginner-plan-37aa10621130-guide",
+          "toolName": "apd_beginner_plan_37aa10621130_guide",
+          "invocation": "$apd-beginner-plan-37aa10621130-guide:guide",
+          "invocationText": "使用流程：未命名插件\n$apd-beginner-plan-37aa10621130-guide:guide\n先读取完整说明书，再按该流程处理我的任务。",
+          "namingMode": "readable",
+          "skillName": "guide"
+        },
+        "deepseek": {
+          "pluginId": "apd-beginner-plan-37aa10621130-guide",
+          "toolName": "apd_beginner_plan_37aa10621130_guide",
+          "invocation": "apd_beginner_plan_37aa10621130_guide",
+          "invocationText": "使用流程：未命名插件\n调用 apd_beginner_plan_37aa10621130_guide，参数 {}。\n先读取完整说明书，再按该流程处理我的任务。",
+          "namingMode": "readable",
+          "skillName": "guide"
+        }
+      }
+    },
+    {
+      "name": "historical-compatible",
+      "displayName": "未命名插件",
+      "version": "1.0.0",
+      "projectId": "fe5c3c71-9c62-4471-aae8-1c48bbfe1aa2",
+      "targets": {
+        "codex": {
+          "pluginId": "apd-guide-ee734e0f-12967c92e2b2949bd7d31e5af83f0815",
+          "toolName": "apd_guide_ee734e0f_12967c92e2b2949bd7d31e5af83f0815_guide",
+          "invocation": "$apd-guide-ee734e0f-12967c92e2b2949bd7d31e5af83f0815:apd-guide-ee734e0f-12967c92e2b2949bd7d31e5af83f0815",
+          "invocationText": "使用流程：未命名插件\n$apd-guide-ee734e0f-12967c92e2b2949bd7d31e5af83f0815:apd-guide-ee734e0f-12967c92e2b2949bd7d31e5af83f0815\n先读取完整说明书，再按该流程处理我的任务。",
+          "namingMode": "legacy",
+          "skillName": "apd-guide-ee734e0f-12967c92e2b2949bd7d31e5af83f0815"
+        },
+        "deepseek": {
+          "pluginId": "apd-guide-ee734e0f-12967c92e2b2949bd7d31e5af83f0815",
+          "toolName": "apd_guide_ee734e0f_12967c92e2b2949bd7d31e5af83f0815_guide",
+          "invocation": "apd_guide_ee734e0f_12967c92e2b2949bd7d31e5af83f0815_guide",
+          "invocationText": "使用流程：未命名插件\n调用 apd_guide_ee734e0f_12967c92e2b2949bd7d31e5af83f0815_guide，参数 {}。\n先读取完整说明书，再按该流程处理我的任务。",
+          "namingMode": "legacy",
+          "skillName": "apd-guide-ee734e0f-12967c92e2b2949bd7d31e5af83f0815"
+        }
+      }
+    }
+  ],
+  "files": [
+    {
+      "file": "historical-compatible-codex.zip",
+      "sha256": "b410255e9a19d3c439b990b326529664be37cc953c6b3573a7cef15141bf5319"
+    },
+    {
+      "file": "historical-compatible-deepseek.zip",
+      "sha256": "2fcc15ca7629a280966f806e3e42c17fd01716303b4d3488def6e141f7d5ddd5"
+    },
+    {
+      "file": "historical-compatible.agent-project.json",
+      "sha256": "bca434435867f104e6a3749335e9e43089ac1eb5761fb2905536ff1e6c3762e7"
+    },
+    {
+      "file": "historical-compatible.md",
+      "sha256": "59b9b09e91e843d910428b6a533a248056a476331efff14403b19519cedba5f0"
+    },
+    {
+      "file": "historical-readable-codex.zip",
+      "sha256": "3685b4fe569c4cea6ec6921b46a9735073e3759fdd3d8fcaaaa4cc43f9538224"
+    },
+    {
+      "file": "historical-readable-deepseek.zip",
+      "sha256": "5e3807cb4cddf2a89ebfa3e68c6e02f471f590e2b7045514cf9fd09be6749fc3"
+    },
+    {
+      "file": "historical-readable.agent-project.json",
+      "sha256": "ec4f316d511c903e5bc05aec555d09054ac4ca9c0ad5d42eba939b29cfa2b750"
+    },
+    {
+      "file": "historical-readable.md",
+      "sha256": "4c9839037504834abbcfbe2ae44d4b3662a98a0958b86a770f8701738ee9dd5c"
+    },
+    {
+      "file": "legacy-compatible-codex.zip",
+      "sha256": "957543325cb9b96cf9ef7b7592f6dca61eb5ac39fb6870d4d7a22e5f1f31bd66"
+    },
+    {
+      "file": "legacy-compatible-deepseek.zip",
+      "sha256": "fac16ebae5b72f87abc2353b3f3477d7105d628e1c5648725ec169c26006842e"
+    },
+    {
+      "file": "legacy-compatible.agent-project.json",
+      "sha256": "4ae127d3d6c3ac77d0f8bc27c7d59106b4b28af5f13775a3d559aa6ae111cc38"
+    },
+    {
+      "file": "legacy-compatible.md",
+      "sha256": "b37c9af2b1cac6ef2441ede47990b74608befa8797037d6efe5c5b535ad32405"
+    },
+    {
+      "file": "readable-copy-codex.zip",
+      "sha256": "29b85c64f3eb1bc8ee6e19996f158ec21e7b36c860a846d8d6c3ee5fd0598625"
+    },
+    {
+      "file": "readable-copy-deepseek.zip",
+      "sha256": "1f6b4f9cb2e83f01fb52b88859f9f63a69c0cbb6f4464734af49a89e7ae24336"
+    },
+    {
+      "file": "readable-copy.agent-project.json",
+      "sha256": "e3ec0116157ac33dba5e1e2af95198d674bb84d1bf142336dd067b6b6dd93547"
+    },
+    {
+      "file": "readable-copy.md",
+      "sha256": "80327eb50713c2042438e8d97d8f2a15f25d17f22348522c9037fd68c19d46f3"
+    },
+    {
+      "file": "readable-main-codex.zip",
+      "sha256": "ee1ff93ef11fe435ec6f02a82f611192b637bea717b8d26b21fd48ace8827a37"
+    },
+    {
+      "file": "readable-main-deepseek.zip",
+      "sha256": "54b5e9fa555c69d43ded109e47cb8d095a4098f593468babd80d58e395d67e47"
+    },
+    {
+      "file": "readable-main.agent-project.json",
+      "sha256": "2252f11e6d8d245bf30f4a64e6f5cf189f335237021b7ac98c12a43ab4c5e5b5"
+    },
+    {
+      "file": "readable-main.md",
+      "sha256": "e3966c3cd3c5faafd595d76164ad36a01e3f5f5e97688d06144d58d0fd1f7851"
+    },
+    {
+      "file": "readable-version-codex.zip",
+      "sha256": "fd1c978079f1fa7247986fbacf4cf15fc404fd837bb5d6a22dc2766d9a50833f"
+    },
+    {
+      "file": "readable-version-deepseek.zip",
+      "sha256": "46a913135349b42bd96fb9347bd9bb18144cf4789ae72a134fe9ca4e1280a2b8"
+    },
+    {
+      "file": "readable-version.agent-project.json",
+      "sha256": "54e5c6925faa6e305fe33bab07327391190bc3523bd9140c4a013fd4d01c5b21"
+    },
+    {
+      "file": "readable-version.md",
+      "sha256": "184095752ce18ce52ed7295499fe96856a2d9c229be60cb61f090829849bd00f"
+    }
+  ]
+}

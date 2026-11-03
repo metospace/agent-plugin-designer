@@ -1,5 +1,5 @@
 import {test,expect,type Page} from '@playwright/test';import JSZip from 'jszip';import {mkdir,readFile,writeFile} from 'node:fs/promises';
-const out='deliverables/edge-ui';
+const out=process.env.APD_EDGE_UI_OUT??'deliverables/edge-ui';
 async function add(page:Page,kind:string,name:string){await page.locator('.node-palette').getByRole('button',{name:kind,exact:true}).click();await page.getByLabel('节点名称',{exact:true}).fill(name);await page.getByLabel('这一步做什么',{exact:true}).fill('按用户设计处理此节点。');}
 async function connect(page:Page,from:string,to:string){await page.getByTitle('添加连线').click();await page.getByLabel('来源节点').selectOption({label:from});await page.getByLabel('目标节点').selectOption({label:to});await page.getByRole('button',{name:'创建连线',exact:true}).click();}
 async function project(page:Page){const [dl]=await Promise.all([page.waitForEvent('download'),page.getByRole('button',{name:'保存项目文件',exact:true}).click()]);return JSON.parse(await readFile((await dl.path())!,'utf8'));}
