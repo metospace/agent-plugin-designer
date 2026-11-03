@@ -1,0 +1,67 @@
+{
+  "createdVia": "Actual UI creation, role/skill/resource/version forms and export downloads: tests/document-workflows.spec.ts",
+  "mode": "documentation",
+  "previewEqualsMarkdownAndPackageWorkflow": true,
+  "files": [
+    {
+      "file": "document-1280.png",
+      "sha256": "11360ffadbc6674608dc86b242484db90c5395ac3ac920383edf3e800614f86c"
+    },
+    {
+      "file": "document-1440.png",
+      "sha256": "b2bda671a409e531d9aaf87ac8fabe903ae2ed98d6aaa967b4627f7e5121559b"
+    },
+    {
+      "file": "document-export.png",
+      "sha256": "59b3048810f06170ac9318cf2bc8411c3dd5c22b20fb730fc464581f8171efa4"
+    },
+    {
+      "file": "draft-loop-codex.zip",
+      "sha256": "d624da3f5514672c64d7fb25956662dced15a81805651cf83d770226d3ad36c8"
+    },
+    {
+      "file": "draft-loop-deepseek.zip",
+      "sha256": "3accc5b8c236539532cc642e8c7e4ff5066ebfb8b9ae4d3980008279611b951e"
+    },
+    {
+      "file": "draft-loop.agent-project.json",
+      "sha256": "e7bb621652aed8ab477197de3b56e3bd7d13b42eb804867e7b399b30cbabaee4"
+    },
+    {
+      "file": "draft-loop.md",
+      "sha256": "fc27bfaee1f250ee57241c1cd75b30832f877d81b05c5133868cdda329adaa5a"
+    },
+    {
+      "file": "natural-branches-codex.zip",
+      "sha256": "b4a2c96f868716eb3306d57605d8e87a4c0e5cd4aa6aff62fca232b5b8c0d030"
+    },
+    {
+      "file": "natural-branches-deepseek.zip",
+      "sha256": "f4d41d9f6e216b02aeff7ee13eef4d32a77e322f9c1095c757acf134a8b9a7e4"
+    },
+    {
+      "file": "natural-branches.agent-project.json",
+      "sha256": "8ab4e87f83fb4b5044050dc6b124d181db2942d518fd8b65dd9fa6a33209f53d"
+    },
+    {
+      "file": "natural-branches.md",
+      "sha256": "023deb6436e34d30518eb9e21db3272e543af146334ddb8c7eafc910c67ab79b"
+    },
+    {
+      "file": "parallel-human-codex.zip",
+      "sha256": "fad5b34f3e0ae24f537fdcbe194a0e91e4a3aabbe0e700c54405f596221623d2"
+    },
+    {
+      "file": "parallel-human-deepseek.zip",
+      "sha256": "e3127fbc1680bb5211f72a725e939d31616671f4360e10ff332199518a11f9bc"
+    },
+    {
+      "file": "parallel-human.agent-project.json",
+      "sha256": "8b8f22b94c66add07f31fe0e25327b2e08eb126ef5085da6ed5c204115b218e2"
+    },
+    {
+      "file": "parallel-human.md",
+      "sha256": "b8f8c2ed312826abe21099afd9cccdaa1943c24a8c569ebe7e710594c1f345e4"
+    }
+  ]
+}

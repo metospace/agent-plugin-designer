@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 1,
+  "id": "3c89f741-5444-4493-82de-2e9c801415c4",
+  "name": "多路决策与人工恢复",
+  "version": "1.0.0",
+  "roles": [
+    {
+      "id": "67a81eea-bbf4-4fb8-bcbe-745a16f3c680",
+      "name": "分类分析",
+      "responsibility": "只读分析并返回结构化文本",
+      "input": "任务与前序输出",
+      "output": "text 字符串",
+      "independent": false,
+      "bindings": []
+    }
+  ],
+  "skills": [],
+  "nodes": [
+    {
+      "id": "start",
+      "type": "step",
+      "position": {
+        "x": 255,
+        "y": 40
+      },
+      "data": {
+        "kind": "start",
+        "label": "任务开始",
+        "roleId": "",
+        "description": "接收任务与输入数据"
+      }
+    },
+    {
+      "id": "end",
+      "type": "step",
+      "position": {
+        "x": 255,
+        "y": 505
+      },
+      "data": {
+        "kind": "end",
+        "label": "交付结果",
+        "roleId": "",
+        "description": "交付工作流结果"
+      }
+    },
+    {
+      "id": "75007a71-a338-48db-8a73-cb451c29f106",
+      "type": "step",
+      "position": {
+        "x": 400,
+        "y": 195
+      },
+      "data": {
+        "kind": "agent",
+        "label": "风险分类",
+        "roleId": "67a81eea-bbf4-4fb8-bcbe-745a16f3c680",
+        "description": "UI 配置的通用节点",
+        "config": {
+          "outputFields": [
+            {
+              "name": "text",
+              "type": "string"
+            }
+          ],
+          "inputs": {
+            "request": "task.criteria"
+          },
+          "outputs": {
+            "text": "data.route"
+          },
+          "requiredOutputs": [
+            "text"
+          ],
+          "permissions": "read-only"
+        }
+      }
+    },
+    {
+      "id": "76ff424b-6b79-4cca-8849-19eefcfaa0f6",
+      "type": "step",
+      "position": {
+        "x": 400,
+        "y": 350
+      },
+      "data": {
+        "kind": "condition",
+        "label": "选择处理",
+        "roleId": "",
+        "description": "UI 配置的通用节点"
+      }
+    },
+    {
+      "id": "2287bee3-704e-4f83-80e5-ce7354fb215c",
+      "type": "step",
+      "position": {
+        "x": 545,
+        "y": 40
+      },
+      "data": {
+        "kind": "human",
+        "label": "人工决策",
+        "roleId": "",
+        "description": "UI 配置的通用节点"
+      }
+    },
+    {
+      "id": "085abbe4-188f-439e-a346-601e09e0a27f",
+      "type": "step",
+      "position": {
+        "x": 545,
+        "y": 505
+      },
+      "data": {
+        "kind": "end",
+        "label": "失败退出",
+        "roleId": "",
+        "description": "UI 配置的通用节点",
+        "config": {
+          "terminal": "failure"
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "cdd7f4f5-8ef8-4c4b-a34e-99bcccf69da9",
+      "source": "start",
+      "target": "75007a71-a338-48db-8a73-cb451c29f106",
+      "data": {
+        "condition": "完成后继续",
+        "handoff": "结构化状态",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    },
+    {
+      "id": "26f1a34c-24c8-4ad6-8e49-05bb93a17a5d",
+      "source": "75007a71-a338-48db-8a73-cb451c29f106",
+      "target": "76ff424b-6b79-4cca-8849-19eefcfaa0f6",
+      "data": {
+        "condition": "完成后继续",
+        "handoff": "结构化状态",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    },
+    {
+      "id": "298d97fd-1c76-43f3-9a45-8b5fa35290fd",
+      "source": "76ff424b-6b79-4cca-8849-19eefcfaa0f6",
+      "target": "end",
+      "data": {
+        "condition": "完成后继续",
+        "handoff": "结构化状态",
+        "maxRetries": 0,
+        "fallback": "",
+        "predicate": {
+          "path": "data.route",
+          "op": "eq",
+          "value": "ok"
+        }
+      }
+    },
+    {
+      "id": "85a1501f-ad4b-4be0-8a4f-232db622deda",
+      "source": "76ff424b-6b79-4cca-8849-19eefcfaa0f6",
+      "target": "75007a71-a338-48db-8a73-cb451c29f106",
+      "data": {
+        "condition": "完成后继续",
+        "handoff": "结构化状态",
+        "maxRetries": 2,
+        "fallback": "2287bee3-704e-4f83-80e5-ce7354fb215c",
+        "predicate": {
+          "path": "data.route",
+          "op": "eq",
+          "value": "retry"
+        }
+      }
+    },
+    {
+      "id": "5f15edbb-c1b9-46a5-8613-ed727c56867a",
+      "source": "76ff424b-6b79-4cca-8849-19eefcfaa0f6",
+      "target": "085abbe4-188f-439e-a346-601e09e0a27f",
+      "data": {
+        "condition": "完成后继续",
+        "handoff": "结构化状态",
+        "maxRetries": 0,
+        "fallback": "",
+        "default": true
+      }
+    },
+    {
+      "id": "a04c3d4f-5c27-4bd5-98bf-dd4b3b879c12",
+      "source": "2287bee3-704e-4f83-80e5-ce7354fb215c",
+      "target": "end",
+      "data": {
+        "condition": "完成后继续",
+        "handoff": "结构化状态",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    }
+  ]
+}

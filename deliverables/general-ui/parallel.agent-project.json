@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 1,
+  "id": "fdbabefb-f9e0-4e07-b746-8d821dc99dae",
+  "name": "并行只读研究",
+  "version": "1.0.0",
+  "roles": [
+    {
+      "id": "f0c76ff5-1f90-44f9-93f3-17c5cc61f6eb",
+      "name": "研究员",
+      "responsibility": "只读分析并返回结构化文本",
+      "input": "任务与前序输出",
+      "output": "text 字符串",
+      "independent": false,
+      "bindings": []
+    }
+  ],
+  "skills": [],
+  "nodes": [
+    {
+      "id": "start",
+      "type": "step",
+      "position": {
+        "x": 400,
+        "y": 40
+      },
+      "data": {
+        "kind": "start",
+        "label": "任务开始",
+        "roleId": "",
+        "description": "接收任务与输入数据"
+      }
+    },
+    {
+      "id": "end",
+      "type": "step",
+      "position": {
+        "x": 400,
+        "y": 660
+      },
+      "data": {
+        "kind": "end",
+        "label": "交付结果",
+        "roleId": "",
+        "description": "交付工作流结果"
+      }
+    },
+    {
+      "id": "acb1ffb4-48d5-479c-8a19-5b145a2ebff5",
+      "type": "step",
+      "position": {
+        "x": 400,
+        "y": 195
+      },
+      "data": {
+        "kind": "fork",
+        "label": "并行研究",
+        "roleId": "",
+        "description": "UI 配置的通用节点"
+      }
+    },
+    {
+      "id": "e3ad569c-3009-4645-8af3-4e0caa5fdb5a",
+      "type": "step",
+      "position": {
+        "x": 255,
+        "y": 350
+      },
+      "data": {
+        "kind": "agent",
+        "label": "市场研究",
+        "roleId": "f0c76ff5-1f90-44f9-93f3-17c5cc61f6eb",
+        "description": "UI 配置的通用节点",
+        "config": {
+          "outputFields": [
+            {
+              "name": "text",
+              "type": "string"
+            }
+          ],
+          "inputs": {
+            "request": "task.criteria"
+          },
+          "outputs": {
+            "text": "data.market"
+          },
+          "requiredOutputs": [
+            "text"
+          ],
+          "permissions": "read-only"
+        }
+      }
+    },
+    {
+      "id": "1c55b8cd-f4cc-462f-9b3f-b685f1b7164a",
+      "type": "step",
+      "position": {
+        "x": 545,
+        "y": 350
+      },
+      "data": {
+        "kind": "agent",
+        "label": "技术研究",
+        "roleId": "f0c76ff5-1f90-44f9-93f3-17c5cc61f6eb",
+        "description": "UI 配置的通用节点",
+        "config": {
+          "outputFields": [
+            {
+              "name": "text",
+              "type": "string"
+            }
+          ],
+          "inputs": {
+            "request": "task.criteria"
+          },
+          "outputs": {
+            "text": "data.technical"
+          },
+          "requiredOutputs": [
+            "text"
+          ],
+          "permissions": "read-only"
+        }
+      }
+    },
+    {
+      "id": "535c05a8-7bc4-45ee-9805-a88f1d1e81c4",
+      "type": "step",
+      "position": {
+        "x": 400,
+        "y": 505
+      },
+      "data": {
+        "kind": "join",
+        "label": "汇总证据",
+        "roleId": "",
+        "description": "UI 配置的通用节点",
+        "config": {
+          "join": {
+            "forkId": "acb1ffb4-48d5-479c-8a19-5b145a2ebff5"
+          }
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "2d0235f4-d486-40c0-9e73-455b277eff60",
+      "source": "start",
+      "target": "acb1ffb4-48d5-479c-8a19-5b145a2ebff5",
+      "data": {
+        "condition": "完成后继续",
+        "handoff": "结构化状态",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    },
+    {
+      "id": "18198117-a674-47b3-82e2-809aca632073",
+      "source": "acb1ffb4-48d5-479c-8a19-5b145a2ebff5",
+      "target": "e3ad569c-3009-4645-8af3-4e0caa5fdb5a",
+      "data": {
+        "condition": "完成后继续",
+        "handoff": "结构化状态",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    },
+    {
+      "id": "e6fab237-b4da-40a8-846c-2c27366dbe5b",
+      "source": "acb1ffb4-48d5-479c-8a19-5b145a2ebff5",
+      "target": "1c55b8cd-f4cc-462f-9b3f-b685f1b7164a",
+      "data": {
+        "condition": "完成后继续",
+        "handoff": "结构化状态",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    },
+    {
+      "id": "565c821a-c2b6-486a-b47d-add9db05eb47",
+      "source": "e3ad569c-3009-4645-8af3-4e0caa5fdb5a",
+      "target": "535c05a8-7bc4-45ee-9805-a88f1d1e81c4",
+      "data": {
+        "condition": "完成后继续",
+        "handoff": "结构化状态",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    },
+    {
+      "id": "622e6112-da0e-43c4-b49b-b7a7374b0574",
+      "source": "1c55b8cd-f4cc-462f-9b3f-b685f1b7164a",
+      "target": "535c05a8-7bc4-45ee-9805-a88f1d1e81c4",
+      "data": {
+        "condition": "完成后继续",
+        "handoff": "结构化状态",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    },
+    {
+      "id": "ba5c7ef0-6c06-4418-a29d-52381b976b52",
+      "source": "535c05a8-7bc4-45ee-9805-a88f1d1e81c4",
+      "target": "end",
+      "data": {
+        "condition": "完成后继续",
+        "handoff": "结构化状态",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    }
+  ]
+}

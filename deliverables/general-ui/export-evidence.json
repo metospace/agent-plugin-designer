@@ -1,0 +1,58 @@
+{
+  "createdVia": "Advanced optional runtime UI regression: tests/general-workflows.spec.ts",
+  "mode": "optional-program-execution",
+  "runtimeSha256": {
+    "graph": "ac619d0c6904d40e217e0895951f6fdbd5d8a335d753261d72879d93c6e7a10c",
+    "workflow": "b6d4114b66e4cfc180f1ec9f7c22a81504c825d4364409d527d071bd77f1f95b",
+    "runner": "03d27eac1bd70f43330f932c9765b968f87978c8a8c7a108d543dcf97a15fdc4",
+    "codex": "82bd011da170bf4543c8d2d01029b076d60e69a81c122356479ebe8b949ff9be",
+    "deepseek": "8368a1bf90d16230176e58ed7a614b74c4a398ce88653b4888ca493f16431e3b",
+    "human": "8ca973a2852498181dcb8fa8a4bf9b8795e674fd11486be4d4a6e07fca70fd1b"
+  },
+  "files": [
+    {
+      "file": "branch-loop-human-codex.zip",
+      "sha256": "403f277d7dac592b1e9291559aacd9e07b448c3ac08cf31166c200d58d99f4af"
+    },
+    {
+      "file": "branch-loop-human-deepseek.zip",
+      "sha256": "8efdf64461daf497e48c5d7544d2f82499e0c42eceb9f7a4541d7ed486b79353"
+    },
+    {
+      "file": "branch-loop-human.agent-project.json",
+      "sha256": "91157263ed86b62d462cac24c89a4582861f2a085c99ef3b0b9f653aaf8bc3bb"
+    },
+    {
+      "file": "general-1280.png",
+      "sha256": "908cf6f9baa4833ea82a8f073a9a3fb8ef2181c9609ece7265bc4d8026ac4312"
+    },
+    {
+      "file": "general-1440.png",
+      "sha256": "2a6347c523d2da60b17545edb7405c43da481180a2529446f2b853cfbde63682"
+    },
+    {
+      "file": "parallel-codex.zip",
+      "sha256": "dc919beccaf3ca49fa31df0470f110155c6145afbd3a03f75adc863840bfdfda"
+    },
+    {
+      "file": "parallel-deepseek.zip",
+      "sha256": "9592e4eafbfa811147307c1bd7afeb7bedcc6dae88534fcbc4eb74fd41f98151"
+    },
+    {
+      "file": "parallel.agent-project.json",
+      "sha256": "07f351ddbe6bcb1494cbc40fcb5505c426eade1aec73eb11828b90e197c85b87"
+    },
+    {
+      "file": "sequence-codex.zip",
+      "sha256": "b819681f19d98e8a9d85f288efb233a2f0262dda0bffd5aecbf738bfc8799686"
+    },
+    {
+      "file": "sequence-deepseek.zip",
+      "sha256": "17d560e77aba42ef11d9fc281f8c82092640b725d3fec9243260e3b77c237eeb"
+    },
+    {
+      "file": "sequence.agent-project.json",
+      "sha256": "1090b1419991b3a7ff4bc4fa01e6544a86ffd70c8994f9e074c441f6f6b6dee5"
+    }
+  ]
+}

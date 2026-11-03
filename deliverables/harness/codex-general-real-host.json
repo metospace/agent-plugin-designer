@@ -1,0 +1,967 @@
+{
+  "classification": "ACTUAL CODEX HOST; UI EXPORTED PACKAGES; LOCAL SCRIPTED RESPONSES; NOT LIVE MODEL QUALITY",
+  "externalLlmCalls": 0,
+  "root": "/tmp/apd-general-codex-JBduVR",
+  "cases": [
+    {
+      "key": "sequence-pass",
+      "status": "passed",
+      "exportSha256": "b819681f19d98e8a9d85f288efb233a2f0262dda0bffd5aecbf738bfc8799686",
+      "bundleSha256": "1ff737849b5213de54c5549664b2b3fd85ad6396a81e3fe3f5f8239bcc137879",
+      "generatedSources": {
+        "graph": {
+          "generatedSha256": "ac619d0c6904d40e217e0895951f6fdbd5d8a335d753261d72879d93c6e7a10c",
+          "sourceSha256": "ac619d0c6904d40e217e0895951f6fdbd5d8a335d753261d72879d93c6e7a10c"
+        },
+        "workflow": {
+          "generatedSha256": "b6d4114b66e4cfc180f1ec9f7c22a81504c825d4364409d527d071bd77f1f95b",
+          "sourceSha256": "b6d4114b66e4cfc180f1ec9f7c22a81504c825d4364409d527d071bd77f1f95b"
+        },
+        "runner": {
+          "generatedSha256": "03d27eac1bd70f43330f932c9765b968f87978c8a8c7a108d543dcf97a15fdc4",
+          "sourceSha256": "03d27eac1bd70f43330f932c9765b968f87978c8a8c7a108d543dcf97a15fdc4"
+        },
+        "codex": {
+          "generatedSha256": "82bd011da170bf4543c8d2d01029b076d60e69a81c122356479ebe8b949ff9be",
+          "sourceSha256": "82bd011da170bf4543c8d2d01029b076d60e69a81c122356479ebe8b949ff9be"
+        }
+      },
+      "sourceRoleCount": 1,
+      "mainSession": "01a19eb4-92a1-7212-a3a8-cccb3493a104",
+      "dispatches": [
+        {
+          "id": "bf420e3c-ac4e-467f-bd1a-0f82ceba1bad",
+          "type": "dispatch",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-93e7-7f13-b752-8ba97d9f9c85",
+          "policy": "read-only",
+          "at": "2026-11-02T23:59:56.947Z"
+        },
+        {
+          "id": "ed5aeaff-63a6-4766-8c19-c86a448280a8",
+          "type": "dispatch",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-952f-7541-80cb-2925cc04b425",
+          "policy": "read-only",
+          "at": "2026-11-02T23:59:57.279Z"
+        },
+        {
+          "id": "df43ac4f-c87d-4f98-b11b-f101f42d259a",
+          "type": "dispatch",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-9627-74e1-8bd8-195e6e6527c2",
+          "policy": "read-only",
+          "at": "2026-11-02T23:59:57.518Z"
+        }
+      ],
+      "results": [
+        {
+          "id": "5f040aac-5af7-4852-b154-24b45211c330",
+          "type": "result",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-93e7-7f13-b752-8ba97d9f9c85",
+          "result": {
+            "status": "completed",
+            "data": {
+              "text": "scripted 收集事实"
+            }
+          },
+          "at": "2026-11-02T23:59:57.114Z"
+        },
+        {
+          "id": "81e5cca4-781f-476e-8bf2-12a8d1c61475",
+          "type": "result",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-952f-7541-80cb-2925cc04b425",
+          "result": {
+            "status": "completed",
+            "data": {
+              "text": "scripted 生成摘要"
+            }
+          },
+          "at": "2026-11-02T23:59:57.439Z"
+        },
+        {
+          "id": "26e1df02-fa16-4ff7-af99-3e4595d377c5",
+          "type": "result",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-9627-74e1-8bd8-195e6e6527c2",
+          "result": {
+            "status": "completed",
+            "data": {
+              "text": "scripted 复核摘要"
+            }
+          },
+          "at": "2026-11-02T23:59:57.607Z"
+        }
+      ],
+      "resumeNoDuplicates": true,
+      "data": {
+        "facts": "scripted 收集事实",
+        "summary": "scripted 生成摘要",
+        "checked": "scripted 复核摘要"
+      }
+    },
+    {
+      "key": "branch-loop-human-ok",
+      "status": "passed",
+      "exportSha256": "403f277d7dac592b1e9291559aacd9e07b448c3ac08cf31166c200d58d99f4af",
+      "bundleSha256": "3356b6c86fdf02002f2a40049483a966ffb7bed1998d6d21dbd9c2ca830c195d",
+      "generatedSources": {
+        "graph": {
+          "generatedSha256": "ac619d0c6904d40e217e0895951f6fdbd5d8a335d753261d72879d93c6e7a10c",
+          "sourceSha256": "ac619d0c6904d40e217e0895951f6fdbd5d8a335d753261d72879d93c6e7a10c"
+        },
+        "workflow": {
+          "generatedSha256": "b6d4114b66e4cfc180f1ec9f7c22a81504c825d4364409d527d071bd77f1f95b",
+          "sourceSha256": "b6d4114b66e4cfc180f1ec9f7c22a81504c825d4364409d527d071bd77f1f95b"
+        },
+        "runner": {
+          "generatedSha256": "03d27eac1bd70f43330f932c9765b968f87978c8a8c7a108d543dcf97a15fdc4",
+          "sourceSha256": "03d27eac1bd70f43330f932c9765b968f87978c8a8c7a108d543dcf97a15fdc4"
+        },
+        "codex": {
+          "generatedSha256": "82bd011da170bf4543c8d2d01029b076d60e69a81c122356479ebe8b949ff9be",
+          "sourceSha256": "82bd011da170bf4543c8d2d01029b076d60e69a81c122356479ebe8b949ff9be"
+        }
+      },
+      "sourceRoleCount": 1,
+      "mainSession": "01a19eb4-96d2-75b3-9dab-47883a6838a2",
+      "dispatches": [
+        {
+          "id": "74a11276-6dc5-4b76-b1c9-10a012309233",
+          "type": "dispatch",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-9791-7df3-bba1-4eee31074a6f",
+          "policy": "read-only",
+          "at": "2026-11-02T23:59:57.878Z"
+        }
+      ],
+      "results": [
+        {
+          "id": "dbc35144-1855-42b6-b89e-11e7f21b62e1",
+          "type": "result",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-9791-7df3-bba1-4eee31074a6f",
+          "result": {
+            "status": "completed",
+            "data": {
+              "text": "ok"
+            }
+          },
+          "at": "2026-11-02T23:59:57.967Z"
+        }
+      ],
+      "resumeNoDuplicates": true,
+      "data": {
+        "route": "ok"
+      }
+    },
+    {
+      "key": "branch-loop-human-default",
+      "status": "failed",
+      "exportSha256": "403f277d7dac592b1e9291559aacd9e07b448c3ac08cf31166c200d58d99f4af",
+      "bundleSha256": "3356b6c86fdf02002f2a40049483a966ffb7bed1998d6d21dbd9c2ca830c195d",
+      "generatedSources": {
+        "graph": {
+          "generatedSha256": "ac619d0c6904d40e217e0895951f6fdbd5d8a335d753261d72879d93c6e7a10c",
+          "sourceSha256": "ac619d0c6904d40e217e0895951f6fdbd5d8a335d753261d72879d93c6e7a10c"
+        },
+        "workflow": {
+          "generatedSha256": "b6d4114b66e4cfc180f1ec9f7c22a81504c825d4364409d527d071bd77f1f95b",
+          "sourceSha256": "b6d4114b66e4cfc180f1ec9f7c22a81504c825d4364409d527d071bd77f1f95b"
+        },
+        "runner": {
+          "generatedSha256": "03d27eac1bd70f43330f932c9765b968f87978c8a8c7a108d543dcf97a15fdc4",
+          "sourceSha256": "03d27eac1bd70f43330f932c9765b968f87978c8a8c7a108d543dcf97a15fdc4"
+        },
+        "codex": {
+          "generatedSha256": "82bd011da170bf4543c8d2d01029b076d60e69a81c122356479ebe8b949ff9be",
+          "sourceSha256": "82bd011da170bf4543c8d2d01029b076d60e69a81c122356479ebe8b949ff9be"
+        }
+      },
+      "sourceRoleCount": 1,
+      "mainSession": "01a19eb4-9851-7692-a640-95b415e2bc1b",
+      "dispatches": [
+        {
+          "id": "13da808e-e1a0-42f2-a6e2-2946005e3810",
+          "type": "dispatch",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-991b-77e2-9e6c-351f073c3ae9",
+          "policy": "read-only",
+          "at": "2026-11-02T23:59:58.283Z"
+        }
+      ],
+      "results": [
+        {
+          "id": "fdeecf79-fafc-4aaf-bff4-e6a3d412e45b",
+          "type": "result",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-991b-77e2-9e6c-351f073c3ae9",
+          "result": {
+            "status": "completed",
+            "data": {
+              "text": "unmatched"
+            }
+          },
+          "at": "2026-11-02T23:59:58.365Z"
+        }
+      ],
+      "resumeNoDuplicates": true
+    },
+    {
+      "key": "branch-loop-human-retry",
+      "status": "human_paused",
+      "exportSha256": "403f277d7dac592b1e9291559aacd9e07b448c3ac08cf31166c200d58d99f4af",
+      "bundleSha256": "3356b6c86fdf02002f2a40049483a966ffb7bed1998d6d21dbd9c2ca830c195d",
+      "generatedSources": {
+        "graph": {
+          "generatedSha256": "ac619d0c6904d40e217e0895951f6fdbd5d8a335d753261d72879d93c6e7a10c",
+          "sourceSha256": "ac619d0c6904d40e217e0895951f6fdbd5d8a335d753261d72879d93c6e7a10c"
+        },
+        "workflow": {
+          "generatedSha256": "b6d4114b66e4cfc180f1ec9f7c22a81504c825d4364409d527d071bd77f1f95b",
+          "sourceSha256": "b6d4114b66e4cfc180f1ec9f7c22a81504c825d4364409d527d071bd77f1f95b"
+        },
+        "runner": {
+          "generatedSha256": "03d27eac1bd70f43330f932c9765b968f87978c8a8c7a108d543dcf97a15fdc4",
+          "sourceSha256": "03d27eac1bd70f43330f932c9765b968f87978c8a8c7a108d543dcf97a15fdc4"
+        },
+        "codex": {
+          "generatedSha256": "82bd011da170bf4543c8d2d01029b076d60e69a81c122356479ebe8b949ff9be",
+          "sourceSha256": "82bd011da170bf4543c8d2d01029b076d60e69a81c122356479ebe8b949ff9be"
+        }
+      },
+      "sourceRoleCount": 1,
+      "mainSession": "01a19eb4-99cd-7140-a749-18b423ea99c3",
+      "dispatches": [
+        {
+          "id": "402e9482-028a-4f56-b200-c19fd1768452",
+          "type": "dispatch",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-9a8e-7713-b41c-f70e07f653e5",
+          "policy": "read-only",
+          "at": "2026-11-02T23:59:58.641Z"
+        },
+        {
+          "id": "714431a6-1085-4172-a16c-115c62dbac0b",
+          "type": "dispatch",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-9b37-7103-b980-496147edf12a",
+          "policy": "read-only",
+          "at": "2026-11-02T23:59:58.818Z"
+        },
+        {
+          "id": "83636675-ce8f-4bd3-95a9-9eba19e2552a",
+          "type": "dispatch",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-9bf6-7282-9e5a-267188d88542",
+          "policy": "read-only",
+          "at": "2026-11-02T23:59:59.008Z"
+        }
+      ],
+      "results": [
+        {
+          "id": "a1327ad7-8272-4c94-a0cb-13cb0d12ea30",
+          "type": "result",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-9a8e-7713-b41c-f70e07f653e5",
+          "result": {
+            "status": "completed",
+            "data": {
+              "text": "retry"
+            }
+          },
+          "at": "2026-11-02T23:59:58.739Z"
+        },
+        {
+          "id": "5be69002-74ab-46c4-bd5c-5b19630763f9",
+          "type": "result",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-9b37-7103-b980-496147edf12a",
+          "result": {
+            "status": "completed",
+            "data": {
+              "text": "retry"
+            }
+          },
+          "at": "2026-11-02T23:59:58.914Z"
+        },
+        {
+          "id": "e1c6a4ea-8ffd-44fb-92b1-6b3646f77bb4",
+          "type": "result",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-9bf6-7282-9e5a-267188d88542",
+          "result": {
+            "status": "completed",
+            "data": {
+              "text": "retry"
+            }
+          },
+          "at": "2026-11-02T23:59:59.125Z"
+        }
+      ],
+      "resumeNoDuplicates": true,
+      "humanBoundary": "Actual exported scripts/human.mjs under util-linux PTY with scripted user inputs; isTTY gate unchanged",
+      "humanTerminal": {
+        "nonTtyRejected": true,
+        "ptyProvider": "script from util-linux 2.41.5",
+        "transcript": "{\r\n  \"status\": \"human_paused\"\r\n}\r\nOutcome (continue / accepted_with_risk / failed / cancelled): continue\r\r\nReason: Scripted PTY input tests actual human CLI terminal boundary\r\r\ncontinue\r\n"
+      },
+      "afterHumanDecision": "passed"
+    },
+    {
+      "key": "parallel-pass",
+      "status": "passed",
+      "exportSha256": "dc919beccaf3ca49fa31df0470f110155c6145afbd3a03f75adc863840bfdfda",
+      "bundleSha256": "78c395086cdbc532ff5614aa7c6fca02527de001365e9860ae5d53757350d1c1",
+      "generatedSources": {
+        "graph": {
+          "generatedSha256": "ac619d0c6904d40e217e0895951f6fdbd5d8a335d753261d72879d93c6e7a10c",
+          "sourceSha256": "ac619d0c6904d40e217e0895951f6fdbd5d8a335d753261d72879d93c6e7a10c"
+        },
+        "workflow": {
+          "generatedSha256": "b6d4114b66e4cfc180f1ec9f7c22a81504c825d4364409d527d071bd77f1f95b",
+          "sourceSha256": "b6d4114b66e4cfc180f1ec9f7c22a81504c825d4364409d527d071bd77f1f95b"
+        },
+        "runner": {
+          "generatedSha256": "03d27eac1bd70f43330f932c9765b968f87978c8a8c7a108d543dcf97a15fdc4",
+          "sourceSha256": "03d27eac1bd70f43330f932c9765b968f87978c8a8c7a108d543dcf97a15fdc4"
+        },
+        "codex": {
+          "generatedSha256": "82bd011da170bf4543c8d2d01029b076d60e69a81c122356479ebe8b949ff9be",
+          "sourceSha256": "82bd011da170bf4543c8d2d01029b076d60e69a81c122356479ebe8b949ff9be"
+        }
+      },
+      "sourceRoleCount": 1,
+      "mainSession": "01a19eb4-9d3d-7ee3-baf5-4cf3fd05cddd",
+      "dispatches": [
+        {
+          "id": "cd22ab89-c449-49a1-8de4-2a4924163963",
+          "type": "dispatch",
+          "tokenId": "t2",
+          "sessionId": "01a19eb4-9e48-7393-8037-b41b19f84634",
+          "policy": "read-only",
+          "at": "2026-11-02T23:59:59.623Z"
+        },
+        {
+          "id": "c1a2b392-fa79-4149-bc9f-4506198d853c",
+          "type": "dispatch",
+          "tokenId": "t3",
+          "sessionId": "01a19eb4-9e5e-7d60-be24-30e427a4eb02",
+          "policy": "read-only",
+          "at": "2026-11-02T23:59:59.642Z"
+        }
+      ],
+      "results": [
+        {
+          "id": "263bfb4c-44c5-4a4c-833d-c83488b3c779",
+          "type": "result",
+          "tokenId": "t3",
+          "sessionId": "01a19eb4-9e5e-7d60-be24-30e427a4eb02",
+          "result": {
+            "status": "completed",
+            "data": {
+              "text": "scripted 技术研究"
+            }
+          },
+          "at": "2026-11-02T23:59:59.776Z"
+        },
+        {
+          "id": "40fe2ca7-361a-461c-9d3e-4f0be3548d1e",
+          "type": "result",
+          "tokenId": "t2",
+          "sessionId": "01a19eb4-9e48-7393-8037-b41b19f84634",
+          "result": {
+            "status": "completed",
+            "data": {
+              "text": "scripted 市场研究"
+            }
+          },
+          "at": "2026-11-03T00:00:00.776Z"
+        }
+      ],
+      "resumeNoDuplicates": true,
+      "data": {
+        "technical": "scripted 技术研究",
+        "market": "scripted 市场研究"
+      },
+      "nativeParallelRequestsOverlapped": true,
+      "reversedResultOrder": true
+    },
+    {
+      "key": "sequence-malformed",
+      "status": "blocked",
+      "exportSha256": "b819681f19d98e8a9d85f288efb233a2f0262dda0bffd5aecbf738bfc8799686",
+      "bundleSha256": "1ff737849b5213de54c5549664b2b3fd85ad6396a81e3fe3f5f8239bcc137879",
+      "generatedSources": {
+        "graph": {
+          "generatedSha256": "ac619d0c6904d40e217e0895951f6fdbd5d8a335d753261d72879d93c6e7a10c",
+          "sourceSha256": "ac619d0c6904d40e217e0895951f6fdbd5d8a335d753261d72879d93c6e7a10c"
+        },
+        "workflow": {
+          "generatedSha256": "b6d4114b66e4cfc180f1ec9f7c22a81504c825d4364409d527d071bd77f1f95b",
+          "sourceSha256": "b6d4114b66e4cfc180f1ec9f7c22a81504c825d4364409d527d071bd77f1f95b"
+        },
+        "runner": {
+          "generatedSha256": "03d27eac1bd70f43330f932c9765b968f87978c8a8c7a108d543dcf97a15fdc4",
+          "sourceSha256": "03d27eac1bd70f43330f932c9765b968f87978c8a8c7a108d543dcf97a15fdc4"
+        },
+        "codex": {
+          "generatedSha256": "82bd011da170bf4543c8d2d01029b076d60e69a81c122356479ebe8b949ff9be",
+          "sourceSha256": "82bd011da170bf4543c8d2d01029b076d60e69a81c122356479ebe8b949ff9be"
+        }
+      },
+      "sourceRoleCount": 1,
+      "mainSession": "01a19eb4-a333-7652-82e8-8fcd30ae15b2",
+      "dispatches": [
+        {
+          "id": "70fde9f8-accd-4f8b-8e84-e8c20106b281",
+          "type": "dispatch",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-a413-7eb1-be58-292ac1a57a95",
+          "policy": "read-only",
+          "at": "2026-11-03T00:00:01.087Z"
+        }
+      ],
+      "results": [],
+      "resumeNoDuplicates": true
+    },
+    {
+      "key": "sequence-interrupt",
+      "status": "blocked",
+      "exportSha256": "b819681f19d98e8a9d85f288efb233a2f0262dda0bffd5aecbf738bfc8799686",
+      "bundleSha256": "1ff737849b5213de54c5549664b2b3fd85ad6396a81e3fe3f5f8239bcc137879",
+      "generatedSources": {
+        "graph": {
+          "generatedSha256": "ac619d0c6904d40e217e0895951f6fdbd5d8a335d753261d72879d93c6e7a10c",
+          "sourceSha256": "ac619d0c6904d40e217e0895951f6fdbd5d8a335d753261d72879d93c6e7a10c"
+        },
+        "workflow": {
+          "generatedSha256": "b6d4114b66e4cfc180f1ec9f7c22a81504c825d4364409d527d071bd77f1f95b",
+          "sourceSha256": "b6d4114b66e4cfc180f1ec9f7c22a81504c825d4364409d527d071bd77f1f95b"
+        },
+        "runner": {
+          "generatedSha256": "03d27eac1bd70f43330f932c9765b968f87978c8a8c7a108d543dcf97a15fdc4",
+          "sourceSha256": "03d27eac1bd70f43330f932c9765b968f87978c8a8c7a108d543dcf97a15fdc4"
+        },
+        "codex": {
+          "generatedSha256": "82bd011da170bf4543c8d2d01029b076d60e69a81c122356479ebe8b949ff9be",
+          "sourceSha256": "82bd011da170bf4543c8d2d01029b076d60e69a81c122356479ebe8b949ff9be"
+        }
+      },
+      "sourceRoleCount": 1,
+      "mainSession": "01a19eb4-a4ce-7992-9b1d-ae42170baad7",
+      "dispatches": [
+        {
+          "id": "878258f2-9c0a-4175-8986-c1461cca2795",
+          "type": "dispatch",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-a580-7753-96d3-6269fc3bd049",
+          "policy": "read-only",
+          "at": "2026-11-03T00:00:01.455Z"
+        }
+      ],
+      "results": [],
+      "resumeNoDuplicates": true
+    },
+    {
+      "key": "branch-loop-human-retry-cancel",
+      "status": "human_paused",
+      "exportSha256": "403f277d7dac592b1e9291559aacd9e07b448c3ac08cf31166c200d58d99f4af",
+      "bundleSha256": "3356b6c86fdf02002f2a40049483a966ffb7bed1998d6d21dbd9c2ca830c195d",
+      "generatedSources": {
+        "graph": {
+          "generatedSha256": "ac619d0c6904d40e217e0895951f6fdbd5d8a335d753261d72879d93c6e7a10c",
+          "sourceSha256": "ac619d0c6904d40e217e0895951f6fdbd5d8a335d753261d72879d93c6e7a10c"
+        },
+        "workflow": {
+          "generatedSha256": "b6d4114b66e4cfc180f1ec9f7c22a81504c825d4364409d527d071bd77f1f95b",
+          "sourceSha256": "b6d4114b66e4cfc180f1ec9f7c22a81504c825d4364409d527d071bd77f1f95b"
+        },
+        "runner": {
+          "generatedSha256": "03d27eac1bd70f43330f932c9765b968f87978c8a8c7a108d543dcf97a15fdc4",
+          "sourceSha256": "03d27eac1bd70f43330f932c9765b968f87978c8a8c7a108d543dcf97a15fdc4"
+        },
+        "codex": {
+          "generatedSha256": "82bd011da170bf4543c8d2d01029b076d60e69a81c122356479ebe8b949ff9be",
+          "sourceSha256": "82bd011da170bf4543c8d2d01029b076d60e69a81c122356479ebe8b949ff9be"
+        }
+      },
+      "sourceRoleCount": 1,
+      "mainSession": "01a19eb4-a602-7d63-8eec-3deadfd9cd96",
+      "dispatches": [
+        {
+          "id": "57aede63-cca1-46e7-8e25-6046ea021935",
+          "type": "dispatch",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-a69a-7363-9dbd-26da8c33b604",
+          "policy": "read-only",
+          "at": "2026-11-03T00:00:01.730Z"
+        },
+        {
+          "id": "b577659f-2abd-4026-9205-3981c869e7bb",
+          "type": "dispatch",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-a734-7942-a9a5-3223af27b363",
+          "policy": "read-only",
+          "at": "2026-11-03T00:00:01.881Z"
+        },
+        {
+          "id": "4880347d-b58e-4486-aa1e-d48853451c3b",
+          "type": "dispatch",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-a7c4-72b2-a9cb-2f572d0bc799",
+          "policy": "read-only",
+          "at": "2026-11-03T00:00:02.025Z"
+        }
+      ],
+      "results": [
+        {
+          "id": "af37e1c6-c685-4a1c-a8b8-c9ade037bc54",
+          "type": "result",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-a69a-7363-9dbd-26da8c33b604",
+          "result": {
+            "status": "completed",
+            "data": {
+              "text": "retry"
+            }
+          },
+          "at": "2026-11-03T00:00:01.804Z"
+        },
+        {
+          "id": "e9370534-84b2-41bc-b627-6cd9283c0060",
+          "type": "result",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-a734-7942-a9a5-3223af27b363",
+          "result": {
+            "status": "completed",
+            "data": {
+              "text": "retry"
+            }
+          },
+          "at": "2026-11-03T00:00:01.951Z"
+        },
+        {
+          "id": "660835f6-bdc6-4494-859e-414b73020921",
+          "type": "result",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-a7c4-72b2-a9cb-2f572d0bc799",
+          "result": {
+            "status": "completed",
+            "data": {
+              "text": "retry"
+            }
+          },
+          "at": "2026-11-03T00:00:02.091Z"
+        }
+      ],
+      "resumeNoDuplicates": true,
+      "humanBoundary": "Actual exported scripts/human.mjs under util-linux PTY with scripted user inputs; isTTY gate unchanged",
+      "humanTerminal": {
+        "nonTtyRejected": true,
+        "ptyProvider": "script from util-linux 2.41.5",
+        "transcript": "{\r\n  \"status\": \"human_paused\"\r\n}\r\nOutcome (continue / accepted_with_risk / failed / cancelled): cancelled\r\r\nReason: Scripted PTY input tests actual human CLI terminal boundary\r\r\ncancelled\r\n"
+      },
+      "afterHumanDecision": "cancelled"
+    },
+    {
+      "key": "sequence-readonly-probe",
+      "status": "passed",
+      "exportSha256": "b819681f19d98e8a9d85f288efb233a2f0262dda0bffd5aecbf738bfc8799686",
+      "bundleSha256": "1ff737849b5213de54c5549664b2b3fd85ad6396a81e3fe3f5f8239bcc137879",
+      "generatedSources": {
+        "graph": {
+          "generatedSha256": "ac619d0c6904d40e217e0895951f6fdbd5d8a335d753261d72879d93c6e7a10c",
+          "sourceSha256": "ac619d0c6904d40e217e0895951f6fdbd5d8a335d753261d72879d93c6e7a10c"
+        },
+        "workflow": {
+          "generatedSha256": "b6d4114b66e4cfc180f1ec9f7c22a81504c825d4364409d527d071bd77f1f95b",
+          "sourceSha256": "b6d4114b66e4cfc180f1ec9f7c22a81504c825d4364409d527d071bd77f1f95b"
+        },
+        "runner": {
+          "generatedSha256": "03d27eac1bd70f43330f932c9765b968f87978c8a8c7a108d543dcf97a15fdc4",
+          "sourceSha256": "03d27eac1bd70f43330f932c9765b968f87978c8a8c7a108d543dcf97a15fdc4"
+        },
+        "codex": {
+          "generatedSha256": "82bd011da170bf4543c8d2d01029b076d60e69a81c122356479ebe8b949ff9be",
+          "sourceSha256": "82bd011da170bf4543c8d2d01029b076d60e69a81c122356479ebe8b949ff9be"
+        }
+      },
+      "sourceRoleCount": 1,
+      "mainSession": "01a19eb4-a8a1-78e2-a26b-73cc1f31b227",
+      "dispatches": [
+        {
+          "id": "cfbbc9cc-d1ff-45f9-a6ec-a34e69b248c0",
+          "type": "dispatch",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-a936-7a62-8bb4-73ad384495e1",
+          "policy": "read-only",
+          "at": "2026-11-03T00:00:02.387Z"
+        },
+        {
+          "id": "7863231f-8a6b-4751-bd69-5d8bdcb1a4e2",
+          "type": "dispatch",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-a9f5-73e0-9d81-ad29bd1d8b88",
+          "policy": "read-only",
+          "at": "2026-11-03T00:00:02.585Z"
+        },
+        {
+          "id": "7d47b263-3979-425f-b088-85c2e3ba035a",
+          "type": "dispatch",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-aa7f-7f50-a001-97b0cabef8ab",
+          "policy": "read-only",
+          "at": "2026-11-03T00:00:02.714Z"
+        }
+      ],
+      "results": [
+        {
+          "id": "880b2bb5-a25b-467a-aa53-30362b53539e",
+          "type": "result",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-a936-7a62-8bb4-73ad384495e1",
+          "result": {
+            "status": "completed",
+            "data": {
+              "text": "scripted 收集事实"
+            }
+          },
+          "at": "2026-11-03T00:00:02.516Z"
+        },
+        {
+          "id": "9cb4ffc2-a423-4b9e-9380-192c8fe8293a",
+          "type": "result",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-a9f5-73e0-9d81-ad29bd1d8b88",
+          "result": {
+            "status": "completed",
+            "data": {
+              "text": "scripted 生成摘要"
+            }
+          },
+          "at": "2026-11-03T00:00:02.654Z"
+        },
+        {
+          "id": "c74103fd-5219-4dc4-902e-9afdd358418d",
+          "type": "result",
+          "tokenId": "t0",
+          "sessionId": "01a19eb4-aa7f-7f50-a001-97b0cabef8ab",
+          "result": {
+            "status": "completed",
+            "data": {
+              "text": "scripted 复核摘要"
+            }
+          },
+          "at": "2026-11-03T00:00:02.781Z"
+        }
+      ],
+      "resumeNoDuplicates": true,
+      "data": {
+        "facts": "scripted 收集事实",
+        "summary": "scripted 生成摘要",
+        "checked": "scripted 复核摘要"
+      },
+      "readonlyProbeLimitation": "Native shell failed at sandbox admission before write; this proves no mutation but cannot establish filesystem enforcement in this environment",
+      "nativeSandboxToolAdmissionBlocked": true
+    }
+  ],
+  "calls": [
+    {
+      "case": "sequence-pass",
+      "bootstrap": true,
+      "nodeId": "72f84ae9-0a64-4d93-93c8-eb10db413f07",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-02T23:59:56.745Z",
+      "selectedSkill": true,
+      "selectedBundleHeadings": [
+        "通用顺序分析"
+      ]
+    },
+    {
+      "case": "sequence-pass",
+      "bootstrap": false,
+      "nodeId": "72f84ae9-0a64-4d93-93c8-eb10db413f07",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-02T23:59:57.017Z",
+      "selectedSkill": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "case": "sequence-pass",
+      "bootstrap": false,
+      "nodeId": "e1fe29fb-834e-4b7d-bb56-0f2708df20ce",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-02T23:59:57.367Z",
+      "selectedSkill": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "case": "sequence-pass",
+      "bootstrap": false,
+      "nodeId": "7fed4a3e-6f89-4aad-968c-d05d47678af7",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-02T23:59:57.563Z",
+      "selectedSkill": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "case": "branch-loop-human-ok",
+      "bootstrap": true,
+      "nodeId": "75007a71-a338-48db-8a73-cb451c29f106",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-02T23:59:57.733Z",
+      "selectedSkill": true,
+      "selectedBundleHeadings": [
+        "多路决策与人工恢复"
+      ]
+    },
+    {
+      "case": "branch-loop-human-ok",
+      "bootstrap": false,
+      "nodeId": "75007a71-a338-48db-8a73-cb451c29f106",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-02T23:59:57.924Z",
+      "selectedSkill": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "case": "branch-loop-human-default",
+      "bootstrap": true,
+      "nodeId": "75007a71-a338-48db-8a73-cb451c29f106",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-02T23:59:58.133Z",
+      "selectedSkill": true,
+      "selectedBundleHeadings": [
+        "多路决策与人工恢复"
+      ]
+    },
+    {
+      "case": "branch-loop-human-default",
+      "bootstrap": false,
+      "nodeId": "75007a71-a338-48db-8a73-cb451c29f106",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-02T23:59:58.326Z",
+      "selectedSkill": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "case": "branch-loop-human-retry",
+      "bootstrap": true,
+      "nodeId": "75007a71-a338-48db-8a73-cb451c29f106",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-02T23:59:58.506Z",
+      "selectedSkill": true,
+      "selectedBundleHeadings": [
+        "多路决策与人工恢复"
+      ]
+    },
+    {
+      "case": "branch-loop-human-retry",
+      "bootstrap": false,
+      "nodeId": "75007a71-a338-48db-8a73-cb451c29f106",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-02T23:59:58.682Z",
+      "selectedSkill": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "case": "branch-loop-human-retry",
+      "bootstrap": false,
+      "nodeId": "75007a71-a338-48db-8a73-cb451c29f106",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-02T23:59:58.873Z",
+      "selectedSkill": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "case": "branch-loop-human-retry",
+      "bootstrap": false,
+      "nodeId": "75007a71-a338-48db-8a73-cb451c29f106",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-02T23:59:59.065Z",
+      "selectedSkill": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "case": "parallel-pass",
+      "bootstrap": true,
+      "nodeId": "e3ad569c-3009-4645-8af3-4e0caa5fdb5a",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-02T23:59:59.431Z",
+      "selectedSkill": true,
+      "selectedBundleHeadings": [
+        "并行只读研究"
+      ]
+    },
+    {
+      "case": "parallel-pass",
+      "bootstrap": false,
+      "nodeId": "e3ad569c-3009-4645-8af3-4e0caa5fdb5a",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-02T23:59:59.682Z",
+      "selectedSkill": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "case": "parallel-pass",
+      "bootstrap": false,
+      "nodeId": "1c55b8cd-f4cc-462f-9b3f-b685f1b7164a",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-02T23:59:59.724Z",
+      "selectedSkill": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "case": "sequence-malformed",
+      "bootstrap": true,
+      "nodeId": "72f84ae9-0a64-4d93-93c8-eb10db413f07",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-03T00:00:00.928Z",
+      "selectedSkill": true,
+      "selectedBundleHeadings": [
+        "通用顺序分析"
+      ]
+    },
+    {
+      "case": "sequence-malformed",
+      "bootstrap": false,
+      "nodeId": "72f84ae9-0a64-4d93-93c8-eb10db413f07",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-03T00:00:01.138Z",
+      "selectedSkill": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "case": "sequence-interrupt",
+      "bootstrap": true,
+      "nodeId": "72f84ae9-0a64-4d93-93c8-eb10db413f07",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-03T00:00:01.313Z",
+      "selectedSkill": true,
+      "selectedBundleHeadings": [
+        "通用顺序分析"
+      ]
+    },
+    {
+      "case": "branch-loop-human-retry-cancel",
+      "bootstrap": true,
+      "nodeId": "75007a71-a338-48db-8a73-cb451c29f106",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-03T00:00:01.614Z",
+      "selectedSkill": true,
+      "selectedBundleHeadings": [
+        "多路决策与人工恢复"
+      ]
+    },
+    {
+      "case": "branch-loop-human-retry-cancel",
+      "bootstrap": false,
+      "nodeId": "75007a71-a338-48db-8a73-cb451c29f106",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-03T00:00:01.771Z",
+      "selectedSkill": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "case": "branch-loop-human-retry-cancel",
+      "bootstrap": false,
+      "nodeId": "75007a71-a338-48db-8a73-cb451c29f106",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-03T00:00:01.920Z",
+      "selectedSkill": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "case": "branch-loop-human-retry-cancel",
+      "bootstrap": false,
+      "nodeId": "75007a71-a338-48db-8a73-cb451c29f106",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-03T00:00:02.062Z",
+      "selectedSkill": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "case": "sequence-readonly-probe",
+      "bootstrap": true,
+      "nodeId": "72f84ae9-0a64-4d93-93c8-eb10db413f07",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-03T00:00:02.288Z",
+      "selectedSkill": true,
+      "selectedBundleHeadings": [
+        "通用顺序分析"
+      ]
+    },
+    {
+      "case": "sequence-readonly-probe",
+      "bootstrap": false,
+      "nodeId": "72f84ae9-0a64-4d93-93c8-eb10db413f07",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-03T00:00:02.425Z",
+      "selectedSkill": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "case": "sequence-readonly-probe",
+      "bootstrap": false,
+      "nodeId": "72f84ae9-0a64-4d93-93c8-eb10db413f07",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-03T00:00:02.485Z",
+      "selectedSkill": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "case": "sequence-readonly-probe",
+      "bootstrap": false,
+      "nodeId": "e1fe29fb-834e-4b7d-bb56-0f2708df20ce",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-03T00:00:02.624Z",
+      "selectedSkill": false,
+      "selectedBundleHeadings": []
+    },
+    {
+      "case": "sequence-readonly-probe",
+      "bootstrap": false,
+      "nodeId": "7fed4a3e-6f89-4aad-968c-d05d47678af7",
+      "role": "agent",
+      "model": "gpt-6.1-sol",
+      "startedAt": "2026-11-03T00:00:02.752Z",
+      "selectedSkill": false,
+      "selectedBundleHeadings": []
+    }
+  ],
+  "version": "codex-cli 0.159.0-alpha.3",
+  "readonlyProbe": {
+    "case": "sequence-readonly-probe",
+    "result": "Chunk ID: 1465cd\nWall time: 0.0000 seconds\nProcess exited with code 1\nOriginal token count: 28\nOutput:\nerror building bubblewrap command: app-server socket directory must be a user-owned directory with mode 0700\n"
+  },
+  "independentChildSessions": 18
+}

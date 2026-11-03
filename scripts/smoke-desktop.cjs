@@ -47,15 +47,29 @@ async function open(){
  for(const target of ['codex','deepseek']){
   await p.getByRole('button',{name:'导出插件',exact:false}).first().click();
   await p.getByLabel('执行宿主',{exact:true}).selectOption(target);
+  await p.getByLabel('导出用途',{exact:true}).selectOption('document');
+  const documentPath=join(root,'agent-document-'+target+'.zip');
+  await dialog(p,()=>p.getByRole('button',{name:/宿主可安装 ZIP/}).click(),documentPath,'保存 Agent Studio 导出文件');
+  const documentArchive=await until(async()=>require('jszip').loadAsync(readFileSync(documentPath)));
+  const document=JSON.parse(await documentArchive.file('document.json').async('string'));
+  assert.equal(document.mode,'documentation');assert.equal(document.format,'agent-workflow-document');
+  assert.equal(await documentArchive.file('WORKFLOW.md').async('string'),readFileSync(md,'utf8'));
+  assert.deepEqual(JSON.parse(await documentArchive.file('project.agent-project.json').async('string')),original);
+  assert.ok(!documentArchive.file('scripts/runner.mjs'));assert.ok(!documentArchive.file('bundle.json'));
+  const documentEntry=target==='codex'?'.codex-plugin/plugin.json':'package.json';assert.ok(documentArchive.file(documentEntry));
+  harnessExports[target]={nativeSave:true,mode:'documentation',manifest:documentEntry,fullMarkdownPreserved:true,sourceProjectPreserved:true,bytes:readFileSync(documentPath).length};
+  require('node:fs').copyFileSync(documentPath,join(out,target+'-install.zip'));
+  await p.getByRole('button',{name:'导出插件',exact:false}).first().click();
+  await p.getByLabel('导出用途',{exact:true}).selectOption('runtime');
   const path=join(root,'agent-plugin-'+target+'.zip');
   await dialog(p,()=>p.getByRole('button',{name:/宿主可安装 ZIP/}).click(),path,'保存 Agent Studio 导出文件');
   const archive=await until(async()=>require('jszip').loadAsync(readFileSync(path)));
   const bundle=JSON.parse(await archive.file('bundle.json').async('string'));
-  assert.equal(bundle.schemaVersion,2);assert.equal(bundle.maxReworks,3);assert.deepEqual(bundle.source,original);
+  assert.equal(bundle.schemaVersion,3);assert.deepEqual(bundle.terminal,['passed','accepted_with_risk','failed','cancelled']);assert.deepEqual(bundle.source,original);
   assert.deepEqual(JSON.parse(await archive.file('project.agent-project.json').async('string')),original);
-  const entry=target==='codex'?'.codex-plugin/plugin.json':'package.json';assert.ok(archive.file(entry));assert.ok(archive.file('scripts/runner.mjs'));
-  harnessExports[target]={nativeSave:true,manifest:entry,bundleSchema:2,sourceProjectPreserved:true,bytes:readFileSync(path).length};
-  require('node:fs').copyFileSync(path,join(out,target+'-install.zip'));
+  const entry=target==='codex'?'.codex-plugin/plugin.json':'package.json';assert.ok(archive.file(entry));assert.ok(archive.file('scripts/runner.mjs'));assert.ok(archive.file('scripts/graph.mjs'));
+  harnessExports[target].advancedRuntime={nativeSave:true,manifest:entry,bundleSchema:3,sourceProjectPreserved:true,bytes:readFileSync(path).length};
+  require('node:fs').copyFileSync(path,join(out,target+'-runtime-install.zip'));
  }
  // UI edits and real file picker import, then a complete process restart.
  const imported={...original,name:'MyGo restart and import verified',nodes:original.nodes.map((n,i)=>i? n:{...n,position:{x:n.position.x+17,y:n.position.y+9}})};

@@ -1,0 +1,202 @@
+{
+  "classification": "ACTUAL NATIVE DOCUMENTATION PLUGINS; LOCAL SCRIPTED PROVIDER; NOT MODEL QUALITY OR ENFORCED WORKFLOW EXECUTION",
+  "target": "deepseek",
+  "root": "/tmp/apd-document-deepseek-KUSN03",
+  "externalLlmCalls": 0,
+  "operations": [
+    {
+      "command": "/tmp/harness-host-test/node_modules/.bin/dsh",
+      "args": [
+        "--version"
+      ],
+      "status": 0,
+      "stdout": "0.2.1-rc.5\n",
+      "stderr": ""
+    },
+    {
+      "command": "/tmp/harness-host-test/node_modules/.bin/dsh",
+      "args": [
+        "plugin",
+        "--profile",
+        "document-test",
+        "add",
+        "/tmp/apd-document-deepseek-KUSN03/natural-branches"
+      ],
+      "status": 0,
+      "stdout": "\ndependencies:\n+ apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181 link:/tmp/apd-document-deepseek-KUSN03/natural-branches\n\nAlready up to date\nDone in 414ms using pnpm v11.19.0\n\n   ╭──────────────────────────────────────────╮\n   │                                          │\n   │   Update available! 11.19.0 → 12.16.1.   │\n   │   Changelog: https://pnpm.io/v/12.16.1   │\n   │     To update, run: pnpm add -g pnpm     │\n   │                                          │\n   ╰──────────────────────────────────────────╯\n\n",
+      "stderr": "dsh: initialized profile document-test at /tmp/apd-document-deepseek-KUSN03/dsh-home/profiles/document-test\n"
+    },
+    {
+      "command": "/tmp/harness-host-test/node_modules/.bin/dsh",
+      "args": [
+        "plugin",
+        "--profile",
+        "document-test",
+        "add",
+        "/tmp/apd-document-deepseek-KUSN03/parallel-human"
+      ],
+      "status": 0,
+      "stdout": "✓ Lockfile passes supply-chain policies (verified 643ms ago)\n\ndependencies:\n+ apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e link:/tmp/apd-document-deepseek-KUSN03/parallel-human\n\nAlready up to date\nDone in 414ms using pnpm v11.19.0\n\n   ╭──────────────────────────────────────────╮\n   │                                          │\n   │   Update available! 11.19.0 → 12.16.1.   │\n   │   Changelog: https://pnpm.io/v/12.16.1   │\n   │     To update, run: pnpm add -g pnpm     │\n   │                                          │\n   ╰──────────────────────────────────────────╯\n\n",
+      "stderr": ""
+    },
+    {
+      "command": "/tmp/harness-host-test/node_modules/.bin/dsh",
+      "args": [
+        "plugin",
+        "--profile",
+        "document-test",
+        "add",
+        "/tmp/apd-document-deepseek-KUSN03/draft-loop"
+      ],
+      "status": 0,
+      "stdout": "✓ Lockfile passes supply-chain policies (verified 623ms ago)\n\ndependencies:\n+ apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd link:/tmp/apd-document-deepseek-KUSN03/draft-loop\n\nAlready up to date\nDone in 425ms using pnpm v11.19.0\n\n   ╭──────────────────────────────────────────╮\n   │                                          │\n   │   Update available! 11.19.0 → 12.16.1.   │\n   │   Changelog: https://pnpm.io/v/12.16.1   │\n   │     To update, run: pnpm add -g pnpm     │\n   │                                          │\n   ╰──────────────────────────────────────────╯\n\n",
+      "stderr": ""
+    },
+    {
+      "command": "/tmp/harness-host-test/node_modules/.bin/dsh",
+      "args": [
+        "--profile",
+        "document-test",
+        "--dump-config"
+      ],
+      "status": 0,
+      "stdout": "# == @deepseek-ai/dsh-base\n- id: tool-plugin-manager\n  name: '@deepseek-ai/dsh-plugin-manager/tools'\n  disabled: true\n- id: plugin-manager\n  name: '@deepseek-ai/dsh-plugin-manager'\n  disabled: !!js '!ctx.get(''profileContext'')'\n- id: timer\n  name: '@deepseek-ai/cordis-plugin-timer'\n- id: hmr\n  name: '@deepseek-ai/dsh-hmr'\n  disabled: !!js '!ctx.get(''profileContext'')'\n  config:\n    root: []\n- id: llm\n  name: '@deepseek-ai/dsh-llm'\n- id: deepseek-llm-api-extensions\n  name: '@deepseek-ai/dsh-deepseek-llm-api-extensions'\n- id: session\n  name: '@deepseek-ai/dsh-session'\n- id: session-log-deepseek\n  name: '@deepseek-ai/dsh-session-log-deepseek'\n- id: typert\n  name: '@deepseek-ai/dsh-typert-registry'\n- id: typert-loader\n  name: '@deepseek-ai/dsh-typert-loader'\n- id: typert-gateway\n  name: '@deepseek-ai/dsh-api-gateway'\n- id: remote-access\n  name: '@deepseek-ai/dsh-api-remote-access'\n- id: session-title\n  name: '@deepseek-ai/dsh-session-title'\n  config:\n    fallbackMaxWords: 5\n    fallbackMaxBytes: 40\n    maxTitleBytes: 80\n- id: session-title-llm\n  name: '@deepseek-ai/dsh-session-title-first-prompt-llm'\n  config:\n    targetWords: 5\n    targetCjkCharacters: 10\n    maxInputBytes: 4096\n    maxOutputTokens: 4096\n    timeoutMs: 60000\n- id: user-questions\n  name: '@deepseek-ai/dsh-user-questions'\n- id: agent\n  name: '@deepseek-ai/dsh-agent'\n- id: plugin-package-inventory-deepseek\n  name: '@deepseek-ai/dsh-plugin-package-inventory-deepseek'\n- id: agent-default-model\n  name: '@deepseek-ai/dsh-agent-default-model'\n  config:\n    provider: deepseek-official\n    model: deepseek-flash\n- id: jobs\n  name: '@deepseek-ai/dsh-jobs-local'\n- id: llm-retry\n  name: '@deepseek-ai/dsh-llm-retry'\n- id: config-editor\n  name: '@deepseek-ai/dsh-config-editor'\n  disabled: !!js '!ctx.get(''profileContext'')'\n- id: settings\n  name: '@deepseek-ai/dsh-settings'\n  disabled: !!js '!ctx.get(''profileContext'')'\n- id: authorization\n  name: '@deepseek-ai/dsh-authorization'\n- id: deepseek-account\n  name: '@deepseek-ai/dsh-deepseek-account-platform'\n  config:\n    desktopPlatform: !!js >-\n      ctx.get('profileContext')?.name === 'desktop' && ['darwin',\n      'win32'].includes(process.platform) ? process.platform : null\n- id: credentials\n  name: '@deepseek-ai/dsh-credentials-local'\n- id: llm-pi-ai\n  name: '@deepseek-ai/dsh-llm-pi-ai'\n- id: session-persistence-jsonl\n  name: '@deepseek-ai/dsh-session-persistence-jsonl'\n  config:\n    root: !!js dshHomePath('sessions')\n- id: attachment-local\n  name: '@deepseek-ai/dsh-attachment-local'\n- id: session-query-sqlite\n  name: '@deepseek-ai/dsh-session-query-sqlite'\n  config:\n    path: ':memory:'\n    openAt: never\n- id: working-directory\n  name: '@deepseek-ai/dsh-working-directory'\n- id: tool-working-directory\n  name: '@deepseek-ai/dsh-tool-working-directory'\n- id: session-projection\n  name: '@deepseek-ai/dsh-session-projection'\n- id: storage\n  name: '@deepseek-ai/dsh-storage'\n- id: storage-json\n  name: '@deepseek-ai/dsh-storage-json'\n  config:\n    root: !!js dshHomePath('storages')\n- id: storage-domain\n  name: '@deepseek-ai/dsh-storage-domain'\n  config:\n    backend: json\n- id: session-projection-cache\n  name: '@deepseek-ai/dsh-session-projection-cache'\n  config:\n    writeEveryEvents: 200\n    writeIntervalMs: 5000\n- id: otel\n  name: '@deepseek-ai/dsh-otel'\n- id: session-telemetry-otel\n  name: '@deepseek-ai/dsh-session-telemetry-otel'\n  config:\n    mode: !!js process.env.DSH_TELEMETRY_MODE || 'FEEDBACK_ONLY'\n    shutdownTimeoutMillis: 3000\n    maxRequestBytes: 4000000\n    exporter:\n      url: !!js >-\n        process.env.DSH_TELEMETRY_OTLP_URL ??\n        'https://dsh-otel-collector.deepseeksvc.com/v1/logs'\n      compression: gzip\n      timeoutMillis: 1000\n    processor:\n      scheduledDelayMillis: 10000\n      maxQueueSize: 2048\n      maxExportBatchSize: 2048\n      exportTimeoutMillis: 1500\n- id: subprocess\n  name: '@deepseek-ai/dsh-subprocess-local'\n- id: sandbox\n  name: '@deepseek-ai/dsh-sandbox-local'\n- id: sandbox-policy\n  name: '@deepseek-ai/dsh-sandbox-policy'\n  config:\n    mode: !!js process.env.DSH_PERMISSION_MODE ?? 'workspace-write'\n    workspaceRoot: !!js process.cwd()\n- id: bash-sandbox\n  name: '@deepseek-ai/dsh-bash-sandbox'\n  disabled: !!js process.platform === 'win32'\n  config:\n    timeoutMs: 60000\n- id: pwsh-sandbox\n  name: '@deepseek-ai/dsh-pwsh-sandbox'\n  disabled: !!js process.platform !== 'win32'\n- id: approval\n  name: '@deepseek-ai/dsh-user-approval'\n  config:\n    policy: !!js >-\n      (process.env.DSH_PERMISSION_MODE ?? 'workspace-write') ===\n      'danger-full-access' ? 'never' : 'ask'\n- id: permission\n  name: '@deepseek-ai/dsh-permission-presets'\n  config:\n    presets:\n      read-only:\n        sandbox: read-only\n        approval: ask\n      workspace-write:\n        sandbox: workspace-write\n        approval: ask\n      danger-full-access:\n        sandbox: danger-full-access\n        approval: never\n- id: shell-env\n  name: '@deepseek-ai/dsh-shell-env'\n- id: tool-bash\n  name: '@deepseek-ai/dsh-tool-bash'\n  disabled: !!js process.platform === 'win32'\n- id: tool-pwsh\n  name: '@deepseek-ai/dsh-tool-pwsh'\n  disabled: !!js process.platform !== 'win32'\n- id: tool-jobs\n  name: '@deepseek-ai/dsh-tool-jobs'\n- id: fs-observation-policy\n  name: '@deepseek-ai/dsh-fs-observation-policy'\n- id: tool-fs\n  name: '@deepseek-ai/dsh-tool-fs'\n- id: tool-fs-search\n  name: '@deepseek-ai/dsh-tool-fs-search'\n  config:\n    sampleOverCapGlobResults: false\n- id: agent-instructions\n  name: '@deepseek-ai/dsh-agent-instructions'\n  config:\n    maxBytes: 65536\n- id: skill\n  name: '@deepseek-ai/dsh-skill'\n- id: skill-filesystem\n  name: '@deepseek-ai/dsh-skill-filesystem'\n- id: tool-skill\n  name: '@deepseek-ai/dsh-tool-skill'\n- id: commands\n  name: '@deepseek-ai/dsh-commands'\n- id: command-feedback\n  name: '@deepseek-ai/dsh-command-feedback'\n- id: goal\n  name: '@deepseek-ai/dsh-goal'\n- id: goal-round-driver\n  name: '@deepseek-ai/dsh-goal-round-driver'\n- id: command-goal\n  name: '@deepseek-ai/dsh-command-goal'\n- id: plan-mode\n  name: '@deepseek-ai/dsh-plan-mode'\n  config:\n    section: >\n      You are in plan mode. Stay in plan mode until the user approves your plan\n      through exit_plan_mode or switches the session mode. Imperative language\n      to implement changes means plan the implementation, not execute it. A\n      user's conversational agreement — including an answer confirming something\n      you asked — approves nothing and does not end plan mode; fold the\n      confirmed decision into the plan and submit it through exit_plan_mode.\n\n\n      Explore first. Use non-mutating reads, searches, static analysis, and\n      checks to ground the plan in the actual repository. Do not edit or write\n      files, change configuration, run formatters or code generation that\n      rewrites tracked files, commit, or otherwise carry out the plan. Prefer\n      existing functions and patterns over new machinery.\n\n\n      The tool catalog stays the same across modes for request-cache stability.\n      These plan-mode rules override any later tool description or guidance that\n      suggests using mutation tools; those tools remain listed only to keep the\n      request shape stable. Do not use todo_write to track this planning phase:\n      it tracks implementation after an approved plan, while the plan itself\n      belongs in exit_plan_mode.\n\n\n      Resolve discoverable facts by inspection. Use ask_user_question only for\n      user-owned choices or material ambiguity that inspection cannot answer. Do\n      not ask the user where code lives or how current behavior works when you\n      can find out.\n\n\n      Make the plan decision-complete: state the goal and success criteria;\n      group implementation changes by subsystem; identify public API, schema,\n      and data-flow changes; cover edge cases, failure modes, tests, acceptance\n      criteria, and explicit assumptions. Keep it concise enough to review but\n      detailed enough that another engineer can implement it without making\n      design decisions.\n\n\n      When ready, call exit_plan_mode with the complete plan markdown, starting\n      with a # title. Make exit_plan_mode the only and final tool call in that\n      assistant response: it presents the plan for approval, and implementation\n      begins only in a later step after approval. Do not paste the final plan as\n      a plain reply or ask \"should I proceed?\" through prose or\n      ask_user_question. If review rejects it, incorporate the feedback and\n      present again. If the review channel is unavailable or aborted, stay in\n      plan mode and ask the user to switch modes manually; do not proceed with\n      implementation.\n- id: token-meter\n  name: '@deepseek-ai/dsh-token-meter'\n- id: compaction-basic\n  name: '@deepseek-ai/dsh-compaction-basic'\n- id: command-compact\n  name: '@deepseek-ai/dsh-command-compact'\n- id: subagent\n  name: '@deepseek-ai/dsh-subagent'\n- id: subagent-spawn-in-process\n  name: '@deepseek-ai/dsh-subagent-spawn-in-process'\n  config:\n    providerName: spawn\n- id: subagent-fork-in-process\n  name: '@deepseek-ai/dsh-subagent-fork-in-process'\n  config:\n    providerName: fork\n- id: tool-subagent-control\n  name: '@deepseek-ai/dsh-tool-subagent-control'\n- id: tool-subagent-list-agents\n  name: '@deepseek-ai/dsh-tool-subagent-control/list-agents'\n- id: tool-subagent\n  name: '@deepseek-ai/dsh-tool-subagent'\n  config:\n    provider: spawn\n    toolName: subagent\n- id: tool-subagent-fork\n  name: '@deepseek-ai/dsh-tool-subagent'\n  config:\n    provider: fork\n    toolName: subagent_fork\n- id: ptc-runtime\n  name: '@deepseek-ai/dsh-ptc-runtime-node'\n- id: workflow-ptc\n  name: '@deepseek-ai/dsh-workflow-ptc'\n  config:\n    provider: spawn\n- id: tool-workflow\n  name: '@deepseek-ai/dsh-tool-workflow'\n- id: timeout-policy\n  name: '@deepseek-ai/dsh-tool-call-timeout-policy'\n- id: spill-local\n  name: '@deepseek-ai/dsh-spill-local'\n- id: spill-policy\n  name: '@deepseek-ai/dsh-spill-policy'\n  config:\n    maxInlineTokens: 12500\n- id: session-checkpoint-policy\n  name: '@deepseek-ai/dsh-session-checkpoint-policy'\n- id: tool-result-pruner\n  name: '@deepseek-ai/dsh-compaction-tool-result-pruner'\n  config:\n    thresholdChars: 8192\n    headChars: 4096\n    tailChars: 1024\n- id: image-offload\n  name: '@deepseek-ai/dsh-compaction-image-offload'\n- id: tool-todo\n  name: '@deepseek-ai/dsh-tool-todo'\n  config:\n    allowParallelInProgress: true\n- id: tool-goal\n  name: '@deepseek-ai/dsh-tool-goal'\n- id: repeat-tool-reminder\n  name: '@deepseek-ai/dsh-repeat-tool-reminder'\n  config:\n    thresholds:\n      - 3\n      - 5\n      - 8\n    argumentsPreviewChars: 500\n- id: web\n  name: '@deepseek-ai/dsh-web'\n  config:\n    searchProvider: deepseek-official\n    fetchProvider: http\n- id: web-search-deepseek\n  name: '@deepseek-ai/dsh-web-search-deepseek'\n  config:\n    apiKeyEnv: DEEPSEEK_API_KEY\n- id: web-deepseek-api\n  name: '@deepseek-ai/dsh-web-deepseek-api'\n  config:\n    apiKeyEnv: DEEPSEEK_API_KEY\n- id: web-fetch-http\n  name: '@deepseek-ai/dsh-web-fetch-http'\n- id: tool-web\n  name: '@deepseek-ai/dsh-tool-web'\n  config:\n    fetch: true\n    searchTimeoutMs: 60000\n- id: mcp-resources\n  name: '@deepseek-ai/dsh-mcp-resources'\n- id: tools\n  name: '@deepseek-ai/dsh-tools'\n- id: system-prompt\n  name: '@deepseek-ai/dsh-system-prompt'\n  config:\n    personaPrefix: ''\n- id: agent-loop\n  name: '@deepseek-ai/dsh-agent-loop'\n  config:\n    agents: []\n- id: fs-sandbox\n  name: '@deepseek-ai/dsh-fs-sandbox'\n- id: llm-deepseek\n  name: '@deepseek-ai/dsh-llm-deepseek-api-key'\n- id: llm-deepseek-account\n  name: '@deepseek-ai/dsh-llm-deepseek-account'\n# == apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181\n- id: apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181\n  name: apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181\n# == apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e\n- id: apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e\n  name: apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e\n# == apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd\n- id: apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd\n  name: apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd\n",
+      "stderr": ""
+    },
+    {
+      "command": "/tmp/harness-host-test/node_modules/.bin/dsh",
+      "args": [
+        "plugin",
+        "--profile",
+        "document-test",
+        "remove",
+        "apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181"
+      ],
+      "status": 0,
+      "stdout": "✓ Lockfile passes supply-chain policies (verified 854ms ago)\n\ndependencies:\n- apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181 link:/tmp/apd-document-deepseek-KUSN03/natural-branches\n\nAlready up to date\nDone in 391ms using pnpm v11.19.0\n",
+      "stderr": ""
+    },
+    {
+      "command": "/tmp/harness-host-test/node_modules/.bin/dsh",
+      "args": [
+        "plugin",
+        "--profile",
+        "document-test",
+        "remove",
+        "apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e"
+      ],
+      "status": 0,
+      "stdout": "✓ Lockfile passes supply-chain policies (verified 557ms ago)\n\ndependencies:\n- apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e link:/tmp/apd-document-deepseek-KUSN03/parallel-human\n\nAlready up to date\nDone in 392ms using pnpm v11.19.0\n",
+      "stderr": ""
+    },
+    {
+      "command": "/tmp/harness-host-test/node_modules/.bin/dsh",
+      "args": [
+        "plugin",
+        "--profile",
+        "document-test",
+        "remove",
+        "apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd"
+      ],
+      "status": 0,
+      "stdout": "✓ Lockfile passes supply-chain policies (verified 562ms ago)\n\ndependencies:\n- apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd link:/tmp/apd-document-deepseek-KUSN03/draft-loop\n\nAlready up to date\nDone in 395ms using pnpm v11.19.0\n",
+      "stderr": ""
+    }
+  ],
+  "packages": [
+    {
+      "name": "natural-branches",
+      "pluginId": "apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181",
+      "zipSha256": "f4d41d9f6e216b02aeff7ee13eef4d32a77e322f9c1095c757acf134a8b9a7e4",
+      "markdownSha256": "023deb6436e34d30518eb9e21db3272e543af146334ddb8c7eafc910c67ab79b",
+      "sourceSha256": "8ab4e87f83fb4b5044050dc6b124d181db2942d518fd8b65dd9fa6a33209f53d",
+      "warnings": [
+        {
+          "message": "此处存在未配置次数上限的循环；使用前请确认停止要求，可用自然语言说明",
+          "nodeId": "672b0e9a-5c87-4794-b5f7-fa33faf4e1ba"
+        }
+      ],
+      "mode": "documentation",
+      "hasRuntime": false
+    },
+    {
+      "name": "parallel-human",
+      "pluginId": "apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e",
+      "zipSha256": "e3127fbc1680bb5211f72a725e939d31616671f4360e10ff332199518a11f9bc",
+      "markdownSha256": "b8f8c2ed312826abe21099afd9cccdaa1943c24a8c569ebe7e710594c1f345e4",
+      "sourceSha256": "8b8f22b94c66add07f31fe0e25327b2e08eb126ef5085da6ed5c204115b218e2",
+      "warnings": [],
+      "mode": "documentation",
+      "hasRuntime": false
+    },
+    {
+      "name": "draft-loop",
+      "pluginId": "apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd",
+      "zipSha256": "3accc5b8c236539532cc642e8c7e4ff5066ebfb8b9ae4d3980008279611b951e",
+      "markdownSha256": "fc27bfaee1f250ee57241c1cd75b30832f877d81b05c5133868cdda329adaa5a",
+      "sourceSha256": "e7bb621652aed8ab477197de3b56e3bd7d13b42eb804867e7b399b30cbabaee4",
+      "warnings": [
+        {
+          "message": "节点尚未与其他节点连接；作为草稿完整保留",
+          "nodeId": "end"
+        },
+        {
+          "message": "节点尚未与其他节点连接；作为草稿完整保留",
+          "nodeId": "3a3dfd45-58b8-49ce-ac93-45d120ac2fcb"
+        },
+        {
+          "message": "节点尚无后续连线，请确认此处是否结束或仍待补全",
+          "nodeId": "3a3dfd45-58b8-49ce-ac93-45d120ac2fcb"
+        },
+        {
+          "message": "此处存在未配置次数上限的循环；使用前请确认停止要求，可用自然语言说明",
+          "nodeId": "b96c855b-0b00-4c1d-b1fe-c08380b93443"
+        },
+        {
+          "message": "Agent 节点尚未绑定有效角色",
+          "nodeId": "3a3dfd45-58b8-49ce-ac93-45d120ac2fcb"
+        }
+      ],
+      "mode": "documentation",
+      "hasRuntime": false
+    }
+  ],
+  "cases": [
+    {
+      "name": "natural-branches",
+      "sessionId": "document-main-natural-branches",
+      "selectedTool": "apd_guide_36fbb34f_8ab4e87f83fb4b5044050dc6b124d181_guide",
+      "nativeToolReturnsExactMarkdown": true,
+      "fullExactMarkdownReachesModel": true,
+      "unselectedFullDocumentsAbsent": true,
+      "documentSha256": "023deb6436e34d30518eb9e21db3272e543af146334ddb8c7eafc910c67ab79b",
+      "noSubagentServiceLoaded": true,
+      "noWorkflowExecution": true
+    },
+    {
+      "name": "parallel-human",
+      "sessionId": "document-main-parallel-human",
+      "selectedTool": "apd_guide_ae3ec51a_8b8f22b94c66add07f31fe0e25327b2e_guide",
+      "nativeToolReturnsExactMarkdown": true,
+      "fullExactMarkdownReachesModel": true,
+      "unselectedFullDocumentsAbsent": true,
+      "documentSha256": "b8f8c2ed312826abe21099afd9cccdaa1943c24a8c569ebe7e710594c1f345e4",
+      "noSubagentServiceLoaded": true,
+      "noWorkflowExecution": true
+    },
+    {
+      "name": "draft-loop",
+      "sessionId": "document-main-draft-loop",
+      "selectedTool": "apd_guide_8c30b150_e7bb621652aed8ab477197de3b56e3bd_guide",
+      "nativeToolReturnsExactMarkdown": true,
+      "fullExactMarkdownReachesModel": true,
+      "unselectedFullDocumentsAbsent": true,
+      "documentSha256": "fc27bfaee1f250ee57241c1cd75b30832f877d81b05c5133868cdda329adaa5a",
+      "noSubagentServiceLoaded": true,
+      "noWorkflowExecution": true
+    }
+  ],
+  "uiManifestSha256": "2d513838a8dc8e7a0f6ce3057445b6a5ea510180a1caccd3f6c0846d08de2cb8",
+  "version": "0.2.1-rc.5",
+  "threePackagesInstalledTogether": true
+}

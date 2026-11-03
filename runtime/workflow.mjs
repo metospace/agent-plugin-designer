@@ -1,3 +1,4 @@
+import {createGraphRun,advanceGraph} from './graph.mjs';
 /** Deterministic, host-neutral contract. Hosts dispatch independent agents; this module never impersonates them. */
 import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync, renameSync, mkdirSync, existsSync, copyFileSync } from 'node:fs';
@@ -8,12 +9,14 @@ const terminals = new Set(['passed', 'accepted_with_risk', 'failed', 'cancelled'
 const ensure = (condition, message) => { if (!condition) throw Error(message); };
 const text = value => typeof value === 'string' && value.trim().length > 0;
 export function createRun(bundle, input) {
+ if(bundle.schemaVersion===3)return createGraphRun(bundle,input);
  ensure(bundle.schemaVersion === 2 && bundle.maxReworks === 3 && bundle.predicates?.pass?.code === 'QA_PASSED_BOUND' && bundle.predicates?.rework?.code === 'QA_FAILED_REWORK_LT_3' && bundle.predicates?.human?.code === 'QA_FAILED_REWORK_EQ_3', 'unsupported contract/predicate codes');
  ensure(text(input.taskId) && text(input.task) && Array.isArray(input.criteria) && input.criteria.length && input.criteria.every(text), 'original task and acceptance criteria required');
  ensure(text(input.mainSession), 'main host session required');
  return { schemaVersion: 2, plugin: bundle.plugin, bundleHash: digest(bundle), taskId: input.taskId, task: input.task, criteria: input.criteria, criteriaHash: digest(input.criteria), mainSession: input.mainSession, status: 'developer_pending', reworks: 0, candidate: null, qa: null, dispatch: null, events: [], processed: [] };
 }
 export function advance(bundle, state, event) {
+ if(bundle.schemaVersion===3)return advanceGraph(bundle,state,event);
  ensure(state.schemaVersion === 2 && state.bundleHash === digest(bundle), 'task/plugin/version/bundle changed');
  ensure(text(event.id), 'idempotency key required');
  if (state.processed.includes(event.id)) return state;

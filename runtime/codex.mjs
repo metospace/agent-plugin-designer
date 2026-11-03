@@ -7,10 +7,11 @@ import {runTask} from './runner.mjs';
 export function codexHost(command=process.env.APD_CODEX_BIN||'codex'){
  return {
  async check(){if(process.platform==='win32'&&!command.toLowerCase().endsWith('.exe'))throw Error('Windows requires user-owned APD_CODEX_BIN pointing to native codex.exe; npm cmd/bat shims are unsupported without a shell');if(!['read-only','workspace-write'].includes(process.env.APD_CODEX_DEVELOPER_SANDBOX))throw Error('Set APD_CODEX_DEVELOPER_SANDBOX=read-only or workspace-write in the user-owned launcher before starting the main host. Child CLI cannot infer parent runtime permissions.');const r=spawnSync(command,['--version'],{encoding:'utf8',shell:false});if(r.status!==0||!/^codex-cli 0\.159\.0-alpha\.3\s*$/.test(r.stdout))throw Error('Requires Codex 0.159.0-alpha.3; run installation capability check');},
- async start({role,prompt,schema,workspace}){
+ async start({role,permission,prompt,schema,workspace}){
   const temp=mkdtempSync(join(tmpdir(),'apd-codex-')),schemaPath=join(temp,'schema.json'),output=join(temp,'result.json');writeFileSync(schemaPath,JSON.stringify(schema));
   // User-owned launcher opts in developer policy. Model/task JSON cannot grant it; QA stays read-only.
-  const policy=role==='qa'?'read-only':process.env.APD_CODEX_DEVELOPER_SANDBOX;
+  const policy=role==='qa'||permission==='read-only'?'read-only':process.env.APD_CODEX_DEVELOPER_SANDBOX;
+  if(permission==='workspace-write'&&policy!=='workspace-write')throw Error('Configured write node requires user launcher workspace-write opt-in');
   if(!['read-only','workspace-write'].includes(policy))throw Error('Developer sandbox launcher opt-in missing');
   const child=spawn(command,['exec','--json','--sandbox',policy,'--cd',workspace,'--output-schema',schemaPath,'--output-last-message',output,prompt],{stdio:['ignore','pipe','pipe'],shell:false});
   const abort=()=>child.kill();process.once('SIGINT',abort);process.once('SIGTERM',abort);

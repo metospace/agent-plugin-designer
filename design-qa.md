@@ -1,4 +1,26 @@
-# 最新宿主适配验证
+# 1.3.0 流程说明书主交付验证
+
+52 项测试通过（23 项模型／导出 + 29 项运行时回归），9 项真实浏览器测试通过，并单独加强资源保留验证。默认导出是可由大模型阅读使用的流程说明书，用户可自由配置节点、自然语言分支与草稿，不要求程序谓词或运行器。
+
+通过真实 UI 创建三份不同图：自然语言多分支、并行与人工、包含自回路／双边／孤立节点的草稿。各自绑定角色、技能 v1/v2 与文本资源；DOM 预览、独立 Markdown、包内 WORKFLOW.md 逐字一致。`deliverables/document-ui/` 包含 3 MD、3项目JSON、6原生ZIP、3截图，15项文件均有 `export-evidence.json` SHA256。
+
+真实 Codex 与 DSH 各同时安装／发现／移除三个文档插件，并逐个明确选择完整正文：Codex 原生技能的实际本地模型请求包含所选全部 Markdown；DSH 实际 Cordis／Session／AgentLoop 的只读工具返回全文，并完整进入后续模型消息。两者都验证另两份全文未载入。证据 `deliverables/harness/*document*.json` 直接匹配上述最终 UI manifest。默认文档包没有任务运行器、子 Agent 或额外授权要求。
+
+以上使用本地脚本提供器，没有外部模型或付费调用。原生入口与全文加载是真的；模型能否理解并遵循说明书、能否完成实际任务未由此证明，文档也不强制调度。
+
+## 可选高级执行回归
+
+`deliverables/general-ui/` 的三份可执行图与六ZIP在本次完整浏览器套件重建后，已重新执行两宿主各9场景、各18独立子会话及实际安装测试；当前 `*general*.json` 来源哈希与当前六包一致。覆盖顺序、默认路由、有界循环、人工继续／取消、乱序并行汇合、损坏输出、实际中断与幂等恢复。Codex人工路径调用真实导出scripts/human.mjs的PTY并验证非TTY拒绝；DSH使用实际用户命令边界，输入均为脚本化测试而非实际用户决定。
+
+DSH 实际写入工具探针被只读guard拒绝、文件未产生。Codex 实际 exec_command 写入探针在shell前被环境阻断：`error building bubblewrap command: app-server socket directory must be a user-owned directory with mode 0700`。文件未产生，但不能据此证明本环境的文件系统只读强制；此限制只属于可选执行测试，不影响默认文档全文加载。
+
+1.3.0 本次 Windows CI **待发布后验证**，不能以历史成功替代。原生套件保留便携／安装启动、拖动、保存／取消／导入及两项目重启；默认文档包比较全文MD／源项目，高级执行包另显式选择。Verification artifact包含Windows结果、document-ui、general-ui及两类宿主JSON。
+
+以下为先前阶段历史记录；其中36 tests、contract v2、固定返工次数和旧Windows结果不代表当前默认文档范围。
+
+---
+
+# 历史宿主适配验证（contract v2）
 
 36 项单元／确定性合同测试、两种可安装导出与原项目往返；实际 Codex CLI 和 DeepSeek Session/AgentLoop 使用本地脚本提供器验证，不是外部模型效果评测。Windows 原生套件新增两种宿主 ZIP 的真实保存、清单与完整来源比较。原 MyGo 与拖动修复测试保留。详见 HARNESS.md 与 deliverables/harness。
 

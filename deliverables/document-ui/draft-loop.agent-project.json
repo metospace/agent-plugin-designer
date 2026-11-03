@@ -1,0 +1,181 @@
+{
+  "schemaVersion": 1,
+  "id": "8c30b150-2075-4c47-bdba-f62fcb69546c",
+  "name": "未完成的迭代草稿",
+  "version": "1.0.0",
+  "roles": [
+    {
+      "id": "8f42f361-c904-432a-a7a2-0d0be82bc023",
+      "name": "草稿编辑员",
+      "responsibility": "根据工作流说明独立研究，说明依据并等待真实人工决定。",
+      "input": "任务目标、工作流连线交接材料与用户反馈",
+      "output": "研究结果、证据、需要确认的问题",
+      "independent": true,
+      "bindings": [
+        {
+          "skillId": "6edfc689-f647-4f6a-8bcc-3264d9562412",
+          "version": 1,
+          "when": "按用户设计的流程需要研究时",
+          "capabilities": "只读材料；其他操作先请用户确认"
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "6edfc689-f647-4f6a-8bcc-3264d9562412",
+      "name": "草稿编辑员技能",
+      "versions": [
+        {
+          "version": 1,
+          "definition": "草稿编辑员技能第一版：保留来源，遵循用户自然语言条件。",
+          "resources": [
+            {
+              "name": "guide.txt",
+              "content": "草稿编辑员冻结资源第一版"
+            }
+          ]
+        },
+        {
+          "version": 2,
+          "definition": "草稿编辑员技能第二版：核对来源并标记不确定性。",
+          "resources": [
+            {
+              "name": "guide.txt",
+              "content": "草稿编辑员冻结资源第一版"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "start",
+      "type": "step",
+      "position": {
+        "x": 110,
+        "y": 40
+      },
+      "data": {
+        "kind": "start",
+        "label": "任务开始",
+        "roleId": "",
+        "description": "接收任务与输入数据"
+      }
+    },
+    {
+      "id": "end",
+      "type": "step",
+      "position": {
+        "x": 400,
+        "y": 40
+      },
+      "data": {
+        "kind": "end",
+        "label": "交付结果",
+        "roleId": "",
+        "description": "交付工作流结果"
+      }
+    },
+    {
+      "id": "b96c855b-0b00-4c1d-b1fe-c08380b93443",
+      "type": "step",
+      "position": {
+        "x": 255,
+        "y": 815
+      },
+      "data": {
+        "kind": "agent",
+        "label": "草稿编辑员任务",
+        "roleId": "8f42f361-c904-432a-a7a2-0d0be82bc023",
+        "description": "由大模型阅读说明后，按用户定义理解并执行此步骤。"
+      }
+    },
+    {
+      "id": "6d3754bc-a3a2-4415-b7a5-d37c6b01aaeb",
+      "type": "step",
+      "position": {
+        "x": 545,
+        "y": 815
+      },
+      "data": {
+        "kind": "condition",
+        "label": "看看还需不需要修改",
+        "roleId": "",
+        "description": "由大模型阅读说明后，按用户定义理解并执行此步骤。"
+      }
+    },
+    {
+      "id": "3a3dfd45-58b8-49ce-ac93-45d120ac2fcb",
+      "type": "step",
+      "position": {
+        "x": 690,
+        "y": 40
+      },
+      "data": {
+        "kind": "agent",
+        "label": "稍后再配置的孤立节点",
+        "roleId": "",
+        "description": "由大模型阅读说明后，按用户定义理解并执行此步骤。"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "5f810038-cfd0-4161-b686-8dd52f143ccc",
+      "source": "start",
+      "target": "b96c855b-0b00-4c1d-b1fe-c08380b93443",
+      "data": {
+        "condition": "先整理当前想法",
+        "handoff": "前序结果、证据和当前用户要求",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    },
+    {
+      "id": "4bb07b07-3e12-489f-add3-0763da3b6f40",
+      "source": "b96c855b-0b00-4c1d-b1fe-c08380b93443",
+      "target": "6d3754bc-a3a2-4415-b7a5-d37c6b01aaeb",
+      "data": {
+        "condition": "形成一版草案后",
+        "handoff": "前序结果、证据和当前用户要求",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    },
+    {
+      "id": "2ee204d5-873c-4b0a-874f-a1e55e558315",
+      "source": "6d3754bc-a3a2-4415-b7a5-d37c6b01aaeb",
+      "target": "b96c855b-0b00-4c1d-b1fe-c08380b93443",
+      "data": {
+        "condition": "如果用户仍想调整就回去再写，循环规则稍后补充",
+        "handoff": "前序结果、证据和当前用户要求",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    },
+    {
+      "id": "e589c259-3842-4d3b-b3ba-2eb242d6d773",
+      "source": "6d3754bc-a3a2-4415-b7a5-d37c6b01aaeb",
+      "target": "b96c855b-0b00-4c1d-b1fe-c08380b93443",
+      "data": {
+        "condition": "如果用户补充新目标，也回到编辑步骤",
+        "handoff": "前序结果、证据和当前用户要求",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    },
+    {
+      "id": "8094d067-cb55-4b72-8791-827025ed5b64",
+      "source": "b96c855b-0b00-4c1d-b1fe-c08380b93443",
+      "target": "b96c855b-0b00-4c1d-b1fe-c08380b93443",
+      "data": {
+        "condition": "编辑时可自行回看上一轮草稿，再继续完善",
+        "handoff": "前序结果、证据和当前用户要求",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    }
+  ]
+}

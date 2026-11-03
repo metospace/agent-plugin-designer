@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "id": "37d68ddd-d9c7-4f33-bf9a-44990c623cf0",
+  "name": "通用顺序分析",
+  "version": "1.0.0",
+  "roles": [
+    {
+      "id": "e4c8223c-2241-4231-bb17-793567b86a8a",
+      "name": "资料分析",
+      "responsibility": "只读分析并返回结构化文本",
+      "input": "任务与前序输出",
+      "output": "text 字符串",
+      "independent": false,
+      "bindings": []
+    }
+  ],
+  "skills": [],
+  "nodes": [
+    {
+      "id": "start",
+      "type": "step",
+      "position": {
+        "x": 400,
+        "y": 40
+      },
+      "data": {
+        "kind": "start",
+        "label": "任务开始",
+        "roleId": "",
+        "description": "接收任务与输入数据"
+      }
+    },
+    {
+      "id": "end",
+      "type": "step",
+      "position": {
+        "x": 400,
+        "y": 660
+      },
+      "data": {
+        "kind": "end",
+        "label": "交付结果",
+        "roleId": "",
+        "description": "交付工作流结果"
+      }
+    },
+    {
+      "id": "72f84ae9-0a64-4d93-93c8-eb10db413f07",
+      "type": "step",
+      "position": {
+        "x": 400,
+        "y": 195
+      },
+      "data": {
+        "kind": "agent",
+        "label": "收集事实",
+        "roleId": "e4c8223c-2241-4231-bb17-793567b86a8a",
+        "description": "UI 配置的通用节点",
+        "config": {
+          "outputFields": [
+            {
+              "name": "text",
+              "type": "string"
+            }
+          ],
+          "inputs": {
+            "request": "task.criteria"
+          },
+          "outputs": {
+            "text": "data.facts"
+          },
+          "requiredOutputs": [
+            "text"
+          ],
+          "permissions": "read-only"
+        }
+      }
+    },
+    {
+      "id": "e1fe29fb-834e-4b7d-bb56-0f2708df20ce",
+      "type": "step",
+      "position": {
+        "x": 400,
+        "y": 350
+      },
+      "data": {
+        "kind": "agent",
+        "label": "生成摘要",
+        "roleId": "e4c8223c-2241-4231-bb17-793567b86a8a",
+        "description": "UI 配置的通用节点",
+        "config": {
+          "outputFields": [
+            {
+              "name": "text",
+              "type": "string"
+            }
+          ],
+          "inputs": {
+            "request": "task.criteria"
+          },
+          "outputs": {
+            "text": "data.summary"
+          },
+          "requiredOutputs": [
+            "text"
+          ],
+          "permissions": "read-only"
+        }
+      }
+    },
+    {
+      "id": "7fed4a3e-6f89-4aad-968c-d05d47678af7",
+      "type": "step",
+      "position": {
+        "x": 400,
+        "y": 505
+      },
+      "data": {
+        "kind": "agent",
+        "label": "复核摘要",
+        "roleId": "e4c8223c-2241-4231-bb17-793567b86a8a",
+        "description": "UI 配置的通用节点",
+        "config": {
+          "outputFields": [
+            {
+              "name": "text",
+              "type": "string"
+            }
+          ],
+          "inputs": {
+            "request": "task.criteria"
+          },
+          "outputs": {
+            "text": "data.checked"
+          },
+          "requiredOutputs": [
+            "text"
+          ],
+          "permissions": "read-only"
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "1b996c40-7715-4020-9383-a838eca51177",
+      "source": "start",
+      "target": "72f84ae9-0a64-4d93-93c8-eb10db413f07",
+      "data": {
+        "condition": "完成后继续",
+        "handoff": "结构化状态",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    },
+    {
+      "id": "d109417d-b8f5-4951-a2da-a9142b8ebfe5",
+      "source": "72f84ae9-0a64-4d93-93c8-eb10db413f07",
+      "target": "e1fe29fb-834e-4b7d-bb56-0f2708df20ce",
+      "data": {
+        "condition": "完成后继续",
+        "handoff": "结构化状态",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    },
+    {
+      "id": "a67eb6cb-69f1-45ce-b75e-ef03ec4e3d0b",
+      "source": "e1fe29fb-834e-4b7d-bb56-0f2708df20ce",
+      "target": "7fed4a3e-6f89-4aad-968c-d05d47678af7",
+      "data": {
+        "condition": "完成后继续",
+        "handoff": "结构化状态",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    },
+    {
+      "id": "7c724b8c-43c6-4704-8b24-f38350054167",
+      "source": "7fed4a3e-6f89-4aad-968c-d05d47678af7",
+      "target": "end",
+      "data": {
+        "condition": "完成后继续",
+        "handoff": "结构化状态",
+        "maxRetries": 0,
+        "fallback": ""
+      }
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import {graphContext,getPath} from './graph.mjs';
 import { createRun, advance, digest, persist, loadState } from './workflow.mjs';
 import { existsSync, readdirSync, readFileSync, writeFileSync, lstatSync, openSync, closeSync, unlinkSync, mkdirSync } from 'node:fs';
 import { join, resolve, dirname } from 'node:path';
@@ -18,6 +19,7 @@ export async function runTask(bundle,input,host){
  if(s.bundleHash!==digest(bundle)||s.taskId!==input.taskId||s.task!==input.task||s.mainSession!==input.mainSession||s.criteriaHash!==digest(input.criteria))throw Error('resume identity/criteria changed');
  const apply=e=>{s=advance(bundle,s,{id:crypto.randomUUID(),...e});persist(statePath,s);};
  persist(statePath,s);
+ if(bundle.schemaVersion===3)return await runGraphTask(bundle,input,host,s,apply,()=>s);
  if(['passed','accepted_with_risk'].includes(s.status)&&candidateHash(root)!==s.candidate.hash)apply({type:'candidate_changed',candidate:candidateHash(root)});
  if(['developer_running','qa_running'].includes(s.status)){apply({type:'blocked',reason:'Interrupted host child; inspect recorded child before explicit retry_dispatch'});return s;}
  if(!['developer_pending','qa_pending'].includes(s.status))return s;
@@ -46,4 +48,27 @@ export async function runTask(bundle,input,host){
  }
  return s;
  }finally{closeSync(fd);unlinkSync(lock);}
+}
+
+function graphSchema(config){const fields=config.outputFields??[{name:'text',type:'string'}];const properties={};for(const field of fields){if(field.type==='object')properties[field.name]={type:'object',additionalProperties:false,properties:{},required:[]};else if(field.type==='array')properties[field.name]={type:'array',items:{type:'string'}};else properties[field.name]={type:field.type};}return {type:'object',additionalProperties:false,required:['status','data'],properties:{status:{type:'string',enum:['completed']},data:{type:'object',additionalProperties:false,required:fields.map(f=>f.name),properties}}};}
+async function runGraphTask(bundle,input,host,initial,apply,current){
+ let s=initial;
+ const verifyReview=()=>{const reviews=bundle.source.nodes.filter(n=>n.data.config?.review),snapshots=[...(current().tokens??[]).map(t=>t.nodes),...(current().terminals??[]).map(t=>t.nodes)];for(const n of reviews)for(const nodes of snapshots){const result=nodes?.[n.id]?.data;if(result?.candidate&&result.candidate!==candidateHash(input.workspace)){apply({type:'review_invalidated'});return false;}}return true;};
+ if(['passed','accepted_with_risk'].includes(s.status)&&!verifyReview())return current();
+ if(s.tokens.some(t=>['dispatching','running'].includes(t.phase))){apply({type:'blocked',reason:'Interrupted dispatch; inspect persisted intent and real child session before explicit retry_dispatch'});return current();}
+ if(s.status!=='running')return s;
+ try{await host.check();}catch(e){apply({type:'blocked',reason:e.message});return current();}
+ apply({type:'tick'});s=current();
+ while(s.status==='running'){
+  const ready=s.tokens.filter(t=>t.phase==='ready'&&bundle.source.nodes.find(n=>n.id===t.nodeId)?.data.kind==='agent');
+  if(!ready.length){apply({type:'blocked',reason:'Graph cannot advance: unmatched join or unresolved frontier'});return current();}
+  const jobs=[];
+  for(const token of ready){const node=bundle.source.nodes.find(n=>n.id===token.nodeId),config=node.data.config??{},roleDefinition=bundle.source.roles.find(r=>r.id===node.data.roleId);if(token.frames.length&&config.permissions==='workspace-write'){apply({type:'blocked',reason:'Parallel file writes require separate isolation; shared workspace branches are read-only'});return current();}const context=graphContext(s,token),inputs={};for(const [name,path]of Object.entries(config.inputs??{})){const value=getPath(context,path);if(value===undefined){apply({type:'blocked',reason:'Missing input '+path});return current();}inputs[name]=value;}const review=config.review;const candidate=review?candidateHash(input.workspace):null;if(review&&(getPath(context,review.candidateFrom)!==candidate||!Array.isArray(getPath(context,review.criteriaFrom))||digest(getPath(context,review.criteriaFrom))!==s.criteriaHash)){apply({type:'blocked',reason:'Review candidate or criteria binding changed or missing'});return current();}let schema=review?resultSchema:graphSchema(config);const role=review?'qa':config.permissions==='workspace-write'?'developer':'agent';const prompt=JSON.stringify({nodeId:node.id,role,definition:roleDefinition,skills:roleDefinition.bindings.map(b=>({binding:b,skill:bundle.source.skills.find(x=>x.id===b.skillId)?.versions.find(v=>v.version===b.version)})),task:s.task,criteria:s.criteria,input:inputs,context,candidate,criteriaHash:s.criteriaHash,requirements:review?'Inspect candidate independently without modifying any file. Return checks for all original criteria.':'Complete configured node. Return status completed and data matching the supplied schema. Permissions are host policy; do not modify files unless explicitly granted workspace-write.'});jobs.push({token,node,config,candidate,review,role,prompt,schema});}
+  // Persist every intent BEFORE any host invocation; resume never silently duplicates an ambiguous dispatch.
+  for(const job of jobs)apply({type:'dispatch_intent',tokenId:job.token.id});
+  let blocked=false;
+  await Promise.all(jobs.map(async job=>{let child;try{child=await host.start({role:job.role,permission:job.config.permissions??'read-only',prompt:job.prompt,schema:job.schema,workspace:input.workspace});apply({type:'dispatch',tokenId:job.token.id,sessionId:child.id,policy:child.policy??'host-native-permissions'});const result=await child.result;if(result.stopReason!=='completed'||!result.structured)throw Error('Malformed/interrupted host output');let value=result.structured;if(job.review){if(candidateHash(input.workspace)!==job.candidate)throw Error('Candidate changed during independent review');if(!['passed','failed'].includes(value.verdict)||!Array.isArray(value.checks)||value.checks.length!==s.criteria.length||!value.checks.every((x,i)=>x.criterion===s.criteria[i]&&typeof x.passed==='boolean'&&x.evidence)||value.verdict!==(value.checks.every(x=>x.passed)?'passed':'failed'))throw Error('Review must bind every original criterion with evidence');value={status:'completed',data:{...value,candidate:job.candidate,criteriaHash:s.criteriaHash}};}else if(job.config.permissions==='workspace-write'){value={...value,data:{...value.data,candidate:candidateHash(input.workspace)}};}apply({type:'result',tokenId:job.token.id,sessionId:child.id,result:value});}catch(e){blocked=true;if(current().status!=='blocked')apply({type:'blocked',reason:e.message});}finally{if(child)await child.dispose();}}));
+  s=current();if(blocked)return s;if(['passed','accepted_with_risk'].includes(s.status)&&!verifyReview())return current();
+ }
+ return s;
 }

@@ -1,0 +1,259 @@
+{
+  "classification": "ACTUAL NATIVE DOCUMENTATION PLUGINS; LOCAL SCRIPTED PROVIDER; NOT MODEL QUALITY OR ENFORCED WORKFLOW EXECUTION",
+  "target": "codex",
+  "root": "/tmp/apd-document-codex-r4UIno",
+  "externalLlmCalls": 0,
+  "operations": [
+    {
+      "command": "codex",
+      "args": [
+        "--version"
+      ],
+      "status": 0,
+      "stdout": "codex-cli 0.159.0-alpha.3\n",
+      "stderr": "WARNING: proceeding, even though we could not create PATH aliases: Refusing to create helper binaries under temporary dir \"/tmp\" (codex_home: AbsolutePathBuf(\"/tmp/apd-document-codex-r4UIno/home\"))\n"
+    },
+    {
+      "command": "codex",
+      "args": [
+        "plugin",
+        "marketplace",
+        "add",
+        "/tmp/apd-document-codex-r4UIno/natural-branches",
+        "--json"
+      ],
+      "status": 0,
+      "stdout": "{\n  \"marketplaceName\": \"apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181-market\",\n  \"installedRoot\": \"/tmp/apd-document-codex-r4UIno/natural-branches\",\n  \"alreadyAdded\": false\n}\n",
+      "stderr": "WARNING: proceeding, even though we could not create PATH aliases: Refusing to create helper binaries under temporary dir \"/tmp\" (codex_home: AbsolutePathBuf(\"/tmp/apd-document-codex-r4UIno/home\"))\n"
+    },
+    {
+      "command": "codex",
+      "args": [
+        "plugin",
+        "add",
+        "apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181@apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181-market",
+        "--json"
+      ],
+      "status": 0,
+      "stdout": "{\n  \"pluginId\": \"apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181@apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181-market\",\n  \"name\": \"apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181\",\n  \"marketplaceName\": \"apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181-market\",\n  \"version\": \"1.0.0\",\n  \"installedPath\": \"/tmp/apd-document-codex-r4UIno/home/plugins/cache/apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181-market/apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181/1.0.0\",\n  \"authPolicy\": \"ON_INSTALL\"\n}\n",
+      "stderr": "WARNING: proceeding, even though we could not create PATH aliases: Refusing to create helper binaries under temporary dir \"/tmp\" (codex_home: AbsolutePathBuf(\"/tmp/apd-document-codex-r4UIno/home\"))\n"
+    },
+    {
+      "command": "codex",
+      "args": [
+        "plugin",
+        "marketplace",
+        "add",
+        "/tmp/apd-document-codex-r4UIno/parallel-human",
+        "--json"
+      ],
+      "status": 0,
+      "stdout": "{\n  \"marketplaceName\": \"apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e-market\",\n  \"installedRoot\": \"/tmp/apd-document-codex-r4UIno/parallel-human\",\n  \"alreadyAdded\": false\n}\n",
+      "stderr": "WARNING: proceeding, even though we could not create PATH aliases: Refusing to create helper binaries under temporary dir \"/tmp\" (codex_home: AbsolutePathBuf(\"/tmp/apd-document-codex-r4UIno/home\"))\n"
+    },
+    {
+      "command": "codex",
+      "args": [
+        "plugin",
+        "add",
+        "apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e@apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e-market",
+        "--json"
+      ],
+      "status": 0,
+      "stdout": "{\n  \"pluginId\": \"apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e@apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e-market\",\n  \"name\": \"apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e\",\n  \"marketplaceName\": \"apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e-market\",\n  \"version\": \"1.0.0\",\n  \"installedPath\": \"/tmp/apd-document-codex-r4UIno/home/plugins/cache/apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e-market/apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e/1.0.0\",\n  \"authPolicy\": \"ON_INSTALL\"\n}\n",
+      "stderr": "WARNING: proceeding, even though we could not create PATH aliases: Refusing to create helper binaries under temporary dir \"/tmp\" (codex_home: AbsolutePathBuf(\"/tmp/apd-document-codex-r4UIno/home\"))\n"
+    },
+    {
+      "command": "codex",
+      "args": [
+        "plugin",
+        "marketplace",
+        "add",
+        "/tmp/apd-document-codex-r4UIno/draft-loop",
+        "--json"
+      ],
+      "status": 0,
+      "stdout": "{\n  \"marketplaceName\": \"apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd-market\",\n  \"installedRoot\": \"/tmp/apd-document-codex-r4UIno/draft-loop\",\n  \"alreadyAdded\": false\n}\n",
+      "stderr": "WARNING: proceeding, even though we could not create PATH aliases: Refusing to create helper binaries under temporary dir \"/tmp\" (codex_home: AbsolutePathBuf(\"/tmp/apd-document-codex-r4UIno/home\"))\n"
+    },
+    {
+      "command": "codex",
+      "args": [
+        "plugin",
+        "add",
+        "apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd@apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd-market",
+        "--json"
+      ],
+      "status": 0,
+      "stdout": "{\n  \"pluginId\": \"apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd@apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd-market\",\n  \"name\": \"apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd\",\n  \"marketplaceName\": \"apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd-market\",\n  \"version\": \"1.0.0\",\n  \"installedPath\": \"/tmp/apd-document-codex-r4UIno/home/plugins/cache/apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd-market/apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd/1.0.0\",\n  \"authPolicy\": \"ON_INSTALL\"\n}\n",
+      "stderr": "WARNING: proceeding, even though we could not create PATH aliases: Refusing to create helper binaries under temporary dir \"/tmp\" (codex_home: AbsolutePathBuf(\"/tmp/apd-document-codex-r4UIno/home\"))\n"
+    },
+    {
+      "command": "codex",
+      "args": [
+        "plugin",
+        "list",
+        "--json"
+      ],
+      "status": 0,
+      "stdout": "{\n  \"installed\": [\n    {\n      \"pluginId\": \"apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd@apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd-market\",\n      \"name\": \"apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd\",\n      \"marketplaceName\": \"apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd-market\",\n      \"version\": \"1.0.0\",\n      \"installed\": true,\n      \"enabled\": true,\n      \"source\": {\n        \"source\": \"local\",\n        \"path\": \"/tmp/apd-document-codex-r4UIno/draft-loop\"\n      },\n      \"marketplaceSource\": {\n        \"sourceType\": \"local\",\n        \"source\": \"/tmp/apd-document-codex-r4UIno/draft-loop\"\n      },\n      \"installPolicy\": \"AVAILABLE\",\n      \"authPolicy\": \"ON_INSTALL\"\n    },\n    {\n      \"pluginId\": \"apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181@apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181-market\",\n      \"name\": \"apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181\",\n      \"marketplaceName\": \"apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181-market\",\n      \"version\": \"1.0.0\",\n      \"installed\": true,\n      \"enabled\": true,\n      \"source\": {\n        \"source\": \"local\",\n        \"path\": \"/tmp/apd-document-codex-r4UIno/natural-branches\"\n      },\n      \"marketplaceSource\": {\n        \"sourceType\": \"local\",\n        \"source\": \"/tmp/apd-document-codex-r4UIno/natural-branches\"\n      },\n      \"installPolicy\": \"AVAILABLE\",\n      \"authPolicy\": \"ON_INSTALL\"\n    },\n    {\n      \"pluginId\": \"apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e@apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e-market\",\n      \"name\": \"apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e\",\n      \"marketplaceName\": \"apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e-market\",\n      \"version\": \"1.0.0\",\n      \"installed\": true,\n      \"enabled\": true,\n      \"source\": {\n        \"source\": \"local\",\n        \"path\": \"/tmp/apd-document-codex-r4UIno/parallel-human\"\n      },\n      \"marketplaceSource\": {\n        \"sourceType\": \"local\",\n        \"source\": \"/tmp/apd-document-codex-r4UIno/parallel-human\"\n      },\n      \"installPolicy\": \"AVAILABLE\",\n      \"authPolicy\": \"ON_INSTALL\"\n    }\n  ],\n  \"available\": []\n}\n",
+      "stderr": "WARNING: proceeding, even though we could not create PATH aliases: Refusing to create helper binaries under temporary dir \"/tmp\" (codex_home: AbsolutePathBuf(\"/tmp/apd-document-codex-r4UIno/home\"))\n"
+    },
+    {
+      "command": "git",
+      "args": [
+        "init",
+        "-q",
+        "/tmp/apd-document-codex-r4UIno/workspace-natural-branches"
+      ],
+      "status": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "git",
+      "args": [
+        "init",
+        "-q",
+        "/tmp/apd-document-codex-r4UIno/workspace-parallel-human"
+      ],
+      "status": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "git",
+      "args": [
+        "init",
+        "-q",
+        "/tmp/apd-document-codex-r4UIno/workspace-draft-loop"
+      ],
+      "status": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "codex",
+      "args": [
+        "plugin",
+        "remove",
+        "apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181@apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181-market"
+      ],
+      "status": 0,
+      "stdout": "Removed plugin `apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181` from marketplace `apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181-market`.\n",
+      "stderr": "WARNING: proceeding, even though we could not create PATH aliases: Refusing to create helper binaries under temporary dir \"/tmp\" (codex_home: AbsolutePathBuf(\"/tmp/apd-document-codex-r4UIno/home\"))\n"
+    },
+    {
+      "command": "codex",
+      "args": [
+        "plugin",
+        "remove",
+        "apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e@apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e-market"
+      ],
+      "status": 0,
+      "stdout": "Removed plugin `apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e` from marketplace `apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e-market`.\n",
+      "stderr": "WARNING: proceeding, even though we could not create PATH aliases: Refusing to create helper binaries under temporary dir \"/tmp\" (codex_home: AbsolutePathBuf(\"/tmp/apd-document-codex-r4UIno/home\"))\n"
+    },
+    {
+      "command": "codex",
+      "args": [
+        "plugin",
+        "remove",
+        "apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd@apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd-market"
+      ],
+      "status": 0,
+      "stdout": "Removed plugin `apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd` from marketplace `apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd-market`.\n",
+      "stderr": "WARNING: proceeding, even though we could not create PATH aliases: Refusing to create helper binaries under temporary dir \"/tmp\" (codex_home: AbsolutePathBuf(\"/tmp/apd-document-codex-r4UIno/home\"))\n"
+    }
+  ],
+  "packages": [
+    {
+      "name": "natural-branches",
+      "pluginId": "apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181",
+      "zipSha256": "b4a2c96f868716eb3306d57605d8e87a4c0e5cd4aa6aff62fca232b5b8c0d030",
+      "markdownSha256": "023deb6436e34d30518eb9e21db3272e543af146334ddb8c7eafc910c67ab79b",
+      "sourceSha256": "8ab4e87f83fb4b5044050dc6b124d181db2942d518fd8b65dd9fa6a33209f53d",
+      "warnings": [
+        {
+          "message": "此处存在未配置次数上限的循环；使用前请确认停止要求，可用自然语言说明",
+          "nodeId": "672b0e9a-5c87-4794-b5f7-fa33faf4e1ba"
+        }
+      ],
+      "mode": "documentation",
+      "hasRuntime": false
+    },
+    {
+      "name": "parallel-human",
+      "pluginId": "apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e",
+      "zipSha256": "fad5b34f3e0ae24f537fdcbe194a0e91e4a3aabbe0e700c54405f596221623d2",
+      "markdownSha256": "b8f8c2ed312826abe21099afd9cccdaa1943c24a8c569ebe7e710594c1f345e4",
+      "sourceSha256": "8b8f22b94c66add07f31fe0e25327b2e08eb126ef5085da6ed5c204115b218e2",
+      "warnings": [],
+      "mode": "documentation",
+      "hasRuntime": false
+    },
+    {
+      "name": "draft-loop",
+      "pluginId": "apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd",
+      "zipSha256": "d624da3f5514672c64d7fb25956662dced15a81805651cf83d770226d3ad36c8",
+      "markdownSha256": "fc27bfaee1f250ee57241c1cd75b30832f877d81b05c5133868cdda329adaa5a",
+      "sourceSha256": "e7bb621652aed8ab477197de3b56e3bd7d13b42eb804867e7b399b30cbabaee4",
+      "warnings": [
+        {
+          "message": "节点尚未与其他节点连接；作为草稿完整保留",
+          "nodeId": "end"
+        },
+        {
+          "message": "节点尚未与其他节点连接；作为草稿完整保留",
+          "nodeId": "3a3dfd45-58b8-49ce-ac93-45d120ac2fcb"
+        },
+        {
+          "message": "节点尚无后续连线，请确认此处是否结束或仍待补全",
+          "nodeId": "3a3dfd45-58b8-49ce-ac93-45d120ac2fcb"
+        },
+        {
+          "message": "此处存在未配置次数上限的循环；使用前请确认停止要求，可用自然语言说明",
+          "nodeId": "b96c855b-0b00-4c1d-b1fe-c08380b93443"
+        },
+        {
+          "message": "Agent 节点尚未绑定有效角色",
+          "nodeId": "3a3dfd45-58b8-49ce-ac93-45d120ac2fcb"
+        }
+      ],
+      "mode": "documentation",
+      "hasRuntime": false
+    }
+  ],
+  "cases": [
+    {
+      "name": "natural-branches",
+      "sessionId": "01a19eb5-77bb-7470-965e-8e9c0d73bd74",
+      "selectedPlugin": "apd-guide-36fbb34f-8ab4e87f83fb4b5044050dc6b124d181",
+      "fullExactMarkdownInNativeModelRequest": true,
+      "unselectedFullDocumentsAbsent": true,
+      "documentSha256": "023deb6436e34d30518eb9e21db3272e543af146334ddb8c7eafc910c67ab79b",
+      "noWorkflowExecution": true
+    },
+    {
+      "name": "parallel-human",
+      "sessionId": "01a19eb5-7856-7263-9ef8-4c19efa81f03",
+      "selectedPlugin": "apd-guide-ae3ec51a-8b8f22b94c66add07f31fe0e25327b2e",
+      "fullExactMarkdownInNativeModelRequest": true,
+      "unselectedFullDocumentsAbsent": true,
+      "documentSha256": "b8f8c2ed312826abe21099afd9cccdaa1943c24a8c569ebe7e710594c1f345e4",
+      "noWorkflowExecution": true
+    },
+    {
+      "name": "draft-loop",
+      "sessionId": "01a19eb5-7900-7ac1-b22c-5b80c281e87b",
+      "selectedPlugin": "apd-guide-8c30b150-e7bb621652aed8ab477197de3b56e3bd",
+      "fullExactMarkdownInNativeModelRequest": true,
+      "unselectedFullDocumentsAbsent": true,
+      "documentSha256": "fc27bfaee1f250ee57241c1cd75b30832f877d81b05c5133868cdda329adaa5a",
+      "noWorkflowExecution": true
+    }
+  ],
+  "uiManifestSha256": "2d513838a8dc8e7a0f6ce3057445b6a5ea510180a1caccd3f6c0846d08de2cb8",
+  "version": "codex-cli 0.159.0-alpha.3",
+  "threePackagesInstalledTogether": true
+}
